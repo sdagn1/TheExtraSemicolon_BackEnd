@@ -47,5 +47,5 @@ jobs:
           ECR_REPOSITORY: employee_demo
           IMAGE_TAG: the_extra_semicolon_be
         run: |
-          docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be .
-          docker push 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be
+          docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 067502745215.dkr.ecr.eu-west-1.amazonaws.com/employee_demo:the_extra_semicolon_be .
+          docker push 067502745215.dkr.ecr.eu-west-1.amazonaws.com/employee_demo:the_extra_semicolon_be
