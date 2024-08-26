@@ -23,8 +23,8 @@ public class AuthService {
     private final AuthDao authDao;
     private final Key key;
     private final int tokenDuration = 28800000;
-    private final int saltBytes = 16;
-    private final int saltSize = 128;
+    private final int saltSize = 128 * 6;
+    private final int hashSize = 128 * 6;
     private final int hashIterations = 65536;
 
     public AuthService(final AuthDao authDao, final Key key) {
@@ -40,7 +40,16 @@ public class AuthService {
         if (user == null) {
             throw new InvalidException(Entity.USER, "Invalid credentials");
         }
-        return generateJwtToken(user);
+        String hashedPassword = generatePBKDF2Hash(
+                loginRequest.getPassword(), user.getSalt());
+        System.out.println(generatePBKDF2Hash("admin", "salt"));
+        User validateUser = authDao.validateUser(
+                new LoginRequest(loginRequest.getEmail(), hashedPassword));
+
+        if (validateUser == null) {
+            throw new InvalidException(Entity.USER, "Invalid credentials");
+        }
+        return generateJwtToken(validateUser);
     }
 
     private String generateJwtToken(final User user) {
@@ -53,6 +62,25 @@ public class AuthService {
                 .issuer("TheMissingSemicolon")
                 .signWith(key)
                 .compact();
+    }
+
+    private String generateSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[saltSize];
+        random.nextBytes(salt);
+        return Base64.getEncoder().encodeToString(salt);
+    }
+
+    private String generatePBKDF2Hash(final String password, final String salt)
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeySpec spec = new PBEKeySpec(password.toCharArray(),
+                salt.getBytes(), hashIterations, hashSize);
+
+        SecretKeyFactory factory =
+                SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+        byte[] hash = factory.generateSecret(spec).getEncoded();
+
+        return Base64.getEncoder().encodeToString(hash);
     }
 
 }
