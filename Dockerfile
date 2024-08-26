@@ -18,4 +18,4 @@ ENV DB_NAME=${DB_NAME}
 
 EXPOSE 8080
 
-CMD ["java","-jar", "/code/target/JavaWebService-1.0-SNAPSHOT.jar", "server", "/code/config.yml"]
+CMD ["java","-jar", "/code/target/java-dropwizard-flyway-starter-1.0-SNAPSHOT.jar", "server", "/code/config.yml"]
