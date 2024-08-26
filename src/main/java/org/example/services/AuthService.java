@@ -42,7 +42,6 @@ public class AuthService {
         }
         String hashedPassword = generatePBKDF2Hash(
                 loginRequest.getPassword(), user.getSalt());
-        System.out.println(generatePBKDF2Hash("admin", "salt"));
         User validateUser = authDao.validateUser(
                 new LoginRequest(loginRequest.getEmail(), hashedPassword));
 
