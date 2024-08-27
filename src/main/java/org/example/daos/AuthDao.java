@@ -14,7 +14,7 @@ public class AuthDao {
             SQLException {
 
         try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "SELECT Email, Password, Salt, RoleID FROM `User`"
+            String query = "SELECT Email, RoleID FROM `User`"
                     +
                     " WHERE Email = ?;";
 
@@ -25,8 +25,8 @@ public class AuthDao {
             while (resultSet.next()) {
                 return new User(
                         resultSet.getString("Email"),
-                        resultSet.getString("Password"),
-                        resultSet.getString("Salt"),
+                        "",
+                        "",
                         resultSet.getInt("RoleID")
                 );
             }
