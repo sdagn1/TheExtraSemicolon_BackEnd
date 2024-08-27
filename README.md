@@ -70,5 +70,5 @@ Locally:
 
 On AWS:
 
-1. ```docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be``` .
-2. ```docker run -p 8080:8080 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be```
+1. ```docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 067502745215.dkr.ecr.eu-west-1.amazonaws.com/employee_demo:the_extra_semicolon_be .```
+2. ```docker run -p 8080:8080 067502745215.dkr.ecr.eu-west-1.amazonaws.com/employee_demo:the_extra_semicolon_be```
