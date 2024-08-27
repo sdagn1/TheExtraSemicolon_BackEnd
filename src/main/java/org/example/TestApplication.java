@@ -6,7 +6,6 @@ import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import io.jsonwebtoken.Jwts;
-import org.checkerframework.checker.units.qual.A;
 import org.example.controllers.AuthController;
 import org.example.controllers.TestController;
 import org.example.daos.AuthDao;
@@ -41,7 +40,8 @@ public class TestApplication extends Application<TestConfiguration> {
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
         environment.jersey()
-                .register(new AuthController(new AuthService(new AuthDao(), jwtKey)));
+                .register(new AuthController(new AuthService(new AuthDao(),
+                        jwtKey)));
     }
 
 }
