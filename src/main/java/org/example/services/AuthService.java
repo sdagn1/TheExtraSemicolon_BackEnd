@@ -48,7 +48,7 @@ public class AuthService {
         String hashedPassword = generatePBKDF2Hash(
                 loginRequest.getPassword(), user.getSalt());
         User validateUser = authDao.validateUser(
-                new LoginRequest(loginRequest.getEmail(), hashedPassword));
+                loginRequest.getEmail(), hashedPassword);
 
         if (validateUser == null) {
             throw new InvalidException(Entity.USER, "Invalid credentials");

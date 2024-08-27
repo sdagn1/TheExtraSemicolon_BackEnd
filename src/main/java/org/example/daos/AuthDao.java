@@ -14,7 +14,7 @@ public class AuthDao {
             SQLException {
 
         try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "SELECT Email, RoleID FROM `User`"
+            String query = "SELECT Email, Salt FROM `User`"
                     +
                     " WHERE Email = ?;";
 
@@ -25,16 +25,14 @@ public class AuthDao {
             while (resultSet.next()) {
                 return new User(
                         resultSet.getString("Email"),
-                        "",
-                        "",
-                        resultSet.getInt("RoleID")
+                        resultSet.getString("Salt")
                 );
             }
             return null;
         }
     }
 
-    public User validateUser(final LoginRequest loginRequest) throws
+    public User validateUser(final String email, final String password) throws
             SQLException {
 
         try (Connection connection = DatabaseConnector.getConnection()) {
@@ -43,8 +41,8 @@ public class AuthDao {
                     " WHERE Email = ? AND Password = ?;";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, loginRequest.getEmail());
-            statement.setString(2, loginRequest.getPassword());
+            statement.setString(1, email);
+            statement.setString(2, password);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
