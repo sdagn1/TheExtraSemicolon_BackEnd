@@ -1,6 +1,6 @@
-# Java DropWizard Flyway Starter
+# The Extra Semicolon Backend Application Set Up
 
-Database Migration - Local
+Database Migration - Test
 ---
 
 1. Add your SQL script to `resources.db.migration` directory
@@ -19,27 +19,36 @@ export FLYWAY_BASELINE_ON_MIGRATE=true
 . ~/.zshrc
 ```
 
-4. Run Flyway command through Maven:
+4. Run Flyway commands through Maven:
 
 ```
+mvn flyway:clean
 mvn flyway:migrate
 ```
 
-Database Migration - Production
+Add Linter to your application
 ---
-
-1. Add following secrets to your Github repo:
-
-```
-DB_USERNAME - the prod db username
-DB_PASSWORD - the prod db password
-DB_HOST - the prod db host
-DB_NAME - the prod db name
-```
-
-2. Raise a pull request with your script in the `resources.db.migration` directory
-3. After approvals, merge pull request; this will trigger the migration action to run in Github
-4. Ensure migration successfully runs against prod database
+1. Copy sun_checks_modified.xml file to 'src/main/resources'
+2. Add maven checkstyle plugin to your 'pom.xml' file
+3. In your terminal run 'mvn checkstyle:check'
+   ```
+   mvn checkstyle:check
+   ```
+4. Install 'CheckStyle-IDEA' plugin in IntelliJ
+5. To add your checkstyle configuration
+   1. In your IntelliJ settings go to 'Editor' 
+   2. Then 'CodeStyle'
+   3. Select Settings icon next to 'Scheme' dropdown
+   4. 'Import Scheme'
+   5. Select Checkstyle configuration
+   6. Add the xml file you added in step 1 then open.
+6. Apply the configuration file
+   1. In IntelliJ go to Tools
+   2. Then 'CheckStyle'
+   3. Click + under Configuration File, make the description 'Sun Checks Modifed'
+   4. Browse, then select the xml file -> next -> next -> finish
+   5. Check the 'Sun Checks Modified' row -> Apply -> Ok
+7. Linter should have been applied
 
 How to start the test application
 ---
@@ -49,11 +58,33 @@ How to start the test application
     2. DB_PASSWORD
     3. DB_HOST
     4. DB_NAME
-1. Run `mvn clean install` to build your application
-1. You can start application via:
-    1. Terminal: `java -jar target/java-swagger-flyway-starter-org.kainos.ea.jar server config.yml`
-    2. IDE: Edit run configuration -> Add `server` to program arguments -> Run
-1. To check that your application is running enter url `http://localhost:8080/api/test`
+2. Run `mvn clean install` to build your application
+3. To check that your application is running enter url `http://localhost:8080/api/test`
+
+How to run the Application locally
+---
+1. Run `TestApplication.main()`
+2. Go to `http://localhost:8080`to check if it runs locally
+
+How to run the application in Docker Locally and AWS
+---
+Run the following commands run the application to run the application in Docker. The dockerfiles have already been set up. The command below runs docker locally. Check that it is running at https://localhost:8080/api/test
+```
+docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t myapp:0.1 .
+docker run -p 8080:8080 myapp:0.1
+```
+
+The command below runs docker and connects to the AWS link.
+```
+docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be .
+docker run -p 8080:8080 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be
+```
+Go to : https://5tmqdqfjni.eu-west-1.awsapprunner.com/swagger# to check that it is running.
+
+Run the Tests
+---
+1. To run the unit tests, run `mvn clean test`
+2. To run the integration tests, run `mvn clean integration-test`
 
 Health Check
 ---
