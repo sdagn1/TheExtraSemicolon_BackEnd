@@ -12,6 +12,8 @@ class LoginValidatorTests {
 
     LoginValidator loginValidator = new LoginValidator();
 
+
+
     @Test
     public void validateLogin_shouldNotThrowError_whenValidLogin() {
         LoginRequest loginRequest = new LoginRequest(
