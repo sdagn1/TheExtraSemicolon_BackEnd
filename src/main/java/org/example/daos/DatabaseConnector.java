@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public final class DatabaseConnector {
+public class DatabaseConnector {
     private static Connection conn;
-    private DatabaseConnector() { }
+    protected DatabaseConnector() {
+        throw new UnsupportedOperationException("This is a utility class "
+                + "and cannot be instantiated");
+    }
     public static Connection getConnection() throws SQLException {
 
-        if (conn != null && !conn.isClosed()) {
+        if (conn != null && conn.isValid(0)) {
             return conn;
         }
 
