@@ -16,6 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
@@ -57,9 +58,29 @@ class AuthServiceTests {
     void login_shouldReturnJwtToken_whenDaoReturnsUser() throws SQLException,
             NoSuchAlgorithmException, InvalidKeySpecException, InvalidException {
         Mockito.when(authDao.getUser(loginRequest)).thenReturn(user);
+        doNothing().when(loginValidator).validateLogin(loginRequest);
         Mockito.when(authDao.validateUser(validLoginRequest.getEmail(), validLoginRequest.getPassword())).thenReturn(user);
 
         assertNotNull(authService.login(loginRequest));
+    }
+
+    @Test
+    void login_shouldThrowInvalidException_whenDaoGetUserReturnsNull() throws SQLException, InvalidException {
+        Mockito.when(authDao.getUser(loginRequest)).thenReturn(null);
+        doNothing().when(loginValidator).validateLogin(loginRequest);
+
+        assertThrows(InvalidException.class,
+                () -> authService.login(loginRequest));
+    }
+
+    @Test
+    void login_shouldThrowInvalidException_whenDaoValidateUserReturnsNull() throws SQLException, InvalidException {
+        Mockito.when(authDao.getUser(loginRequest)).thenReturn(user);
+        doNothing().when(loginValidator).validateLogin(loginRequest);
+        Mockito.when(authDao.validateUser(validLoginRequest.getEmail(), validLoginRequest.getPassword())).thenReturn(null);
+
+        assertThrows(InvalidException.class,
+                () -> authService.login(loginRequest));
     }
 
     @Test
