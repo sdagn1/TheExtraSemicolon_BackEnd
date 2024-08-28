@@ -5,17 +5,18 @@ import java.util.Date;
 public class JobRoleResponse {
     private int roleId;
     private String roleName;
-    private String location;
+    private String locations;
     private String capability;
     private String band;
     private Date closingDate;
 
     public JobRoleResponse(final int roleId, final String roleName,
-                   final String location,
+                   final String locations,
                    final String capability,
                    final String band, final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
+        this.locations = locations;
         this.capability = capability;
         this.band = band;
         this.closingDate = closingDate;
@@ -45,12 +46,12 @@ public class JobRoleResponse {
         this.capability = capability;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocations() {
+        return locations;
     }
 
-    public void setLocation(final String location) {
-        this.location = location;
+    public void setLocations(final String locations) {
+        this.locations = locations;
     }
 
     public String getBand() {
