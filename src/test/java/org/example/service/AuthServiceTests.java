@@ -1,28 +1,21 @@
 package org.example.service;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.impl.DefaultJwtBuilder;
 import org.example.daos.AuthDao;
-import org.example.daos.DatabaseConnector;
 import org.example.exceptions.InvalidException;
 import org.example.models.LoginRequest;
 import org.example.models.User;
 import org.example.services.AuthService;
 import org.example.validators.LoginValidator;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.sql.Connection;
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
