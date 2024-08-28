@@ -4,8 +4,11 @@ import org.example.exceptions.InvalidException;
 import org.example.models.LoginRequest;
 import org.example.validators.LoginValidator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LoginValidatorTests {
@@ -25,63 +28,44 @@ class LoginValidatorTests {
 
     }
 
-    @Test
-    public void validateLogin_shouldThrowError_whenEmailTooShort() {
+
+    @ParameterizedTest
+    @CsvSource(
+            {
+                    "'', Email is invalid length",
+                    "admin@kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaainos.com, Email is invalid length",
+                    "test, Email is invalid format"
+            }
+    )
+    public void validateLogin_shouldThrowError_whenEmailInvalid(String email, String exceptionMsg) {
         LoginRequest loginRequest = new LoginRequest(
-                "",
+                email,
                 ""
         );
 
-
-        assertThrows(InvalidException.class,
+        InvalidException exception = assertThrows(InvalidException.class,
                 () -> loginValidator.validateLogin(loginRequest));
+
+        assertEquals("User is not valid: "+exceptionMsg, exception.getMessage());
     }
 
-    @Test
-    public void validateLogin_shouldThrowError_whenEmailTooLong() {
-        LoginRequest loginRequest = new LoginRequest(
-                "admin@kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaainos.com",
-                "admin"
-        );
+    @ParameterizedTest
+    @CsvSource(
+            {
+                    "'', Password is invalid length",
+                    "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6, Password is invalid length"
 
-
-        assertThrows(InvalidException.class,
-                () -> loginValidator.validateLogin(loginRequest));
-    }
-
-    @Test
-    public void validateLogin_shouldThrowError_whenEmailInvalidFormat() {
-        LoginRequest loginRequest = new LoginRequest(
-                "test",
-                "admin"
-        );
-
-
-        assertThrows(InvalidException.class,
-                () -> loginValidator.validateLogin(loginRequest));
-    }
-
-    @Test
-    public void validateLogin_shouldThrowError_whenPasswordTooShort() {
+            }
+    )
+    public void validateLogin_shouldThrowError_whenPasswordInvalid(String password, String exceptionMsg) {
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
-                ""
+                password
         );
 
-
-        assertThrows(InvalidException.class,
+        InvalidException exception = assertThrows(InvalidException.class,
                 () -> loginValidator.validateLogin(loginRequest));
-    }
 
-    @Test
-    public void validateLogin_shouldThrowError_whenPasswordTooLong() {
-        LoginRequest loginRequest = new LoginRequest(
-                "admin@kainos.com",
-                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
-        );
-
-
-        assertThrows(InvalidException.class,
-                () -> loginValidator.validateLogin(loginRequest));
+        assertEquals("User is not valid: "+exceptionMsg, exception.getMessage());
     }
 }

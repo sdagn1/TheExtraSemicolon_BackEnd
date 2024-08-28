@@ -26,7 +26,7 @@ public class LoginValidator {
         Matcher matcher = pattern.matcher(loginRequest.getEmail());
         if (!matcher.matches()) {
             throw new InvalidException(Entity.USER,
-                    "Email is invalid!");
+                    "Email is invalid format");
         }
 
         if (loginRequest.getPassword().length() != passwordHashLength) {
