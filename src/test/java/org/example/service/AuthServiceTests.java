@@ -57,7 +57,6 @@ class AuthServiceTests {
     void login_shouldReturnJwtToken_whenDaoReturnsUser() throws SQLException,
             NoSuchAlgorithmException, InvalidKeySpecException, InvalidException {
         Mockito.when(authDao.getUser(loginRequest)).thenReturn(user);
-        System.out.println(validLoginRequest.getPassword());
         Mockito.when(authDao.validateUser(validLoginRequest.getEmail(), validLoginRequest.getPassword())).thenReturn(user);
 
         assertNotNull(authService.login(loginRequest));

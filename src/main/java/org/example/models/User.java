@@ -20,6 +20,11 @@ public class User {
         this.salt = salt;
     }
 
+    public User(final String email, final int roleId) {
+        this.email = email;
+        this.roleId = roleId;
+    }
+
     public String getEmail() {
         return email;
     }
