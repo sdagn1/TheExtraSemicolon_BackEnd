@@ -27,7 +27,7 @@ public class JobRoleService {
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.
                         mapJobRoleListToResponseList(
-                                jobRoleDao.getAllJobRolesFull());
+                                jobRoleDao.getAllJobRoles());
 
         if (jobRoleResponses.isEmpty()) {
             throw new DoesNotExistException(Entity.JOBROLERESPONSE);

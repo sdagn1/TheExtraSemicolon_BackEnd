@@ -10,10 +10,12 @@ public class JobRoleResponse {
     private String band;
     private Date closingDate;
 
-    public JobRoleResponse(final int roleId, final String roleName,
-                   final String locations,
-                   final String capability,
-                   final String band, final Date closingDate) {
+    public JobRoleResponse(final int roleId,
+                           final String roleName,
+                           final String locations,
+                           final String capability,
+                           final String band,
+                           final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
         this.locations = locations;
