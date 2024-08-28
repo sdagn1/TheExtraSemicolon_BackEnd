@@ -81,6 +81,11 @@ docker run -p 8080:8080 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_
 ```
 Go to : https://5tmqdqfjni.eu-west-1.awsapprunner.com/swagger# to check that it is running.
 
+To see the AWS link
+---
+Go to https://5tmqdqfjni.eu-west-1.awsapprunner.com/ + the API you want to view 
+For example : https://5tmqdqfjni.eu-west-1.awsapprunner.com/api/test to view the test data
+
 Run the Tests
 ---
 1. To run the unit tests, run `mvn clean test`
