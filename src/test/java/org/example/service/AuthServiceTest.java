@@ -20,7 +20,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
-class AuthServiceTests {
+class AuthServiceTest {
 
     AuthDao authDao = Mockito.mock(AuthDao.class);
     LoginValidator loginValidator = spy(new LoginValidator());

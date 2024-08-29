@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class LoginValidatorTests {
+class LoginValidatorTest {
 
     LoginValidator loginValidator = new LoginValidator();
 

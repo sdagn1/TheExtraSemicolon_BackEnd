@@ -1,7 +1,5 @@
 package org.example.controller;
 
-import io.dropwizard.auth.Auth;
-import org.checkerframework.checker.units.qual.A;
 import org.example.controllers.AuthController;
 import org.example.exceptions.InvalidException;
 import org.example.models.LoginRequest;
@@ -16,7 +14,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AuthControllerTests {
+class AuthTest {
 
     AuthService authService = Mockito.mock(AuthService.class);
 
