@@ -1,6 +1,6 @@
 # This workflow will run all of the Java unit tests found within this repository.
 
-name: Java Unit Test
+name: Java Tests
 
 on:
   push:
@@ -20,5 +20,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Run Unit Tests
-        run: mvn clean test
+      - name: Run All Tests
+        run: mvn clean integration-test
