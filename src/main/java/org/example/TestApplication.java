@@ -35,8 +35,11 @@ public class TestApplication extends Application<TestConfiguration> {
                     final Environment environment) {
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
-        environment.jersey().register(new JobRoleController(new JobRoleService(new JobRoleDao())));
-        String test = "this is a test string to break linter so that the checks in github fail... here goes" + "allow it man";
+        environment
+                .jersey()
+                .register(new JobRoleController(
+                        new JobRoleService(
+                                new JobRoleDao())));
     }
 
 }
