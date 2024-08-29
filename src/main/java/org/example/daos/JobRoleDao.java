@@ -1,5 +1,8 @@
 package org.example.daos;
 
+import org.example.enums.Capability;
+import org.example.enums.JobBands;
+import org.example.enums.Locations;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
@@ -14,7 +17,9 @@ public class JobRoleDao {
     public List<JobRole> getAllJobRoles() throws SQLException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
+//            assert connection != null;
             Statement statement = connection.createStatement();
+            System.out.println("HERE");
 
             ResultSet resultSet = statement.executeQuery(
                     "SELECT \n"
@@ -54,16 +59,23 @@ public class JobRoleDao {
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("linkToJobSpec"),
-                        resultSet.getString("band"),
+                        JobBands.fromString(resultSet.getString("band")),
                         resultSet.getTimestamp("closingDate")
                 );
-                jobRole.setCapability(resultSet.getString(
-                        "capability"));
+                jobRole.setCapability(Capability.fromString(
+                        resultSet.getString("capability")));
                 jobRole.setStatus(resultSet.getBoolean("status"));
                 jobRole.setPositionsAvailable(resultSet.getInt(
                         "positionsAvailable"));
-                jobRole.setLocations(resultSet.getString(
-                        "locations"));
+
+                String[] locationStrings = resultSet.getString("locations").split(", ");
+                List<Locations> locations = new ArrayList<>();
+                for (String locationString : locationStrings) {
+                    locations.add(Locations.fromString(locationString));
+                }
+                jobRole.setLocations(locations);
+
+
                 jobRoles.add(jobRole);
             }
             return jobRoles;

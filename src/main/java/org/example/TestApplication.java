@@ -11,7 +11,6 @@ import org.example.daos.JobRoleDao;
 import org.example.daos.TestDao;
 import org.example.services.JobRoleService;
 import org.example.services.TestService;
-import org.example.validators.JobRoleValidator;
 
 public class TestApplication extends Application<TestConfiguration> {
     public static void main(final String[] args) throws Exception {
@@ -39,8 +38,7 @@ public class TestApplication extends Application<TestConfiguration> {
         environment.jersey()
                 .register(new JobRoleController(
                             new JobRoleService(
-                                new JobRoleDao(),
-                                    new JobRoleValidator())));
+                                new JobRoleDao())));
     }
 
 }

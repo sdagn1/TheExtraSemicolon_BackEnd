@@ -1,16 +1,22 @@
 package org.example.models;
 
+import org.example.enums.Capability;
+import org.example.enums.JobBands;
+import org.example.enums.Locations;
+
 import java.util.Date;
+import java.util.List;
 
 public class JobRole {
     private int roleId;
     private String roleName;
     private String description;
     private String responsibilities;
-    public String locations;
+    public Locations locations;
+    public List<Locations> locations2;
     private String linkToJobSpec;
-    private String capability;
-    private String band;
+    private Capability capability;
+    private JobBands band;
     private Date closingDate;
     private boolean status;
     private int positionsAvailable;
@@ -23,7 +29,7 @@ public class JobRole {
             final String description,
             final String responsibilities,
             final String linkToJobSpec,
-            final String band,
+            final JobBands band,
             final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
@@ -74,19 +80,19 @@ public class JobRole {
         this.linkToJobSpec = linkToJobSpec;
     }
 
-    public String getCapability() {
+    public Capability getCapability() {
         return capability;
     }
 
-    public void setCapability(final String capability) {
+    public void setCapability(final Capability capability) {
         this.capability = capability;
     }
 
-    public String getBand() {
+    public JobBands getBand() {
         return band;
     }
 
-    public void setBand(final String band) {
+    public void setBand(final JobBands band) {
         this.band = band;
     }
 
@@ -114,11 +120,18 @@ public class JobRole {
         this.positionsAvailable = positionsAvailable;
     }
 
-    public String getLocations() {
+    public Locations getLocations() {
         return locations;
     }
+    public List<Locations> getLocations2() {
+        return locations2;
+    }
 
-    public void setLocations(final String locations) {
+    public void setLocations(final Locations locations) {
         this.locations = locations;
+    }
+
+    public void setLocations(final List<Locations> locations) {
+        this.locations2 = locations;
     }
 }

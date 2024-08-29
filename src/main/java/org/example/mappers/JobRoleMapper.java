@@ -17,7 +17,7 @@ public final class JobRoleMapper {
         return jobRoles
                 .stream()
                 .map(jobRole -> new JobRoleResponse(jobRole.getRoleId(),
-                        jobRole.getRoleName(), jobRole.getLocations(),
+                        jobRole.getRoleName(), jobRole.getLocations2(),
                         jobRole.getCapability(), jobRole.getBand(),
                         jobRole.getClosingDate()))
                 .collect(Collectors.toList());

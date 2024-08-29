@@ -6,20 +6,16 @@ import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRoleResponse;
-import org.example.validators.JobRoleValidator;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class JobRoleService {
     JobRoleDao jobRoleDao;
-    JobRoleValidator jobRoleValidator;
     DatabaseConnector databaseConnector;
 
-    public JobRoleService(final JobRoleDao jobRoleDao,
-                          final JobRoleValidator jobRoleValidator) {
+    public JobRoleService(final JobRoleDao jobRoleDao) {
         this.jobRoleDao = jobRoleDao;
-        this.jobRoleValidator = jobRoleValidator;
     }
 
     public List<JobRoleResponse> getAllJobRoles()

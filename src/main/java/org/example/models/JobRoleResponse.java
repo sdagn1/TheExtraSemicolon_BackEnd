@@ -1,24 +1,33 @@
 package org.example.models;
 
+import org.example.enums.Capability;
+import org.example.enums.JobBands;
+import org.example.enums.Locations;
+
 import java.util.Date;
+import java.util.List;
 
 public class JobRoleResponse {
+
+
+
     private int roleId;
     private String roleName;
-    private String locations;
-    private String capability;
-    private String band;
+    private Locations locations;
+    private List<Locations> locations2;
+    private Capability capability;
+    private JobBands band;
     private Date closingDate;
 
     public JobRoleResponse(final int roleId,
                            final String roleName,
-                           final String locations,
-                           final String capability,
-                           final String band,
+                           final List<Locations> locations2,
+                           final Capability capability,
+                           final JobBands band,
                            final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
-        this.locations = locations;
+        this.locations2 = locations2;
         this.capability = capability;
         this.band = band;
         this.closingDate = closingDate;
@@ -26,6 +35,14 @@ public class JobRoleResponse {
 
     public int getRoleId() {
         return roleId;
+    }
+
+    public List<Locations> getLocations2() {
+        return locations2;
+    }
+
+    public void setLocations2(final List<Locations> locations2) {
+        this.locations2 = locations2;
     }
 
     public void setRoleId(final int roleId) {
@@ -40,27 +57,27 @@ public class JobRoleResponse {
         this.roleName = roleName;
     }
 
-    public String getCapability() {
+    public Capability getCapability() {
         return capability;
     }
 
-    public void setCapability(final String capability) {
+    public void setCapability(final Capability capability) {
         this.capability = capability;
     }
 
-    public String getLocations() {
+    public Locations getLocations() {
         return locations;
     }
 
-    public void setLocations(final String locations) {
+    public void setLocations(final Locations locations) {
         this.locations = locations;
     }
 
-    public String getBand() {
+    public JobBands getBand() {
         return band;
     }
 
-    public void setBand(final String band) {
+    public void setBand(final JobBands band) {
         this.band = band;
     }
 
