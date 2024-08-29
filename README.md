@@ -36,7 +36,7 @@ Add Linter to your application
    ```
 4. Install 'CheckStyle-IDEA' plugin in IntelliJ
 5. To add your checkstyle configuration
-   1. In your IntelliJ settings go to 'Editor' 
+   1. In IntelliJ settings,go to tools, then go to 'Editor' 
    2. Then 'CodeStyle'
    3. Select Settings icon next to 'Scheme' dropdown
    4. 'Import Scheme'
@@ -70,13 +70,13 @@ How to run the application in Docker Locally and AWS
 ---
 Run the following commands run the application to run the application in Docker. The dockerfiles have already been set up. The command below runs docker locally. Check that it is running at https://localhost:8080/api/test
 ```
-docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t myapp:0.1 .
+docker build --build-arg  --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t myapp:0.1 .
 docker run -p 8080:8080 myapp:0.1
 ```
 
 The command below runs docker and connects to the AWS link.
 ```
-docker build --build-arg DB_VAR=${DB_VAR} --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be .
+docker build --build-arg --build-arg DB_USERNAME=${DB_USERNAME} --build-arg DB_PASSWORD=${DB_PASSWORD} --build-arg DB_HOST=${DB_HOST} --build-arg DB_NAME=${DB_NAME} -t 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be .
 docker run -p 8080:8080 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_be
 ```
 Go to : https://5tmqdqfjni.eu-west-1.awsapprunner.com/swagger# to check that it is running.
