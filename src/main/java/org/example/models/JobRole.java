@@ -15,7 +15,7 @@ public class JobRole {
     private boolean status;
     private int positionsAvailable;
 
-    // Removed capability, status, positionsAvailable
+    // Removed capability, status, positionsAvailable, locations
     // from constructor due to 7 parameters limit.
     public JobRole(
             final int roleId,
