@@ -1,7 +1,11 @@
 package org.example.service;
 
+import org.checkerframework.checker.units.qual.A;
 import org.example.controllers.JobRoleController;
 import org.example.daos.JobRoleDao;
+import org.example.enums.Capability;
+import org.example.enums.JobBands;
+import org.example.enums.Locations;
 import org.example.exceptions.DatabaseConnectionException;
 import org.example.exceptions.DoesNotExistException;
 import org.example.mappers.JobRoleMapper;
@@ -32,15 +36,14 @@ public class JobRoleServiceTest {
             "Test description for the technical architect role.",
             "Responsibility 1, Responsibility 2, Responsibility 3",
             "examplelink.co.uk",
-            "Manager",
+            JobBands.MANAGER,
             date
     );
 
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
-    JobRoleValidator jobRoleValidator = Mockito.mock(JobRoleValidator.class);
     JobRoleController jobRolesController = Mockito.mock(JobRoleController.class);
 
-    JobRoleService jobRoleService = new JobRoleService(jobRoleDao, jobRoleValidator);
+    JobRoleService jobRoleService = new JobRoleService(jobRoleDao);
 
 
 
@@ -57,9 +60,11 @@ public class JobRoleServiceTest {
 
     @Test
     void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsListOfJobRoles() throws SQLException, DatabaseConnectionException, DoesNotExistException {
-        jobRole.setCapability("Engineering");
+        List<Locations> locationsList = new ArrayList<>();
+        locationsList.add(Locations.BIRMINGHAM);
+        jobRole.setCapability(Capability.ENGINEERING);
         jobRole.setStatus(true);
-        jobRole.setLocations("Birmingham");
+        jobRole.setLocations(locationsList);
         jobRole.setPositionsAvailable(1);
 
         List<JobRole> jobRoleList = new ArrayList<>();
