@@ -7,9 +7,10 @@ Database Migration - Test
 2. Add the following lines to your ~/.zshrc file:
 
 ```
-export FLYWAY_URL="jdbc:mysql://YOUR_DB_HOST/YOUR_DB_NAME"
-export FLYWAY_USER="YOUR_DB_USERNAME"
-export FLYWAY_PASSWORD="YOUR_DB_PASSWORD"
+export DB_HOST="jdbc:mysql://YOUR_DB_HOST/YOUR_DB_NAME"
+export DB_USERNAME="YOUR_DB_USERNAME"
+export DB_PASSWORD="YOUR_DB_PASSWORD"
+export DB_NAME="YOUR_DATABASE_NAME"
 export FLYWAY_BASELINE_ON_MIGRATE=true
 ```
 
