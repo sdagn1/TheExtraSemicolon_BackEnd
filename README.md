@@ -8,6 +8,7 @@ Database Migration - Test
 
 ```
 export DB_HOST="jdbc:mysql://YOUR_DB_HOST/YOUR_DB_NAME"
+export FLYWAY_URL="jdbc:mysql://YOUR_DB_HOST/YOUR_DB_NAME"
 export DB_USERNAME="YOUR_DB_USERNAME"
 export DB_PASSWORD="YOUR_DB_PASSWORD"
 export DB_NAME="YOUR_DATABASE_NAME"
