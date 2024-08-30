@@ -1,5 +1,8 @@
 package org.example.daos;
 
+import org.example.enums.Capability;
+import org.example.enums.JobBand;
+import org.example.enums.Location;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
@@ -17,6 +20,7 @@ public class JobRoleDao {
         try (Connection connection = DatabaseConnector.getConnection()) {
             assert connection != null;
             Statement statement = connection.createStatement();
+            System.out.println("HERE");
 
             ResultSet resultSet = statement.executeQuery(
                     "SELECT \n"
@@ -42,6 +46,8 @@ public class JobRoleDao {
                             + "JOIN \n"
                             + "    Job_Locations jl ON jlc.roleLocationId"
                             + "= jl.roleLocationId\n"
+                            + "WHERE \n"
+                            + "jr.status = 1 && jr.positionsAvailable > 0 \n"
                             + "GROUP BY \n"
                             + "    jr.roleId, jr.roleName, jr.description,"
                             + "jr.responsibilities, jr.linkToJobSpec,"
@@ -56,16 +62,25 @@ public class JobRoleDao {
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("linkToJobSpec"),
-                        resultSet.getString("band"),
+                        JobBand.fromString(
+                                resultSet.getString("band")),
                         resultSet.getTimestamp("closingDate")
                 );
-                jobRole.setCapability(resultSet.getString(
-                        "capability"));
+                jobRole.setCapability(Capability.fromString(
+                        resultSet.getString("capability")));
                 jobRole.setStatus(resultSet.getBoolean("status"));
                 jobRole.setPositionsAvailable(resultSet.getInt(
                         "positionsAvailable"));
-                jobRole.setLocations(resultSet.getString(
-                        "locations"));
+
+                String[] locationStrings = resultSet.
+                        getString("locations").split(", ");
+                List<Location> locations = new ArrayList<>();
+                for (String locationString : locationStrings) {
+                    locations.add(Location.fromString(locationString));
+                }
+                jobRole.setLocations(locations);
+
+
                 jobRoles.add(jobRole);
             }
             return jobRoles;
@@ -117,16 +132,22 @@ public class JobRoleDao {
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("linkToJobSpec"),
-                        resultSet.getString("band"),
+                        JobBand.fromString(
+                                resultSet.getString("band")),
                         resultSet.getTimestamp("closingDate")
                 );
-                jobRole.setCapability(resultSet.getString(
-                        "capability"));
+                jobRole.setCapability(Capability.fromString(
+                        resultSet.getString("capability")));
                 jobRole.setStatus(resultSet.getBoolean("status"));
                 jobRole.setPositionsAvailable(resultSet.getInt(
                         "positionsAvailable"));
-                jobRole.setLocations(resultSet.getString(
-                        "locations"));
+                String[] locationStrings = resultSet.
+                        getString("locations").split(", ");
+                List<Location> locations = new ArrayList<>();
+                for (String locationString : locationStrings) {
+                    locations.add(Location.fromString(locationString));
+                }
+                jobRole.setLocations(locations);
                 return jobRole;
             }
         }

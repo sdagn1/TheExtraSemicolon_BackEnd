@@ -46,13 +46,13 @@ Create Table Job_Bands (
 
 CREATE TABLE Job_Roles (
     roleId INT AUTO_INCREMENT PRIMARY KEY,
-    roleName varchar(150),
-    description varchar(2500),
-    responsibilities varchar(5000),
-    linkToJobSpec varchar(500),
+    roleName varchar(150) NOT NULL,
+    description varchar(2500) NOT NULL,
+    responsibilities varchar(5000) NOT NULL,
+    linkToJobSpec varchar(500) NOT NULL,
     capability ENUM('Engineering', 'Platforms', 'Data and Artificial Intelligence', 'Cyber Security','Workday','Experience Design','Product', 'Delivery','Operations','Business Development and Marketing','Organisational Strategy and Planning','People','Commercial and Financial Management','Business Services Support'),
-    band int,
-    closingDate TimeStamp,
+    band int NOT NULL,
+    closingDate TimeStamp NOT NULL,
     status BOOLEAN,
     positionsAvailable int,
     CONSTRAINT FK_Job_Bands FOREIGN KEY (band) REFERENCES Job_Bands(jobBandsId)

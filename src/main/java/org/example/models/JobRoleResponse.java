@@ -1,19 +1,23 @@
 package org.example.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class JobRoleResponse {
+    private String formattedLocations;
     private int roleId;
     private String roleName;
-    private String locations;
+    private List<String> locations;
     private String capability;
     private String band;
     private Date closingDate;
 
-    public JobRoleResponse(final int roleId, final String roleName,
-                   final String locations,
-                   final String capability,
-                   final String band, final Date closingDate) {
+    public JobRoleResponse(final int roleId,
+                           final String roleName,
+                           final List<String> locations,
+                           final String capability,
+                           final String band,
+                           final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
         this.locations = locations;
@@ -24,6 +28,14 @@ public class JobRoleResponse {
 
     public int getRoleId() {
         return roleId;
+    }
+
+    public List<String> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(final List<String> locations) {
+        this.locations = locations;
     }
 
     public void setRoleId(final int roleId) {
@@ -46,14 +58,6 @@ public class JobRoleResponse {
         this.capability = capability;
     }
 
-    public String getLocations() {
-        return locations;
-    }
-
-    public void setLocations(final String locations) {
-        this.locations = locations;
-    }
-
     public String getBand() {
         return band;
     }
@@ -68,5 +72,13 @@ public class JobRoleResponse {
 
     public void setClosingDate(final Date closingDate) {
         this.closingDate = closingDate;
+    }
+
+    public String getFormattedLocations() {
+        return formattedLocations;
+    }
+
+    public void setFormattedLocations(final String formattedLocations) {
+        this.formattedLocations = formattedLocations;
     }
 }

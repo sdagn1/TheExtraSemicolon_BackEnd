@@ -7,20 +7,19 @@ import org.example.exceptions.Entity;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
-import org.example.validators.JobRoleValidator;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class JobRoleService {
     JobRoleDao jobRoleDao;
-    JobRoleValidator jobRoleValidator;
     DatabaseConnector databaseConnector;
+    private String formatLocations(final List<String> locations) {
+        return String.join(", ", locations);
+    }
 
-    public JobRoleService(final JobRoleDao jobRoleDao,
-                          final JobRoleValidator jobRoleValidator) {
+    public JobRoleService(final JobRoleDao jobRoleDao) {
         this.jobRoleDao = jobRoleDao;
-        this.jobRoleValidator = jobRoleValidator;
     }
 
     public JobRole getJobRoleById(final int id)
@@ -35,6 +34,7 @@ public class JobRoleService {
 
     public List<JobRoleResponse> getAllJobRoles()
             throws SQLException, DoesNotExistException {
+
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.mapJobRoleListToResponseList(
                         jobRoleDao.getAllJobRoles());
@@ -42,6 +42,12 @@ public class JobRoleService {
         if (jobRoleResponses.isEmpty()) {
             throw new DoesNotExistException(Entity.JOBROLERESPONSE);
         }
+
+        jobRoleResponses.forEach(response -> {
+            String formattedLocations = formatLocations(
+                    response.getLocations());
+            response.setFormattedLocations(formattedLocations);
+        });
 
         return jobRoleResponses;
     }

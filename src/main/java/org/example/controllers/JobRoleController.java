@@ -28,12 +28,11 @@ public class JobRoleController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-     @ApiOperation(
-             value = "Returns a Job Role",
-             authorizations = @Authorization(value =
-             HttpHeaders.AUTHORIZATION),
-             response = JobRole.class
-     )
+    @ApiOperation(
+            value = "Returns a Job Role",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = JobRole.class
+    )
     public Response getJobRoleById(final @PathParam("id") int id) {
         try {
             return Response.ok().entity(jobRoleService.getJobRoleById(id))
@@ -53,7 +52,7 @@ public class JobRoleController {
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = JobRole.class
     )
-    public Response getJobRole() {
+    public Response getJobRoles() {
         try {
             return Response.ok()
                     .entity(jobRoleService.getAllJobRoles())

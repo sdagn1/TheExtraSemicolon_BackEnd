@@ -1,12 +1,20 @@
 package org.example.service;
 
-import org.example.daos.DatabaseConnector;
+import org.example.controllers.JobRoleController;
 import org.example.daos.JobRoleDao;
+import org.example.enums.Capability;
+import org.example.enums.JobBand;
+import org.example.enums.Location;
 import org.example.exceptions.DatabaseConnectionException;
 import org.example.exceptions.DoesNotExistException;
+<<<<<<< HEAD
 import org.example.models.JobRole;
+=======
+import org.example.mappers.JobRoleMapper;
+import org.example.models.JobRole;
+import org.example.models.JobRoleResponse;
+>>>>>>> 001A-Job-Roles-Database
 import org.example.services.JobRoleService;
-import org.example.validators.JobRoleValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -14,25 +22,48 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.Date;
+=======
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+>>>>>>> 001A-Job-Roles-Database
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class JobRoleServiceTest {
+    Date date = new Date();
+
+    JobRole jobRole = new JobRole(
+            999,
+            "Technical Architect",
+            "Test description for the technical architect role.",
+            "Responsibility 1, Responsibility 2, Responsibility 3",
+            "examplelink.co.uk",
+            JobBand.MANAGER,
+            date
+    );
 
     JobRoleDao jobRoleDao = Mockito.mock(JobRoleDao.class);
-    JobRoleValidator jobRoleValidator = Mockito.mock(JobRoleValidator.class);
-    DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
+    JobRoleController jobRolesController = Mockito.mock(JobRoleController.class);
 
-    JobRoleService jobRoleService = new JobRoleService(jobRoleDao, jobRoleValidator);
+    JobRoleService jobRoleService = new JobRoleService(jobRoleDao);
+
+
 
     Connection conn;
 
     @Test
+<<<<<<< HEAD
     void getJobRole_shouldThrowSqlException_whenDaoThrowsSqlException()
             throws SQLException, DatabaseConnectionException {
+=======
+    void getJobRoles_shouldThrowSqlException_whenDaoThrowsSqlException()
+            throws SQLException, DatabaseConnectionException{
+>>>>>>> 001A-Job-Roles-Database
         Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(SQLException.class);
 
         assertThrows(SQLException.class,
@@ -40,6 +71,7 @@ public class JobRoleServiceTest {
     }
 
     @Test
+<<<<<<< HEAD
     void getJobRoleById_shouldThrowSqlException_whenDaoThrowsSqlException()
             throws SQLException, DatabaseConnectionException {
         Mockito.when(jobRoleDao.getJobRoleById(5))
@@ -80,6 +112,25 @@ public class JobRoleServiceTest {
 
         assertThrows(DoesNotExistException.class,
                 () -> jobRoleService.getJobRoleById(1));
+=======
+    void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsListOfJobRoles() throws SQLException, DatabaseConnectionException, DoesNotExistException {
+        List<Location> locationList = new ArrayList<>();
+        locationList.add(Location.BIRMINGHAM);
+        jobRole.setCapability(Capability.ENGINEERING);
+        jobRole.setStatus(true);
+        jobRole.setLocations(locationList);
+        jobRole.setPositionsAvailable(1);
+
+        List<JobRole> jobRoleList = new ArrayList<>();
+        jobRoleList.add(jobRole);
+        Mockito.when(jobRoleDao.getAllJobRoles()).thenReturn(jobRoleList);
+
+        List<JobRoleResponse> test1 = JobRoleMapper.mapJobRoleListToResponseList(jobRoleList);
+        List<JobRoleResponse> test2 = jobRoleService.getAllJobRoles();
+
+        assertEquals(test1.get(0).getRoleName(),
+                test2.get(0).getRoleName());
+>>>>>>> 001A-Job-Roles-Database
     }
 
 

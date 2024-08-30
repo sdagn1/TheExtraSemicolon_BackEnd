@@ -1,29 +1,31 @@
 package org.example.models;
 
+import org.example.enums.Capability;
+import org.example.enums.JobBand;
+import org.example.enums.Location;
+
 import java.util.Date;
+import java.util.List;
 
 public class JobRole {
     private int roleId;
     private String roleName;
     private String description;
     private String responsibilities;
-    public String locations;
+    public List<Location> locations;
     private String linkToJobSpec;
-    private String capability;
-    private String band;
+    private Capability capability;
+    private JobBand band;
     private Date closingDate;
     private boolean status;
     private int positionsAvailable;
-
-    // Removed capability, status, positionsAvailable
-    // from constructor due to 7 parameters limit.
     public JobRole(
             final int roleId,
             final String roleName,
             final String description,
             final String responsibilities,
             final String linkToJobSpec,
-            final String band,
+            final JobBand band,
             final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
@@ -74,19 +76,19 @@ public class JobRole {
         this.linkToJobSpec = linkToJobSpec;
     }
 
-    public String getCapability() {
+    public Capability getCapability() {
         return capability;
     }
 
-    public void setCapability(final String capability) {
+    public void setCapability(final Capability capability) {
         this.capability = capability;
     }
 
-    public String getBand() {
+    public JobBand getBand() {
         return band;
     }
 
-    public void setBand(final String band) {
+    public void setBand(final JobBand band) {
         this.band = band;
     }
 
@@ -114,11 +116,11 @@ public class JobRole {
         this.positionsAvailable = positionsAvailable;
     }
 
-    public String getLocations() {
+    public List<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(final String locations) {
+    public void setLocations(final List<Location> locations) {
         this.locations = locations;
     }
 }
