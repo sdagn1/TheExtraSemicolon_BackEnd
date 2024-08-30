@@ -11,7 +11,8 @@ public enum Capability {
     DELIVERY("Delivery"),
     OPERATIONS("Operations"),
     BUSINESS_DEVELOPMENT_AND_MARKETING("Business Development and Marketing"),
-    ORGANISATIONAL_STRATEGY_AND_PLANNING("Organisational Strategy and Planning"),
+    ORGANISATIONAL_STRATEGY_AND_PLANNING(
+            "Organisational Strategy and Planning"),
     PEOPLE("People"),
     COMMERCIAL_AND_FINANCIAL_MANAGEMENT("Commercial and Financial Management"),
     BUSINESS_SERVICES_SUPPORT("Business Services Support");

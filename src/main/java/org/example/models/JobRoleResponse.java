@@ -6,6 +6,7 @@ import java.util.List;
 public class JobRoleResponse {
 
 
+    private String formattedLocations;
     private int roleId;
     private String roleName;
     private List<String> locations;
@@ -75,4 +76,11 @@ public class JobRoleResponse {
         this.closingDate = closingDate;
     }
 
+    public String getFormattedLocations() {
+        return formattedLocations;
+    }
+
+    public void setFormattedLocations(final String formattedLocations) {
+        this.formattedLocations = formattedLocations;
+    }
 }

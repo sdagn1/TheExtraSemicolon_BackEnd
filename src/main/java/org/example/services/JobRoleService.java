@@ -13,6 +13,9 @@ import java.util.List;
 public class JobRoleService {
     JobRoleDao jobRoleDao;
     DatabaseConnector databaseConnector;
+    private String formatLocations(final List<String> locations) {
+        return String.join(", ", locations);
+    }
 
     public JobRoleService(final JobRoleDao jobRoleDao) {
         this.jobRoleDao = jobRoleDao;
@@ -20,6 +23,7 @@ public class JobRoleService {
 
     public List<JobRoleResponse> getAllJobRoles()
             throws SQLException, DoesNotExistException {
+
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.
                         mapJobRoleListToResponseList(
@@ -29,6 +33,11 @@ public class JobRoleService {
             throw new DoesNotExistException(Entity.JOBROLERESPONSE);
         }
 
+        jobRoleResponses.forEach(response -> {
+            String formattedLocations = formatLocations(
+                    response.getLocations());
+            response.setFormattedLocations(formattedLocations);
+        });
 
         return jobRoleResponses;
     }
