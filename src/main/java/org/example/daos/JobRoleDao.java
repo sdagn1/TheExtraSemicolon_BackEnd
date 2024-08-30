@@ -12,9 +12,10 @@ import java.util.List;
 
 public class JobRoleDao {
 
-    public List<JobRole> getAllJobRolesFull() throws SQLException {
+    public List<JobRole> getAllJobRoles() throws SQLException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
+            assert connection != null;
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(
@@ -85,7 +86,8 @@ public class JobRoleDao {
                             + "    jr.closingDate,\n"
                             + "    jr.status,\n"
                             + "    jr.positionsAvailable,\n"
-                            + "    GROUP_CONCAT(jl.locationName) AS locations\n"
+                            + "    GROUP_CONCAT(jl.locationName SEPARATOR ', ')"
+                            + "AS locations\n"
                             + "FROM \n"
                             + "    Job_Roles jr\n"
                             + "JOIN \n"

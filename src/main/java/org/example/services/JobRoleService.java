@@ -23,10 +23,6 @@ public class JobRoleService {
         this.jobRoleValidator = jobRoleValidator;
     }
 
-    public List<JobRole> getAllJobRolesFull() throws SQLException {
-        return jobRoleDao.getAllJobRolesFull();
-    }
-
     public JobRole getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
         JobRole jobRole = jobRoleDao.getJobRoleById(id);
@@ -41,7 +37,7 @@ public class JobRoleService {
             throws SQLException, DoesNotExistException {
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.mapJobRoleListToResponseList(
-                        jobRoleDao.getAllJobRolesFull());
+                        jobRoleDao.getAllJobRoles());
 
         if (jobRoleResponses.isEmpty()) {
             throw new DoesNotExistException(Entity.JOBROLERESPONSE);

@@ -70,8 +70,7 @@ fully in the Incident management lifecycle. You will work closely with clients, 
 teams and 3rd Party vendors to ensure that problems are resolved. You’ll do this whilst
 learning about new approaches, with talented colleagues that will help you to learn,
 develop and grow.'
-, 'Your key responsibilities will include:
-• Providing day-to-day technical support to internal and external customer.
+, '• Providing day-to-day technical support to internal and external customer.
 • Proactively taking ownership for incidents in areas of expertise and designated
 responsibility participating fully in the incident management lifecycle.
 • Liaising with customers as required, presenting a professional image of Kainos,
@@ -143,8 +142,7 @@ VALUES('Systems Operation Manager',
 'An IT Operations Manager is responsible for the high quality and consistent delivery of
 multiple IT services that deliver value to Kainos across all geographical areas, maintaining
 high levels of customer satisfaction.',
-'Your key responsibilities will include:
-• Ownership and delivery of IT services for multiple strategic areas of the IT Operations
+'• Ownership and delivery of IT services for multiple strategic areas of the IT Operations
 business including service delivery, incident management, problem management
 and change management processes.
 • Ensure efficient and accurate reporting is maintained and aligned with all relevant
@@ -184,8 +182,7 @@ grounding in technical architecture to fulfil other roles. It’s a fast-paced e
 you’ll be trusted to make sound, reasoned decisions as you continually learn and
 advance new technologies and approaches with talented colleagues.'
 ,
-'Your key responsibilities will include:
-• Championing technology – You’ll be an accredited and industry respected
+'• Championing technology – You’ll be an accredited and industry respected
 technologist who will be given opportunities to prioritise your development in your
 specialist area.
 • Developing Kainos as a business – You’ll help to identify, qualify and win new
@@ -238,8 +235,7 @@ orientated pragmatist, where you balance trade-offs to successfully deliver comp
 solutions. You will be viewed as an authority figure for data technology solutions, providing
 strong technical and thought leadership.'
 ,
-'Your key responsibilities will include:
-• Successfully implementing functional and non-functional designs
+'• Successfully implementing functional and non-functional designs
 • Working closely with Ops and Infrastructure architects to productionise robust,
 resilient, and maintainable data solutions
 • Working closely with customer architects to agree functional and non-functional
@@ -271,8 +267,7 @@ and delivering technical components as part of a larger data solution. You will 
 closely with Solution Architects and Customer Architects to integrate these components
 into quality data solutions'
 ,
-'Your key responsibilities will include:
-• Successfully implementing functional and non-functional designs
+'• Successfully implementing functional and non-functional designs
 • Working closely with customer architects to agree functional and non-functional
 designs, including estimated effort, technical implications, and complexity.
 • Setting technical standards and works with engineers to ensure standards are
@@ -352,8 +347,7 @@ subject matter expertise in application security or cloud security – sharing k
 threats and vulnerabilities, identifying appropriate security controls, and increasing cyber
 security awareness within teams.'
 ,
-'Your key responsibilities will include:
-• Daily collaboration with the application development and cloud platform teams to plan
+'• Daily collaboration with the application development and cloud platform teams to plan
 and prioritise security requirements as part of the secure software development lifecycle
 (SSDLC).
 • Recommending security best practices for cloud platforms and automating compliance
@@ -454,8 +448,7 @@ Planning Cloud. You will work as part of a delivery team responsible for impleme
 for customers of all size, across multiple industries. You will contribute to the
 implementations of specialist planning tools into our clients.'
 ,
-'Your key responsibilities will include:
-o Providing expertise on the Adaptive Planning solution – you will be expected to
+'o Providing expertise on the Adaptive Planning solution – you will be expected to
 maintain proficiency and certification in the Adaptive Planning solution suite
 o Supporting Adaptive implementations for our clients – you will contribute to all
 phases of Adaptive Planning implementation projects, including:
@@ -541,8 +534,7 @@ INSERT INTO Job_Roles (roleName, description, responsibilities, linkToJobSpec, c
 VALUES('Engagement Manager',
 'As an Engagement Manager in Kainos, you’ll fully manage the successful implementation of solutions for customers by working closely with customer business teams and internal delivery teams to drive the scope, definition and delivery of solutions that are fit for purpose and commercially viable. You’ll take accountability for the complete delivery lifecycle alongside Technical and Solution Architects. You’ll manage all aspects of your projects, which will typically be either one large, complex project or multiple smaller projects. This will include project planning, staffing, milestone tracking, commercial management, and customer satisfaction.'
 ,
-'Your key responsibilities will include:
-• Commercially managing the implementation of solutions from pre-sales through implementation and hand over.
+'• Commercially managing the implementation of solutions from pre-sales through implementation and hand over.
 • Acting as the key client interface between functional and technical teams and the client.
 • Pragmatically offering domain experience to provide functional insight and thought- leadership.
 • Managing all aspects of project delivery including project planning, resourcing, milestone tracking, commercial management and customer satisfaction.
@@ -573,8 +565,7 @@ the Business Unit (BU). This will support the management team and wider BU inclu
 sales, revenue and staff forecasting, staff allocation and recruitment forecasting, month-
 end closure, profitability and working capital.'
 ,
-'Your key responsibilities will include:
-• Working with the Operations Manager to support and improve regional revenue
+'• Working with the Operations Manager to support and improve regional revenue
 and staffing forecast accuracy
 • Reviewing sales pipeline and ensuring that delivery timelines are co-ordinated and
 revenue profiling is accurate
@@ -624,9 +615,7 @@ customers and executive sponsors. You will employ effective selling strategies t
 
 successfully position Kainos Smart tool.",
 
-"Your key responsibilities will include:
-
-• Driving prospecting and opportunity qualification activities – you will work
+"• Driving prospecting and opportunity qualification activities – you will work
 
 independently to engage with prospects through multiple mediums such as
 
@@ -704,9 +693,7 @@ VALUES
 
 coordination, design, delivery, administration and evaluation of our Outreach initiatives.",
 
-"The key responsibilities of the role includes:
-
-• Developing Outreach initiatives that enhance Kainos’ profile and reputation as a
+"• Developing Outreach initiatives that enhance Kainos’ profile and reputation as a
 
 socially responsible business and a compelling place to start a career in technology.
 
@@ -786,9 +773,7 @@ and implementing Social Responsibility strategies and aligning these with our co
 
 goals.",
 
-"Your key responsibilities will include:
-
-• Driving Social Responsibility through the business and maximise its impact both
+"• Driving Social Responsibility through the business and maximise its impact both
 
 internally and externally to market and industry, enhancing Kainos profile and
 
@@ -868,9 +853,7 @@ balanced with the experience of being given real, meaningful work to do, to help
 
 truly develop both technically and professionally.",
 
-"The key responsibilities for this role may include, but not limited to:
-
-• Assist in preparation of grant claims (Invest NI or similar body)
+"• Assist in preparation of grant claims (Invest NI or similar body)
 
 • Provide financial analysis to other departments in the Group
 
@@ -1050,8 +1033,7 @@ Practice. You will also evolve the Practice to take advantage of Partner advance
 and market changes. You will educate and motivate the sales Business Development
 function to deliver the SOV targets for the Practice. You will champion the growth of
 people and their capabilities to support the Practice in line with Kainos culture and values.",
-"Your key responsibilities will include:
-• Leading the definition of a Practice strategy for Kainos.
+"• Leading the definition of a Practice strategy for Kainos.
 • Leading the definition of the go to market offerings and commercial proposition for
 the Practice.
 • Establishing a Practice delivering strategy, implementation and ongoing
@@ -1091,8 +1073,7 @@ VALUES
 "As Head of Quality and Compliance at Kainos, you will be the authority figure for all
 quality and compliance activities, provides leadership in the development of standardsbased management systems. Balances user experience and business need when
 adopting quality and compliance controls.",
-"Your key responsibilities include:
-• Managing, developing, and controlling of the company Integrated Management
+"• Managing, developing, and controlling of the company Integrated Management
 Systems (IMS). This includes ISO9001, ISO20000 and ISO27001 suite of standards.
 • Leading the design, implementation, operation, and maintenance of the Kainos
 Quality Management System (ISO9001).
@@ -1146,8 +1127,7 @@ advantage of Partner advancements and market changes. You will educate and
 motivate the Business Development function to deliver the SOV targets for the practice.
 You will champion the growth of people and their capabilities to support the Practice in
 line with Kainos culture and values.",
-"Your key responsibilities will include:
-• Leading the definition of a Practice strategy for Kainos
+"• Leading the definition of a Practice strategy for Kainos
 • Leading the definition of the go to market offerings and commercial proposition for
 the Practice
 • Establishing a Practice delivering strategy, implementation, and ongoing
