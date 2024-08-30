@@ -1,11 +1,10 @@
 package org.example.service;
 
-import org.checkerframework.checker.units.qual.A;
 import org.example.controllers.JobRoleController;
 import org.example.daos.JobRoleDao;
 import org.example.enums.Capability;
-import org.example.enums.JobBands;
-import org.example.enums.Locations;
+import org.example.enums.JobBand;
+import org.example.enums.Location;
 import org.example.exceptions.DatabaseConnectionException;
 import org.example.exceptions.DoesNotExistException;
 import org.example.mappers.JobRoleMapper;
@@ -36,7 +35,7 @@ public class JobRoleServiceTest {
             "Test description for the technical architect role.",
             "Responsibility 1, Responsibility 2, Responsibility 3",
             "examplelink.co.uk",
-            JobBands.MANAGER,
+            JobBand.MANAGER,
             date
     );
 
@@ -60,11 +59,11 @@ public class JobRoleServiceTest {
 
     @Test
     void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsListOfJobRoles() throws SQLException, DatabaseConnectionException, DoesNotExistException {
-        List<Locations> locationsList = new ArrayList<>();
-        locationsList.add(Locations.BIRMINGHAM);
+        List<Location> locationList = new ArrayList<>();
+        locationList.add(Location.BIRMINGHAM);
         jobRole.setCapability(Capability.ENGINEERING);
         jobRole.setStatus(true);
-        jobRole.setLocations(locationsList);
+        jobRole.setLocations(locationList);
         jobRole.setPositionsAvailable(1);
 
         List<JobRole> jobRoleList = new ArrayList<>();

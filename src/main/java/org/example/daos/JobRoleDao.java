@@ -1,8 +1,8 @@
 package org.example.daos;
 
 import org.example.enums.Capability;
-import org.example.enums.JobBands;
-import org.example.enums.Locations;
+import org.example.enums.JobBand;
+import org.example.enums.Location;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
@@ -17,7 +17,6 @@ public class JobRoleDao {
     public List<JobRole> getAllJobRoles() throws SQLException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
-//            assert connection != null;
             Statement statement = connection.createStatement();
             System.out.println("HERE");
 
@@ -61,7 +60,7 @@ public class JobRoleDao {
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("linkToJobSpec"),
-                        JobBands.fromString(resultSet.getString("band")),
+                        JobBand.fromString(resultSet.getString("band")),
                         resultSet.getTimestamp("closingDate")
                 );
                 jobRole.setCapability(Capability.fromString(
@@ -72,9 +71,9 @@ public class JobRoleDao {
 
                 String[] locationStrings = resultSet.
                         getString("locations").split(", ");
-                List<Locations> locations = new ArrayList<>();
+                List<Location> locations = new ArrayList<>();
                 for (String locationString : locationStrings) {
-                    locations.add(Locations.fromString(locationString));
+                    locations.add(Location.fromString(locationString));
                 }
                 jobRole.setLocations(locations);
 

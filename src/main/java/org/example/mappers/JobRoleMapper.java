@@ -1,6 +1,6 @@
 package org.example.mappers;
 
-import org.example.enums.Locations;
+import org.example.enums.Location;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
 
@@ -20,7 +20,7 @@ public final class JobRoleMapper {
                 .map(jobRole -> new JobRoleResponse(jobRole.getRoleId(),
                         jobRole.getRoleName(),
                         jobRole.getLocations().stream()
-                                .map(Locations::getLocation)
+                                .map(Location::getLocation)
                                 .collect(Collectors.toList()),
                         jobRole.getCapability().getCapability(),
                         jobRole.getBand().getJobBand(),

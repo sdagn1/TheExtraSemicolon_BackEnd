@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 public class JobRoleResponse {
-
-
     private String formattedLocations;
     private int roleId;
     private String roleName;

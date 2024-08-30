@@ -1,6 +1,6 @@
 package org.example.enums;
 
-public enum Locations {
+public enum Location {
     AMSTERDAM("Amsterdam"),
     ATLANTA("Atlanta"),
     BELFAST("Belfast"),
@@ -38,7 +38,7 @@ public enum Locations {
 
     private final String location;
 
-    Locations(final String location) {
+    Location(final String location) {
         this.location = location;
     }
 
@@ -46,8 +46,8 @@ public enum Locations {
         return location;
     }
 
-    public static Locations fromString(final String text) {
-        for (Locations b : Locations.values()) {
+    public static Location fromString(final String text) {
+        for (Location b : Location.values()) {
             if (b.location.equalsIgnoreCase(text)) {
                 return b;
             }

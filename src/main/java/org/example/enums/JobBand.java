@@ -1,6 +1,6 @@
 package org.example.enums;
 
-public enum JobBands {
+public enum JobBand {
     LEADERSHIP_COMMUNITY("Leadership Community", 0),
     PRINCIPAL("Principal", 1),
     MANAGER("Manager", 2),
@@ -13,7 +13,7 @@ public enum JobBands {
     private final String jobBand;
     private final int index;
 
-    JobBands(final String jobBand, final int index) {
+    JobBand(final String jobBand, final int index) {
         this.jobBand = jobBand;
         this.index = index;
     }
@@ -30,8 +30,8 @@ public enum JobBands {
         return index;
     }
 
-    public static JobBands fromString(final String text) {
-        for (JobBands b : JobBands.values()) {
+    public static JobBand fromString(final String text) {
+        for (JobBand b : JobBand.values()) {
             if (b.jobBand.equalsIgnoreCase(text)) {
                 return b;
             }

@@ -1,8 +1,8 @@
 package org.example.models;
 
 import org.example.enums.Capability;
-import org.example.enums.JobBands;
-import org.example.enums.Locations;
+import org.example.enums.JobBand;
+import org.example.enums.Location;
 
 import java.util.Date;
 import java.util.List;
@@ -12,23 +12,20 @@ public class JobRole {
     private String roleName;
     private String description;
     private String responsibilities;
-    public List<Locations> locations;
+    public List<Location> locations;
     private String linkToJobSpec;
     private Capability capability;
-    private JobBands band;
+    private JobBand band;
     private Date closingDate;
     private boolean status;
     private int positionsAvailable;
-
-    // Removed capability, status, positionsAvailable, locations
-    // from constructor due to 7 parameters limit.
     public JobRole(
             final int roleId,
             final String roleName,
             final String description,
             final String responsibilities,
             final String linkToJobSpec,
-            final JobBands band,
+            final JobBand band,
             final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
@@ -87,11 +84,11 @@ public class JobRole {
         this.capability = capability;
     }
 
-    public JobBands getBand() {
+    public JobBand getBand() {
         return band;
     }
 
-    public void setBand(final JobBands band) {
+    public void setBand(final JobBand band) {
         this.band = band;
     }
 
@@ -119,11 +116,11 @@ public class JobRole {
         this.positionsAvailable = positionsAvailable;
     }
 
-    public List<Locations> getLocations() {
+    public List<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(final List<Locations> locations) {
+    public void setLocations(final List<Location> locations) {
         this.locations = locations;
     }
 }
