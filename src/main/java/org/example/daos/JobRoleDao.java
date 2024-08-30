@@ -45,6 +45,8 @@ public class JobRoleDao {
                             + "JOIN \n"
                             + "    Job_Locations jl ON jlc.roleLocationId"
                             + "= jl.roleLocationId\n"
+                            + "WHERE \n"
+                            + "jr.status = 1 && jr.positionsAvailable > 0 \n"
                             + "GROUP BY \n"
                             + "    jr.roleId, jr.roleName, jr.description,"
                             + "jr.responsibilities, jr.linkToJobSpec,"
@@ -68,7 +70,8 @@ public class JobRoleDao {
                 jobRole.setPositionsAvailable(resultSet.getInt(
                         "positionsAvailable"));
 
-                String[] locationStrings = resultSet.getString("locations").split(", ");
+                String[] locationStrings = resultSet.
+                        getString("locations").split(", ");
                 List<Locations> locations = new ArrayList<>();
                 for (String locationString : locationStrings) {
                     locations.add(Locations.fromString(locationString));

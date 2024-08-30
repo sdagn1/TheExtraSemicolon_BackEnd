@@ -15,7 +15,8 @@ public enum Locations {
     HAMBURG("Hamburg"),
     HOMEWORKER_AUSTRALIA("Homeworker - Australia"),
     HOMEWORKER_CANADA_ALBERTA("Homeworker - Canada - Alberta"),
-    HOMEWORKER_CANADA_BRITISH_COLUMBIA("Homeworker - Canada - British Columbia"),
+    HOMEWORKER_CANADA_BRITISH_COLUMBIA(
+            "Homeworker - Canada - British Columbia"),
     HOMEWORKER_CANADA_NOVA_SCOTIA("Homeworker - Canada - Nova Scotia"),
     HOMEWORKER_CANADA_ONTARIO("Homeworker - Canada - Ontario"),
     HOMEWORKER_CANADA_QUEBEC("Homeworker - Canada - Quebec"),

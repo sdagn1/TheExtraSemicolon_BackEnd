@@ -12,8 +12,7 @@ public class JobRole {
     private String roleName;
     private String description;
     private String responsibilities;
-    public Locations locations;
-    public List<Locations> locations2;
+    public List<Locations> locations;
     private String linkToJobSpec;
     private Capability capability;
     private JobBands band;
@@ -120,18 +119,11 @@ public class JobRole {
         this.positionsAvailable = positionsAvailable;
     }
 
-    public Locations getLocations() {
+    public List<Locations> getLocations() {
         return locations;
-    }
-    public List<Locations> getLocations2() {
-        return locations2;
-    }
-
-    public void setLocations(final Locations locations) {
-        this.locations = locations;
     }
 
     public void setLocations(final List<Locations> locations) {
-        this.locations2 = locations;
+        this.locations = locations;
     }
 }

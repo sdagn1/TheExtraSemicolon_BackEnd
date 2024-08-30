@@ -1,33 +1,27 @@
 package org.example.models;
 
-import org.example.enums.Capability;
-import org.example.enums.JobBands;
-import org.example.enums.Locations;
-
 import java.util.Date;
 import java.util.List;
 
 public class JobRoleResponse {
 
 
-
     private int roleId;
     private String roleName;
-    private Locations locations;
-    private List<Locations> locations2;
-    private Capability capability;
-    private JobBands band;
+    private List<String> locations;
+    private String capability;
+    private String band;
     private Date closingDate;
 
     public JobRoleResponse(final int roleId,
                            final String roleName,
-                           final List<Locations> locations2,
-                           final Capability capability,
-                           final JobBands band,
+                           final List<String> locations,
+                           final String capability,
+                           final String band,
                            final Date closingDate) {
         this.roleId = roleId;
         this.roleName = roleName;
-        this.locations2 = locations2;
+        this.locations = locations;
         this.capability = capability;
         this.band = band;
         this.closingDate = closingDate;
@@ -37,12 +31,12 @@ public class JobRoleResponse {
         return roleId;
     }
 
-    public List<Locations> getLocations2() {
-        return locations2;
+    public List<String> getLocations() {
+        return locations;
     }
 
-    public void setLocations2(final List<Locations> locations2) {
-        this.locations2 = locations2;
+    public void setLocations(final List<String> locations) {
+        this.locations = locations;
     }
 
     public void setRoleId(final int roleId) {
@@ -57,27 +51,19 @@ public class JobRoleResponse {
         this.roleName = roleName;
     }
 
-    public Capability getCapability() {
+    public String getCapability() {
         return capability;
     }
 
-    public void setCapability(final Capability capability) {
+    public void setCapability(final String capability) {
         this.capability = capability;
     }
 
-    public Locations getLocations() {
-        return locations;
-    }
-
-    public void setLocations(final Locations locations) {
-        this.locations = locations;
-    }
-
-    public JobBands getBand() {
+    public String getBand() {
         return band;
     }
 
-    public void setBand(final JobBands band) {
+    public void setBand(final String band) {
         this.band = band;
     }
 
@@ -88,4 +74,5 @@ public class JobRoleResponse {
     public void setClosingDate(final Date closingDate) {
         this.closingDate = closingDate;
     }
+
 }
