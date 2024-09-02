@@ -18,8 +18,10 @@ public class LoginValidator {
 
     public void validateLogin(final LoginRequest loginRequest)
             throws InvalidException {
-        if (loginRequest.getEmail().length() > emailLength
-        || loginRequest.getEmail().isEmpty()) {
+        if (loginRequest.getEmail().isEmpty()) {
+            throw new InvalidException(Entity.USER, "No email entered");
+        }
+        if (loginRequest.getEmail().length() > emailLength) {
             throw new InvalidException(Entity.USER, "Email is invalid length");
         }
         Pattern pattern = Pattern.compile(emailCheck);
