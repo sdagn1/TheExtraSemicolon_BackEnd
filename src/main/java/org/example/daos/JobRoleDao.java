@@ -56,7 +56,7 @@ public class JobRoleDao {
                             + "jr.status, jr.positionsAvailable;"
             );
 
-            if (resultSet == null) {
+            if (!resultSet.isBeforeFirst()) {
                 throw new DoesNotExistException(Entity.JOBROLERESPONSE);
             }
 
