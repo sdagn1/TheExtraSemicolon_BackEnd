@@ -27,9 +27,4 @@ jobs:
           cache: maven
 
       - name: Run Integrations
-        env:
-          FLYWAY_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          FLYWAY_USER: ${{ secrets.DB_USERNAME }}
-          FLYWAY_URL: jdbc:mysql://${{ secrets.DB_HOST }}/${{ secrets.DB_NAME }}
-          FLYWAY_BASELINE_ON_MIGRATE: true
         run: mvn clean integration-test
