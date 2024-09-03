@@ -34,16 +34,15 @@ Create Table Job_Locations (
     'Homeworker - USA',
     'Indianapolis',
     'London',
-    'Toronto',
-    'Missing Location'
-) NOT NULL DEFAULT('Missing Location')
+    'Toronto'
+) NOT NULL
 );
 
 
 
 Create Table Job_Bands (
     jobBandsId INT PRIMARY KEY,
-    jobBandsEnum ENUM('Leadership Community','Principal','Manager','Consultant','Senior Associate','Associate','Trainee','Apprentice', 'Missing Job Band') NOT NULL DEFAULT('Missing Job Band')
+    jobBandsEnum ENUM('Leadership Community','Principal','Manager','Consultant','Senior Associate','Associate','Trainee','Apprentice') NOT NULL
 );
 
 CREATE TABLE Job_Roles (
@@ -52,7 +51,7 @@ CREATE TABLE Job_Roles (
     description varchar(2500) NOT NULL,
     responsibilities varchar(5000) NOT NULL,
     linkToJobSpec varchar(500) NOT NULL,
-    capability ENUM('Engineering', 'Platforms', 'Data and Artificial Intelligence', 'Cyber Security','Workday','Experience Design','Product', 'Delivery','Operations','Business Development and Marketing','Organisational Strategy and Planning','People','Commercial and Financial Management','Business Services Support', 'Missing Capability') NOT NULL DEFAULT('Missing Capability'),
+    capability ENUM('Engineering', 'Platforms', 'Data and Artificial Intelligence', 'Cyber Security','Workday','Experience Design','Product', 'Delivery','Operations','Business Development and Marketing','Organisational Strategy and Planning','People','Commercial and Financial Management','Business Services Support') NOT NULL,
     band int NOT NULL,
     closingDate TimeStamp NOT NULL DEFAULT(CURRENT_TIME),
     status BOOLEAN NOT NULL DEFAULT(1),
