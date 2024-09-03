@@ -16,12 +16,12 @@ import java.util.List;
 
 public class JobRoleDao {
 
-    public List<JobRole> getAllJobRoles()
+    public List<JobRole> getAllJobRoles(final int page, final int limit)
             throws SQLException, DoesNotExistException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
-            System.out.println("HERE");
+            int offset = (page - 1) * limit;
 
             ResultSet resultSet = statement.executeQuery(
                     "SELECT \n"
@@ -53,7 +53,8 @@ public class JobRoleDao {
                             + "    jr.roleId, jr.roleName, jr.description,"
                             + "jr.responsibilities, jr.linkToJobSpec,"
                             + "jr.capability, jb.jobBandsEnum, jr.closingDate,"
-                            + "jr.status, jr.positionsAvailable;"
+                            + "jr.status, jr.positionsAvailable"
+                            + "LIMIT " + limit + " OFFSET " + offset + ";"
             );
 
             if (!resultSet.isBeforeFirst()) {
@@ -92,5 +93,17 @@ public class JobRoleDao {
             }
             return jobRoles;
         }
+    }
+
+    public int getTotalJobRoles() throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(
+                     "SELECT COUNT(*) AS total FROM Job_Roles WHERE status = 1 AND positionsAvailable > 0")) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        }
+        return 0;
     }
 }
