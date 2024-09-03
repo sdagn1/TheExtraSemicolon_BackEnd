@@ -16,7 +16,6 @@ import java.util.List;
 
 public class JobRoleDao {
 
-    @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public List<JobRole> getAllJobRoles()
             throws SQLException, DoesNotExistException {
         List<JobRole> jobRoles = new ArrayList<>();
