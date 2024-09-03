@@ -13,6 +13,7 @@ import java.util.List;
 public class JobRoleService {
     JobRoleDao jobRoleDao;
     DatabaseConnector databaseConnector;
+    private JobRoleRepository jobRoleRepository;
     private String formatLocations(final List<String> locations) {
         return String.join(", ", locations);
     }
@@ -40,5 +41,10 @@ public class JobRoleService {
         });
 
         return jobRoleResponses;
+    }
+
+    public Page<JobRole> getPaginatedJobRoles(final int page, final int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("roleName").ascending());
+        return jobRoleRepository.findAll(pageable);
     }
 }
