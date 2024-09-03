@@ -45,7 +45,6 @@ public class JobRoleDao {
 
             int offset = (page - 1) * limit;
 
-
             ResultSet resultSet = statement.executeQuery(
                     "SELECT \n"
                             + "    jr.roleId,\n"
@@ -122,7 +121,7 @@ public class JobRoleDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
-                     "SELECT COUNT(*) AS total FROM Job_Roles"
+                     "SELECT COUNT(*) AS total FROM Job_Roles "
                              + "WHERE status = 1 AND positionsAvailable > 0")) {
             if (resultSet.next()) {
                 return resultSet.getInt("total");

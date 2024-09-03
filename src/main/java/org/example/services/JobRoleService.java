@@ -40,7 +40,6 @@ public class JobRoleService {
                     response.getLocations());
             response.setFormattedLocations(formattedLocations);
         });
-
         return jobRoleResponses;
     }
 
