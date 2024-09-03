@@ -35,7 +35,6 @@ public enum Location {
     INDIANAPOLIS("Indianapolis"),
     LONDON("London"),
     TORONTO("Toronto");
-
     private final String location;
 
     Location(final String location) {

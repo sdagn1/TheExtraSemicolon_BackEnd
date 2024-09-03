@@ -9,7 +9,6 @@ public enum JobBand {
     ASSOCIATE("Associate", 5),
     TRAINEE("Trainee", 6),
     APPRENTICE("Apprentice", 7);
-
     private final String jobBand;
     private final int index;
 
