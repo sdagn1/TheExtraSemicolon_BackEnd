@@ -4,6 +4,7 @@ import org.example.controllers.AuthController;
 import org.example.controllers.JobRoleController;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.InvalidException;
+import org.example.models.JobRoleInfo;
 import org.example.models.JobRoleResponse;
 import org.example.services.AuthService;
 import org.example.services.JobRoleService;
@@ -75,5 +76,47 @@ public class JobRolesControllerTest {
 
         assertEquals(404, response.getStatus());
 
+    }
+
+    @Test
+    void getJobRoleById_shouldReturnSuccessfulResponseWhenJobRoleReturned()
+    throws SQLException, DoesNotExistException {
+        Date date = new Date();
+        JobRoleInfo jobRoleInfo = new JobRoleInfo(
+                1,
+                "Technology Leader",
+                "Test description for technology leader",
+                "Responsibility 1, 2, 3, 4, 5",
+                "Atlanta, Amsterdam, Belfast",
+                "linkToJobSpecHere",
+                "Engineering"
+        );
+        jobRoleInfo.setBand("associate");
+        jobRoleInfo.setClosingDate(date);
+        jobRoleInfo.setStatus(true);
+        jobRoleInfo.setPositionsAvailable(2);
+
+        Mockito.when(jobRoleService.getJobRoleById(2)).thenReturn(jobRoleInfo);
+        Response response = jobRoleController.getJobRoleById(2);
+
+        assertEquals(200, response.getStatus());
+    }
+
+    @Test
+    void getJobRoleById_shouldReturnServerError_whenServiceFailsToGetJobRoleById() throws
+            SQLException, DoesNotExistException {
+        Mockito.when(jobRoleService.getJobRoleById(2)).thenThrow(SQLException.class);
+        Response response = jobRoleController.getJobRoleById(2);
+
+        assertEquals(500, response.getStatus());
+    }
+
+    @Test
+    void getJobRoleById_shouldReturnBadRequest_whenRequestInvalid() throws
+            SQLException, DoesNotExistException  {
+        Mockito.when(jobRoleService.getJobRoleById(2)).thenThrow(DoesNotExistException.class);
+        Response response = jobRoleController.getJobRoleById(2);
+
+        assertEquals(404, response.getStatus());
     }
 }
