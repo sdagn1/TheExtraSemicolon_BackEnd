@@ -1,6 +1,7 @@
 package org.example.exceptions;
 
 public enum Entity {
+    JOBROLERESPONSE("JobRoleResponse"),
     USER("User");
 
     private final String entity;
@@ -10,6 +11,6 @@ public enum Entity {
     }
 
     public String getEntity() {
-        return entity;
+        return this.entity;
     }
 }
