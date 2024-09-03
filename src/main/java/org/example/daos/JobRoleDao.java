@@ -65,8 +65,7 @@ public class JobRoleDao {
                     resultSet.next();
                 }
                 JobRole jobRole = new JobRole(
-                        resultSet.getInt("roleId"),
-                        resultSet.getString("roleName"),
+                        resultSet.getInt("roleId"), resultSet.getString("roleName"),
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
                         resultSet.getString("linkToJobSpec"),
