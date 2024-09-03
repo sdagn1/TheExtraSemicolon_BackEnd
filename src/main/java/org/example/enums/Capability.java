@@ -15,7 +15,8 @@ public enum Capability {
             "Organisational Strategy and Planning"),
     PEOPLE("People"),
     COMMERCIAL_AND_FINANCIAL_MANAGEMENT("Commercial and Financial Management"),
-    BUSINESS_SERVICES_SUPPORT("Business Services Support");
+    BUSINESS_SERVICES_SUPPORT("Business Services Support"),
+    MISSING("Missing Capability");
 
     private final String capability;
 

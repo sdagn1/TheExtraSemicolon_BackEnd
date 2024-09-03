@@ -8,7 +8,8 @@ public enum JobBand {
     SENIOR_ASSOCIATE("Senior Associate", 4),
     ASSOCIATE("Associate", 5),
     TRAINEE("Trainee", 6),
-    APPRENTICE("Apprentice", 7);
+    APPRENTICE("Apprentice", 7),
+    MISSING("Missing Job Band", 8);
 
     private final String jobBand;
     private final int index;
