@@ -61,6 +61,9 @@ public class JobRoleDao {
             }
 
             while (resultSet.next()) {
+                if (resultSet.wasNull()) {
+                    resultSet.next();
+                }
                 JobRole jobRole = new JobRole(
                         resultSet.getInt("roleId"),
                         resultSet.getString("roleName"),
