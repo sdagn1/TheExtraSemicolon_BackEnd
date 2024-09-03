@@ -34,9 +34,7 @@ public enum Location {
     HOMEWORKER_USA("Homeworker - USA"),
     INDIANAPOLIS("Indianapolis"),
     LONDON("London"),
-    TORONTO("Toronto"),
-    MISSING("Missing Location");
-
+    TORONTO("Toronto");
     private final String location;
 
     Location(final String location) {
