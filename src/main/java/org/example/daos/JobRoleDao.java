@@ -53,7 +53,7 @@ public class JobRoleDao {
                             + "    jr.roleId, jr.roleName, jr.description,"
                             + "jr.responsibilities, jr.linkToJobSpec,"
                             + "jr.capability, jb.jobBandsEnum, jr.closingDate,"
-                            + "jr.status, jr.positionsAvailable"
+                            + "jr.status, jr.positionsAvailable \n"
                             + "LIMIT " + limit + " OFFSET " + offset + ";"
             );
 
