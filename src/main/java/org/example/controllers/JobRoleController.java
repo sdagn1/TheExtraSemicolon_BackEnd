@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import io.swagger.annotations.Api;
 import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.InvalidPageLimitException;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
 
@@ -68,6 +69,9 @@ public class JobRoleController {
                     entity(e.getMessage()).build();
         } catch (SQLException e) {
             return Response.serverError().build();
+        } catch (InvalidPageLimitException e) {
+            return Response.status(Response.Status.BAD_REQUEST).
+                    entity(e.getMessage()).build();
         }
     }
 }

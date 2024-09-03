@@ -4,6 +4,7 @@ import org.example.daos.JobRoleDao;
 import org.example.daos.DatabaseConnector;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
+import org.example.exceptions.InvalidPageLimitException;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRoleResponse;
 
@@ -22,7 +23,8 @@ public class JobRoleService {
     }
 
     public List<JobRoleResponse> getAllJobRoles(final int page, final int limit)
-            throws SQLException, DoesNotExistException {
+            throws SQLException, DoesNotExistException,
+            InvalidPageLimitException {
 
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.

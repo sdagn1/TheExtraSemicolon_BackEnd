@@ -5,6 +5,7 @@ import org.example.enums.JobBand;
 import org.example.enums.Location;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
+import org.example.exceptions.InvalidPageLimitException;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
@@ -17,11 +18,33 @@ import java.util.List;
 public class JobRoleDao {
 
     public List<JobRole> getAllJobRoles(final int page, final int limit)
-            throws SQLException, DoesNotExistException {
+            throws SQLException, DoesNotExistException,
+            InvalidPageLimitException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             Statement statement = connection.createStatement();
+            final int limit1 = 10;
+            final int limit2 = 25;
+            final int limit3 = 50;
+            final int limit4 = 100;
+            int[] allowedLimits = {limit1, limit2, limit3, limit4};
+
+
+            boolean isValidLimit = false;
+            for (int allowedLimit : allowedLimits) {
+                if (limit == allowedLimit) {
+                    isValidLimit = true;
+                    break;
+                }
+            }
+
+            if (!isValidLimit) {
+                throw new InvalidPageLimitException(
+                        Entity.JOBROLERESPONSE, "Invalid page limit number");
+            }
+
             int offset = (page - 1) * limit;
+
 
             ResultSet resultSet = statement.executeQuery(
                     "SELECT \n"
@@ -99,7 +122,8 @@ public class JobRoleDao {
         try (Connection connection = DatabaseConnector.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(
-                     "SELECT COUNT(*) AS total FROM Job_Roles WHERE status = 1 AND positionsAvailable > 0")) {
+                     "SELECT COUNT(*) AS total FROM Job_Roles"
+                             + "WHERE status = 1 AND positionsAvailable > 0")) {
             if (resultSet.next()) {
                 return resultSet.getInt("total");
             }
