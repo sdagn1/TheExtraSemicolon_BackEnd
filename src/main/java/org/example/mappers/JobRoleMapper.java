@@ -2,7 +2,7 @@ package org.example.mappers;
 
 import org.example.enums.Location;
 import org.example.models.JobRole;
-import org.example.models.JobRoleInfo;
+import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
 import java.util.List;
@@ -28,11 +28,11 @@ public final class JobRoleMapper {
                         jobRole.getClosingDate()))
                 .collect(Collectors.toList());
     }
-    public static JobRoleInfo mapJobRoleToJobRoleInfo(final JobRole jobRole) {
+    public static JobRoleInfoResponse mapJobRoleToJobRoleInfo(final JobRole jobRole) {
         if (jobRole == null) {
             return null;
         }
-        JobRoleInfo jobRoleInfo = new JobRoleInfo(
+        JobRoleInfoResponse jobRoleInfoResponse = new JobRoleInfoResponse(
                 jobRole.getRoleId(),
                 jobRole.getRoleName(),
                 jobRole.getDescription(),
@@ -43,10 +43,10 @@ public final class JobRoleMapper {
                 jobRole.getLinkToJobSpec(),
                 jobRole.getCapability().getCapability()
         );
-        jobRoleInfo.setBand(jobRole.getBand().getJobBand());
-        jobRoleInfo.setClosingDate(jobRole.getClosingDate());
-        jobRoleInfo.setStatus(jobRole.isStatus());
-        jobRoleInfo.setPositionsAvailable(jobRole.getPositionsAvailable());
-        return jobRoleInfo;
+        jobRoleInfoResponse.setBand(jobRole.getBand().getJobBand());
+        jobRoleInfoResponse.setClosingDate(jobRole.getClosingDate());
+        jobRoleInfoResponse.setStatus(jobRole.isStatus());
+        jobRoleInfoResponse.setPositionsAvailable(jobRole.getPositionsAvailable());
+        return jobRoleInfoResponse;
     }
 }

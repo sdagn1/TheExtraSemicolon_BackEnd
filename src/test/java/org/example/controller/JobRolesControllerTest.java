@@ -1,19 +1,14 @@
 package org.example.controller;
 
-import org.example.controllers.AuthController;
 import org.example.controllers.JobRoleController;
 import org.example.exceptions.DoesNotExistException;
-import org.example.exceptions.InvalidException;
-import org.example.models.JobRoleInfo;
+import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
-import org.example.services.AuthService;
 import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,7 +77,7 @@ public class JobRolesControllerTest {
     void getJobRoleById_shouldReturnSuccessfulResponseWhenJobRoleReturned()
     throws SQLException, DoesNotExistException {
         Date date = new Date();
-        JobRoleInfo jobRoleInfo = new JobRoleInfo(
+        JobRoleInfoResponse jobRoleInfoResponse = new JobRoleInfoResponse(
                 1,
                 "Technology Leader",
                 "Test description for technology leader",
@@ -91,12 +86,13 @@ public class JobRolesControllerTest {
                 "linkToJobSpecHere",
                 "Engineering"
         );
-        jobRoleInfo.setBand("associate");
-        jobRoleInfo.setClosingDate(date);
-        jobRoleInfo.setStatus(true);
-        jobRoleInfo.setPositionsAvailable(2);
+        jobRoleInfoResponse.setBand("associate");
+        jobRoleInfoResponse.setClosingDate(date);
+        jobRoleInfoResponse.setStatus(true);
+        jobRoleInfoResponse.setPositionsAvailable(2);
 
-        Mockito.when(jobRoleService.getJobRoleById(2)).thenReturn(jobRoleInfo);
+        Mockito.when(jobRoleService.getJobRoleById(2)).thenReturn(
+                jobRoleInfoResponse);
         Response response = jobRoleController.getJobRoleById(2);
 
         assertEquals(200, response.getStatus());

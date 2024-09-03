@@ -5,7 +5,7 @@ import org.example.daos.DatabaseConnector;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.mappers.JobRoleMapper;
-import org.example.models.JobRoleInfo;
+import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
 import java.sql.SQLException;
@@ -21,15 +21,15 @@ public class JobRoleService {
         this.jobRoleDao = jobRoleDao;
     }
 
-    public JobRoleInfo getJobRoleById(final int id)
+    public JobRoleInfoResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
-        JobRoleInfo jobRoleInfo = JobRoleMapper.mapJobRoleToJobRoleInfo(
+        JobRoleInfoResponse jobRoleInfoResponse = JobRoleMapper.mapJobRoleToJobRoleInfo(
                 jobRoleDao.getJobRoleById(id)
         );
-        if (jobRoleInfo == null) {
+        if (jobRoleInfoResponse == null) {
             throw new DoesNotExistException(Entity.JOBROLE);
         }
-        return jobRoleInfo;
+        return jobRoleInfoResponse;
     }
 
     public List<JobRoleResponse> getAllJobRoles()

@@ -2,7 +2,7 @@ package org.example.models;
 
 import java.util.Date;
 
-public class JobRoleInfo {
+public class JobRoleInfoResponse {
     private int roleId;
     private String roleName;
     private String description;
@@ -15,7 +15,7 @@ public class JobRoleInfo {
     private boolean status;
     private int positionsAvailable;
 
-    public JobRoleInfo(
+    public JobRoleInfoResponse(
             final int roleId, final String roleName, final String description,
             final String responsibilities, final String locations,
             final String linkToJobSpec, final String capability) {
