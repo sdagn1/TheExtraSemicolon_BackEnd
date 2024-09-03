@@ -28,7 +28,8 @@ public final class JobRoleMapper {
                         jobRole.getClosingDate()))
                 .collect(Collectors.toList());
     }
-    public static JobRoleInfoResponse mapJobRoleToJobRoleInfo(final JobRole jobRole) {
+    public static JobRoleInfoResponse mapJobRoleToJobRoleInfo(
+            final JobRole jobRole) {
         if (jobRole == null) {
             return null;
         }
@@ -46,7 +47,8 @@ public final class JobRoleMapper {
         jobRoleInfoResponse.setBand(jobRole.getBand().getJobBand());
         jobRoleInfoResponse.setClosingDate(jobRole.getClosingDate());
         jobRoleInfoResponse.setStatus(jobRole.isStatus());
-        jobRoleInfoResponse.setPositionsAvailable(jobRole.getPositionsAvailable());
+        jobRoleInfoResponse.setPositionsAvailable(
+                jobRole.getPositionsAvailable());
         return jobRoleInfoResponse;
     }
 }

@@ -23,7 +23,8 @@ public class JobRoleService {
 
     public JobRoleInfoResponse getJobRoleById(final int id)
             throws SQLException, DoesNotExistException {
-        JobRoleInfoResponse jobRoleInfoResponse = JobRoleMapper.mapJobRoleToJobRoleInfo(
+        JobRoleInfoResponse jobRoleInfoResponse = JobRoleMapper
+                .mapJobRoleToJobRoleInfo(
                 jobRoleDao.getJobRoleById(id)
         );
         if (jobRoleInfoResponse == null) {
