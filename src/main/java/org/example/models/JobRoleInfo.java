@@ -1,40 +1,31 @@
 package org.example.models;
 
-import org.example.enums.Capability;
-import org.example.enums.JobBand;
-import org.example.enums.Location;
-
 import java.util.Date;
-import java.util.List;
 
-public class JobRole {
+public class JobRoleInfo {
     private int roleId;
     private String roleName;
     private String description;
     private String responsibilities;
-    public List<Location> locations;
-    private String formattedLocations;
+    private String locations;
     private String linkToJobSpec;
-    private Capability capability;
-    private JobBand band;
+    private String capability;
+    private String band;
     private Date closingDate;
     private boolean status;
     private int positionsAvailable;
-    public JobRole(
-            final int roleId,
-            final String roleName,
-            final String description,
-            final String responsibilities,
-            final String linkToJobSpec,
-            final JobBand band,
-            final Date closingDate) {
+
+    public JobRoleInfo(
+            final int roleId, final String roleName, final String description,
+            final String responsibilities, final String locations,
+            final String linkToJobSpec, final String capability) {
         this.roleId = roleId;
         this.roleName = roleName;
         this.description = description;
         this.responsibilities = responsibilities;
+        this.locations = locations;
         this.linkToJobSpec = linkToJobSpec;
-        this.band = band;
-        this.closingDate = closingDate;
+        this.capability = capability;
     }
 
     public int getRoleId() {
@@ -69,6 +60,14 @@ public class JobRole {
         this.responsibilities = responsibilities;
     }
 
+    public String getLocations() {
+        return locations;
+    }
+
+    public void setLocations(final String locations) {
+        this.locations = locations;
+    }
+
     public String getLinkToJobSpec() {
         return linkToJobSpec;
     }
@@ -77,19 +76,19 @@ public class JobRole {
         this.linkToJobSpec = linkToJobSpec;
     }
 
-    public Capability getCapability() {
+    public String getCapability() {
         return capability;
     }
 
-    public void setCapability(final Capability capability) {
+    public void setCapability(final String capability) {
         this.capability = capability;
     }
 
-    public JobBand getBand() {
+    public String getBand() {
         return band;
     }
 
-    public void setBand(final JobBand band) {
+    public void setBand(final String band) {
         this.band = band;
     }
 
@@ -115,22 +114,5 @@ public class JobRole {
 
     public void setPositionsAvailable(final int positionsAvailable) {
         this.positionsAvailable = positionsAvailable;
-    }
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-
-    public void setLocations(final List<Location> locations) {
-        this.locations = locations;
-    }
-
-    public String getFormattedLocations() {
-        return formattedLocations;
-    }
-
-    public void setFormattedLocations(final String formattedLocations) {
-        this.formattedLocations = formattedLocations;
     }
 }
