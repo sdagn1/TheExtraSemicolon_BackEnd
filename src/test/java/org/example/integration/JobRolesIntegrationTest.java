@@ -11,14 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
-public class JobRolesTest {
+public class JobRolesIntegrationTest {
     static final DropwizardAppExtension<TestConfiguration> APP = new DropwizardAppExtension<>(
             TestApplication.class, null,
             new ResourceConfigurationSourceProvider()
@@ -26,22 +25,6 @@ public class JobRolesTest {
 
     @Test
     void getAllJobRoles_shouldReturnAllJobRoles() {
-
-        List<String> locations = new ArrayList<>();
-        locations.add("Atlanta");
-        locations.add("Amsterdam");
-        locations.add("Belfast");
-
-        Date date = new Date();
-
-        JobRoleResponse jobRoleResponse = new JobRoleResponse(
-                1,
-                "Technology Leader",
-                locations,
-                "Engineering",
-                "Associate",
-                date
-        );
 
         Client client = APP.client();
 
