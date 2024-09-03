@@ -23,6 +23,58 @@ public class AuthorizationIntegrationTest {
     );
 
     @Test
+    void getAllJobRoles_shouldReturn200_whenAuthorizedAsAdmin() {
+
+        Client client = APP.client();
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target("http://localhost:8080/api/auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .header(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void getAllJobRoles_shouldReturn200_whenAuthorizedAsUser() {
+
+        Client client = APP.client();
+
+        LoginRequest loginRequest = new LoginRequest(
+                "user@kainos.com",
+                "2FPs3siu6dkFvxlFgm9P8gUgBnnYEpjh8bs/RkiphJIs4T6yKz5vUyZPIbyeWFbsZaoU+Z9GXo+7RRMLfTZ8oPOdj9Z4Tjqcybmz+wNAg9sHukN0yIs/VROn8DR/LWcf"
+
+        );
+        String token = "Bearer " + client
+                .target("http://localhost:8080/api/auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .header(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
     void getAllJobRoles_shouldReturn401Error_whenUnauthorized() {
 
         Client client = APP.client();
