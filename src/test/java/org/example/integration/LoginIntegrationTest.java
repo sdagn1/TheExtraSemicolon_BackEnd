@@ -32,9 +32,8 @@ public class LoginIntegrationTest {
         );
 
         Client client = APP.client();
-
         Response response = client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest));
 
@@ -62,7 +61,7 @@ public class LoginIntegrationTest {
         Client client = APP.client();
 
         Response response = client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest));
 
@@ -80,7 +79,7 @@ public class LoginIntegrationTest {
         Client client = APP.client();
 
         Response response = client
-                .target("http://localhost:8080/api//auth/login")
+                .target(System.getenv("API_URL")+"/auth/login")
                 .request()
                 .post(Entity.json(loginRequest));
 
