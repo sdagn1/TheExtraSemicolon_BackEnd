@@ -48,7 +48,8 @@ public class JobRoleServiceTest {
 
     @Test
     void getJobRoles_shouldThrowSqlException_whenDaoThrowsSqlException()
-            throws SQLException, DatabaseConnectionException {
+            throws SQLException, DatabaseConnectionException,
+            DoesNotExistException {
         Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(SQLException.class);
 
         assertThrows(SQLException.class,
@@ -117,5 +118,13 @@ public class JobRoleServiceTest {
 
         assertEquals(test1.get(0).getRoleName(),
                 test2.get(0).getRoleName());
+    }
+    @Test
+    void getJobRoles_shouldThrowDoesNotExistException_whenDaoThrowsDoesNotExistException()
+            throws SQLException, DoesNotExistException {
+        Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(DoesNotExistException.class);
+
+        assertThrows(DoesNotExistException.class,
+                () -> jobRoleService.getAllJobRoles());
     }
 }

@@ -3,6 +3,8 @@ package org.example.daos;
 import org.example.enums.Capability;
 import org.example.enums.JobBand;
 import org.example.enums.Location;
+import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.Entity;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
@@ -15,7 +17,8 @@ import java.util.List;
 
 public class JobRoleDao {
 
-    public List<JobRole> getAllJobRoles() throws SQLException {
+    public List<JobRole> getAllJobRoles()
+            throws SQLException, DoesNotExistException {
         List<JobRole> jobRoles = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
             assert connection != null;
@@ -54,6 +57,10 @@ public class JobRoleDao {
                             + "jr.capability, jb.jobBandsEnum, jr.closingDate,"
                             + "jr.status, jr.positionsAvailable;"
             );
+
+            if (!resultSet.isBeforeFirst()) {
+                throw new DoesNotExistException(Entity.JOBROLERESPONSE);
+            }
 
             while (resultSet.next()) {
                 JobRole jobRole = new JobRole(
