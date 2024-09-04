@@ -52,10 +52,10 @@ public class JobRoleServiceTest {
     @Test
     void getJobRoles_shouldThrowSqlException_whenDaoThrowsSqlException()
             throws SQLException, DatabaseConnectionException, DoesNotExistException, InvalidPageLimitException {
-        Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(SQLException.class);
+        Mockito.when(jobRoleDao.getAllJobRoles(1,10)).thenThrow(SQLException.class);
 
         assertThrows(SQLException.class,
-                () -> jobRoleService.getAllJobRoles());
+                () -> jobRoleService.getAllJobRoles(1,10));
     }
 
     @Test

@@ -71,8 +71,8 @@ public class JobRolesControllerTest {
     @Test
     void getJobRoles_shouldReturnBadRequest_whenRequestInvalid() throws
             SQLException, DoesNotExistException, InvalidPageLimitException {
-        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(DoesNotExistException.class);
-        Response response = jobRoleController.getJobRoles();
+        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenThrow(DoesNotExistException.class);
+        Response response = jobRoleController.getJobRoles(1,10);
 
         assertEquals(404, response.getStatus());
 

@@ -27,11 +27,16 @@ public class JobRoleService {
             throws SQLException, DoesNotExistException,
             InvalidPageLimitException {
 
+        int totalJobRoles = getTotalJobRoles();
+        if (page > (int) Math.ceil((double) totalJobRoles / limit)) {
+                throw new InvalidPageLimitException(
+                        Entity.JOBROLERESPONSE, "Invalid page selected");
+        }
+
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.
                         mapJobRoleListToResponseList(
                                 jobRoleDao.getAllJobRoles(page, limit));
-
         if (jobRoleResponses.isEmpty()) {
             throw new DoesNotExistException(Entity.JOBROLERESPONSE);
         }

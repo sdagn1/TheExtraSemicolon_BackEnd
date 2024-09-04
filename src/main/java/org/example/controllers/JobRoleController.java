@@ -38,7 +38,6 @@ public class JobRoleController {
             int total = jobRoleService.getTotalJobRoles();
             int pages = (int) Math.ceil((double) total / limit);
 
-
             Map<String, Object> response = new HashMap<>();
             response.put("jobRoles", jobRoles);
             response.put("pagination", Map.of(
@@ -47,7 +46,6 @@ public class JobRoleController {
                     "page", page,
                     "pages", pages
             ));
-
             return Response.ok().entity(response).build();
         } catch (DoesNotExistException e) {
             return Response.status(Response.Status.NOT_FOUND).
