@@ -30,6 +30,7 @@ public class TestApplication extends Application<TestConfiguration> {
     @Override
     public void initialize(final Bootstrap<TestConfiguration> bootstrap) {
         bootstrap.addBundle(new SwaggerBundle<>() {
+
             @Override
             protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(
                     final TestConfiguration configuration) {
