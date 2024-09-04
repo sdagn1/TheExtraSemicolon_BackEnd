@@ -37,4 +37,18 @@ public class JobRolesIntegrationTest {
 
     }
 
+    @Test
+    void getJobRoleById_shouldReturnAJobRole() {
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles/2")
+                .request()
+                .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
 }
