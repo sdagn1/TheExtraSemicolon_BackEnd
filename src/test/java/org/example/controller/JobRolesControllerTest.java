@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.controllers.JobRoleController;
 import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.InvalidException;
 import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
@@ -25,8 +26,9 @@ public class JobRolesControllerTest {
 
 
     @Test
-    void GetJobRoles_shouldReturnSuccessfulResponse_whenOpenJobRolesReturned() throws
-        SQLException, DoesNotExistException {
+    void GetJobRoles_shouldReturnSuccessfulResponse_whenOpenJobRolesReturned()
+            throws
+            SQLException, DoesNotExistException, InvalidException {
 
         List<String> locations = new ArrayList<>();
         locations.add("Atlanta");
@@ -47,18 +49,27 @@ public class JobRolesControllerTest {
         List<JobRoleResponse> jobRoleResponses = new ArrayList<>();
         jobRoleResponses.add(jobRoleResponse);
 
-        Mockito.when(jobRoleService.getAllJobRoles()).thenReturn(jobRoleResponses);
-        Response response = jobRoleController.getJobRoles();
+        String orderColumn = null;
+        String orderStatement = null;
+        Mockito.when(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
+                .thenReturn(jobRoleResponses);
+        Response response = jobRoleController.getJobRoles(orderColumn,
+                orderStatement);
 
         assertEquals(200, response.getStatus());
     }
 
 
     @Test
-    void getJobRoles_shouldReturnServerError_whenServiceFailsToGetJobRoles() throws
-            SQLException, DoesNotExistException {
-        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(SQLException.class);
-        Response response = jobRoleController.getJobRoles();
+    void getJobRoles_shouldReturnServerError_whenServiceFailsToGetJobRoles()
+            throws
+            SQLException, DoesNotExistException, InvalidException {
+        String orderColumn = null;
+        String orderStatement = null;
+        Mockito.when(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
+                .thenThrow(SQLException.class);
+        Response response = jobRoleController.getJobRoles(orderColumn,
+                orderStatement);
 
         assertEquals(500, response.getStatus());
     }

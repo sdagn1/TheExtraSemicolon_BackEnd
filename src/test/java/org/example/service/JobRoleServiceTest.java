@@ -7,6 +7,7 @@ import org.example.enums.JobBand;
 import org.example.enums.Location;
 import org.example.exceptions.DatabaseConnectionException;
 import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.InvalidException;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRole;
 import org.example.models.JobRoleResponse;
@@ -50,10 +51,14 @@ public class JobRoleServiceTest {
     void getJobRoles_shouldThrowSqlException_whenDaoThrowsSqlException()
             throws SQLException, DatabaseConnectionException,
             DoesNotExistException {
-        Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(SQLException.class);
+        String orderColumn = null;
+        String orderStatement = null;
+        Mockito.when(jobRoleDao.getAllJobRoles(orderColumn, orderStatement))
+                .thenThrow(SQLException.class);
 
         assertThrows(SQLException.class,
-                () -> jobRoleService.getAllJobRoles());
+                () -> jobRoleService.getAllJobRoles(orderColumn,
+                        orderStatement));
     }
 
     @Test
@@ -101,7 +106,8 @@ public class JobRoleServiceTest {
 
     @Test
     void getJobRoles_shouldReturnListOfJobRoles_whenDaoReturnsListOfJobRoles()
-            throws SQLException, DatabaseConnectionException, DoesNotExistException {
+            throws SQLException, DatabaseConnectionException,
+            DoesNotExistException, InvalidException {
         List<Location> locationList = new ArrayList<>();
         locationList.add(Location.BIRMINGHAM);
         jobRole.setCapability(Capability.ENGINEERING);
@@ -111,10 +117,14 @@ public class JobRoleServiceTest {
 
         List<JobRole> jobRoleList = new ArrayList<>();
         jobRoleList.add(jobRole);
-        Mockito.when(jobRoleDao.getAllJobRoles()).thenReturn(jobRoleList);
+        String orderColumn = null;
+        String orderStatement = null;
+        Mockito.when(jobRoleDao.getAllJobRoles(orderColumn,
+                orderStatement)).thenReturn(jobRoleList);
 
         List<JobRoleResponse> test1 = JobRoleMapper.mapJobRoleListToResponseList(jobRoleList);
-        List<JobRoleResponse> test2 = jobRoleService.getAllJobRoles();
+        List<JobRoleResponse> test2 = jobRoleService.getAllJobRoles(
+                orderColumn, orderStatement);
 
         assertEquals(test1.get(0).getRoleName(),
                 test2.get(0).getRoleName());
@@ -122,9 +132,13 @@ public class JobRoleServiceTest {
     @Test
     void getJobRoles_shouldThrowDoesNotExistException_whenDaoThrowsDoesNotExistException()
             throws SQLException, DoesNotExistException {
-        Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(DoesNotExistException.class);
+        String orderColumn = null;
+        String orderStatement = null;
+        Mockito.when(jobRoleDao.getAllJobRoles(orderColumn, orderStatement))
+                .thenThrow(DoesNotExistException.class);
 
         assertThrows(DoesNotExistException.class,
-                () -> jobRoleService.getAllJobRoles());
+                () -> jobRoleService.getAllJobRoles(orderColumn,
+                        orderStatement));
     }
 }

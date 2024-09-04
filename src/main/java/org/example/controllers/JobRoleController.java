@@ -43,8 +43,6 @@ public class JobRoleController {
     public Response getJobRoles(final @QueryParam("orderColumn") String orderColumn,
                                 final @QueryParam("orderStatement") String orderStatement) {
         try {
-            System.out.println(orderColumn);
-            System.out.println(orderStatement);
             return Response.ok()
                     .entity(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
                     .build();

@@ -41,15 +41,10 @@ public class JobRoleService {
     public List<JobRoleResponse> getAllJobRoles(final String orderColumn,
                                                 final String orderStatement)
             throws SQLException, DoesNotExistException, InvalidException {
-        System.out.println(orderColumn);
-        System.out.println(orderStatement);
         String validatedOrderColumn = jobRoleValidator
                 .validateOrderColumn(orderColumn);
         String validatedOrderStatement = jobRoleValidator
                 .validateOrderStatement(orderStatement);
-        System.out.println("ok");
-        System.out.println(validatedOrderColumn);
-        System.out.println(validatedOrderStatement);
         List<JobRoleResponse> jobRoleResponses =
                 JobRoleMapper.mapJobRoleListToResponseList(
                         jobRoleDao.getAllJobRoles(validatedOrderColumn,
