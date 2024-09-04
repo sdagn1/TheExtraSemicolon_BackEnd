@@ -43,6 +43,7 @@ public class JobRoleController {
 //        }
 //    }
 
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJobRoles(final @QueryParam("page") int page,
@@ -53,6 +54,7 @@ public class JobRoleController {
                                     getAllJobRoles(page, limit);
             int total = jobRoleService.getTotalJobRoles();
             int pages = (int) Math.ceil((double) total / limit);
+
 
             Map<String, Object> response = new HashMap<>();
             response.put("jobRoles", jobRoles);

@@ -37,4 +37,68 @@ public class JobRolesIntegrationTest {
 
     }
 
+    @Test
+    void get10JobRoles_shouldReturn10JobRoles() {
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles?page=1&limit=10")
+                .request()
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get25JobRoles_shouldReturn25JobRoles() {
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles?page=1&limit=25")
+                .request()
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get50JobRoles_shouldReturn50JobRoles() {
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles?page=1&limit=50")
+                .request()
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get100JobRoles_shouldReturn100JobRoles() {
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles?page=1&limit=100")
+                .request()
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
 }

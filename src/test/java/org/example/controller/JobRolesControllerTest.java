@@ -52,8 +52,8 @@ public class JobRolesControllerTest {
         List<JobRoleResponse> jobRoleResponses = new ArrayList<>();
         jobRoleResponses.add(jobRoleResponse);
 
-        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenReturn(jobRoleResponses);
-        Response response = jobRoleController.getJobRoles(1,10);
+        Mockito.when(jobRoleService.getAllJobRoles()).thenReturn(jobRoleResponses);
+        Response response = jobRoleController.getJobRoles();
 
         assertEquals(200, response.getStatus());
     }
@@ -62,8 +62,8 @@ public class JobRolesControllerTest {
     @Test
     void getJobRoles_shouldReturnServerError_whenServiceFailsToGetJobRoles() throws
             SQLException, DoesNotExistException, InvalidPageLimitException {
-        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenThrow(SQLException.class);
-        Response response = jobRoleController.getJobRoles(1,10);
+        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(SQLException.class);
+        Response response = jobRoleController.getJobRoles();
 
         assertEquals(500, response.getStatus());
     }
@@ -71,8 +71,8 @@ public class JobRolesControllerTest {
     @Test
     void getJobRoles_shouldReturnBadRequest_whenRequestInvalid() throws
             SQLException, DoesNotExistException, InvalidPageLimitException {
-        Mockito.when(jobRoleService.getAllJobRoles(1,10)).thenThrow(DoesNotExistException.class);
-        Response response = jobRoleController.getJobRoles(1,10);
+        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(DoesNotExistException.class);
+        Response response = jobRoleController.getJobRoles();
 
         assertEquals(404, response.getStatus());
 
