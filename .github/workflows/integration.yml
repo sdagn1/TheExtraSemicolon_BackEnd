@@ -27,4 +27,6 @@ jobs:
           cache: maven
 
       - name: Run Integrations
+        env:
+          API_URL: ${{ secrets.API_URL }}
         run: mvn clean integration-test
