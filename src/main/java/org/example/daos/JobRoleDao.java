@@ -53,7 +53,6 @@ public class JobRoleDao {
                     + "jr.status, jr.positionsAvailable\n"
                     + "ORDER BY " + validatedOrderColumn + " "
                     + validatedOrderStatement + ";";
-
             assert connection != null;
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
