@@ -32,28 +32,25 @@ public class JobRoleDao {
                     + "    jr.closingDate,\n"
                     + "    jr.status,\n"
                     + "    jr.positionsAvailable,\n"
-                    + "    GROUP_CONCAT(jl.locationName SEPARATOR ', ')"
-                    + "AS locations\n"
+                    + "    GROUP_CONCAT(jl.locationName SEPARATOR ', ') AS locations\n"
                     + "FROM \n"
                     + "    Job_Roles jr\n"
                     + "JOIN \n"
                     + "    Job_Bands jb ON jr.band = jb.jobBandsId\n"
                     + "JOIN \n"
-                    + "    Job_Location_Connector jlc ON jr.roleId"
-                    + "= jlc.roleId\n"
+                    + "    Job_Location_Connector jlc ON jr.roleId = jlc.roleId\n"
                     + "JOIN \n"
-                    + "    Job_Locations jl ON jlc.roleLocationId"
-                    + "= jl.roleLocationId\n"
+                    + "    Job_Locations jl ON jlc.roleLocationId = jl.roleLocationId\n"
                     + "WHERE \n"
-                    + "jr.status = 1 && jr.positionsAvailable > 0 \n"
+                    + "    jr.status = 1 AND jr.positionsAvailable > 0 \n"
                     + "GROUP BY \n"
-                    + "    jr.roleId, jr.roleName, jr.description,"
-                    + "jr.responsibilities, jr.linkToJobSpec,"
-                    + "jr.capability, jb.jobBandsEnum, jr.closingDate,"
-                    + "jr.status, jr.positionsAvailable\n"
-                    + "ORDER BY " + validatedOrderColumn + " "
-                    + validatedOrderStatement + ";";
-            assert connection != null;
+                    + "    jr.roleId, jr.roleName, jr.description, jr.responsibilities, jr.linkToJobSpec, jr.capability, jb.jobBandsEnum, jr.closingDate, jr.status, jr.positionsAvailable\n";
+
+            if (validatedOrderColumn != null
+                    && validatedOrderStatement != null) {
+                query += "ORDER BY " + validatedOrderColumn
+                        + " " + validatedOrderStatement + ";";
+            }
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.isBeforeFirst()) {
@@ -70,14 +67,11 @@ public class JobRoleDao {
                         JobBand.fromString(resultSet.getString("band")),
                         resultSet.getTimestamp("closingDate")
                 );
-                jobRole.setCapability(Capability.fromString(resultSet.
-                        getString("capability")));
+                jobRole.setCapability(Capability.fromString(resultSet.getString("capability")));
                 jobRole.setStatus(resultSet.getBoolean("status"));
-                jobRole.setPositionsAvailable(resultSet
-                        .getInt("positionsAvailable"));
+                jobRole.setPositionsAvailable(resultSet.getInt("positionsAvailable"));
 
-                String[] locationStrings = resultSet
-                        .getString("locations").split(", ");
+                String[] locationStrings = resultSet.getString("locations").split(", ");
                 List<Location> locations = new ArrayList<>();
                 for (String locationString : locationStrings) {
                     locations.add(Location.fromString(locationString));
@@ -89,6 +83,7 @@ public class JobRoleDao {
             return jobRoles;
         }
     }
+
 
     public JobRole getJobRoleById(final int id) throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {

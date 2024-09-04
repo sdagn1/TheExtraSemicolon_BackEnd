@@ -16,7 +16,10 @@ public class JobRoleValidator {
     }
     public String validateOrderColumn(final String orderColumn)
             throws InvalidException {
-        if (VALID_COLUMNS.contains(orderColumn) || orderColumn.isEmpty()) {
+        if (orderColumn == null) {
+            return orderColumn;
+        }
+        if (VALID_COLUMNS.contains(orderColumn)) {
             return orderColumn;
         } else {
             throw new InvalidException("Invalid order column");
@@ -24,9 +27,11 @@ public class JobRoleValidator {
     }
     public String validateOrderStatement(final String orderStatement)
             throws InvalidException {
+        if (orderStatement == null) {
+            return orderStatement;
+        }
         if (orderStatement.equalsIgnoreCase("ASC")
-        || orderStatement.equalsIgnoreCase("DESC")
-        || orderStatement.isEmpty()) {
+        || orderStatement.equalsIgnoreCase("DESC")) {
             return orderStatement.toUpperCase();
         } else {
             throw new InvalidException("Invalid order statement");
