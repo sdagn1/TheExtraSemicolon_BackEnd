@@ -6,6 +6,6 @@ import javax.ws.rs.Path;
 
 @Api("Upload Api")
 @Path("/api/upload")
-public class FileUploadController {
+public class FileImportController {
 
 }

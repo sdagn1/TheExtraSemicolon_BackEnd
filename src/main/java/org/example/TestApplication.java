@@ -1,5 +1,6 @@
 package org.example;
 
+import com.amazonaws.services.ec2.model.EbsNvmeSupport;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -7,6 +8,7 @@ import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.example.controllers.TestController;
 import org.example.daos.TestDao;
+import org.example.services.BucketService;
 import org.example.services.TestService;
 
 import java.io.BufferedReader;
@@ -71,6 +73,8 @@ public class TestApplication extends Application<TestConfiguration> {
                     final Environment environment) {
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
+        environment.jersey().register(new BucketService());
+
     }
 
 }

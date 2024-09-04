@@ -3,12 +3,9 @@ package org.example.services;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileUploadService {
+public class FileImportService {
 
-
-
-
-    public FileUploadService() throws IOException {
+    public FileImportService() throws IOException {
         FileReader fileReader = new FileReader("test.csv");
         System.out.println("Reading char by char :\n");
         int i;
