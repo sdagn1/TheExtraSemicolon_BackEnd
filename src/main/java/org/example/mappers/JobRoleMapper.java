@@ -2,6 +2,7 @@ package org.example.mappers;
 
 import org.example.enums.Location;
 import org.example.models.JobRole;
+import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
 import java.util.List;
@@ -27,5 +28,27 @@ public final class JobRoleMapper {
                         jobRole.getClosingDate()))
                 .collect(Collectors.toList());
     }
-
+    public static JobRoleInfoResponse mapJobRoleToJobRoleInfo(
+            final JobRole jobRole) {
+        if (jobRole == null) {
+            return null;
+        }
+        JobRoleInfoResponse jobRoleInfoResponse = new JobRoleInfoResponse(
+                jobRole.getRoleId(),
+                jobRole.getRoleName(),
+                jobRole.getDescription(),
+                jobRole.getResponsibilities(),
+                jobRole.getLocations().stream()
+                        .map(Location::getLocation)
+                        .collect(Collectors.joining(", ")),
+                jobRole.getLinkToJobSpec(),
+                jobRole.getCapability().getCapability()
+        );
+        jobRoleInfoResponse.setBand(jobRole.getBand().getJobBand());
+        jobRoleInfoResponse.setClosingDate(jobRole.getClosingDate());
+        jobRoleInfoResponse.setStatus(jobRole.isStatus());
+        jobRoleInfoResponse.setPositionsAvailable(
+                jobRole.getPositionsAvailable());
+        return jobRoleInfoResponse;
+    }
 }

@@ -40,14 +40,11 @@ public class JobRoleController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJobRoles(final @QueryParam("orderColumn") String
-                                            orderColumn,
-                                final @QueryParam("orderStatement") String
-                                        orderStatement) {
+    public Response getJobRoles(final @QueryParam("orderColumn") String orderColumn,
+                                final @QueryParam("orderStatement") String orderStatement) {
         try {
             return Response.ok()
-                    .entity(jobRoleService.getAllJobRoles(orderColumn,
-                            orderStatement))
+                    .entity(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
                     .build();
         } catch (DoesNotExistException | InvalidException e) {
             return Response.status(Response.Status.NOT_FOUND)

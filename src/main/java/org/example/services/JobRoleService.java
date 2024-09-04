@@ -17,9 +17,11 @@ public class JobRoleService {
     JobRoleDao jobRoleDao;
     JobRoleValidator jobRoleValidator = new JobRoleValidator();
     DatabaseConnector databaseConnector;
+
     private String formatLocations(final List<String> locations) {
         return String.join(", ", locations);
     }
+
     public JobRoleService(final JobRoleDao jobRoleDao) {
         this.jobRoleDao = jobRoleDao;
     }
@@ -28,8 +30,8 @@ public class JobRoleService {
             throws SQLException, DoesNotExistException {
         JobRoleInfoResponse jobRoleInfoResponse = JobRoleMapper
                 .mapJobRoleToJobRoleInfo(
-                jobRoleDao.getJobRoleById(id)
-        );
+                        jobRoleDao.getJobRoleById(id)
+                );
         if (jobRoleInfoResponse == null) {
             throw new DoesNotExistException(Entity.JOBROLE);
         }
