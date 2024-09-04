@@ -27,23 +27,6 @@ public class JobRoleController {
         this.jobRoleService = jobRoleService;
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getJobRoles() throws SQLException {
-//        try {
-//            return Response.ok()
-//                    .entity(jobRoleService.getAllJobRoles())
-//                    .build();
-//        } catch (DoesNotExistException e) {
-//            return Response.status(Response.Status.NOT_FOUND)
-//                    .entity(e.getMessage())
-//                    .build();
-//        } catch (SQLException e) {
-//            return Response.serverError().build();
-//        }
-//    }
-
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJobRoles(final @QueryParam("page") int page,
