@@ -69,10 +69,10 @@ public class JobRoleServiceTest {
 
         List<JobRole> jobRoleList = new ArrayList<>();
         jobRoleList.add(jobRole);
-        Mockito.when(jobRoleDao.getAllJobRoles()).thenReturn(jobRoleList);
+        Mockito.when(jobRoleDao.getAllJobRoles(1,10)).thenReturn(jobRoleList);
 
         List<JobRoleResponse> test1 = JobRoleMapper.mapJobRoleListToResponseList(jobRoleList);
-        List<JobRoleResponse> test2 = jobRoleService.getAllJobRoles();
+        List<JobRoleResponse> test2 = jobRoleService.getAllJobRoles(1,10);
 
         assertEquals(test1.get(0).getRoleName(),
                 test2.get(0).getRoleName());
@@ -81,10 +81,10 @@ public class JobRoleServiceTest {
     @Test
     void getJobRoles_shouldThrowDoesNotExistException_whenDaoThrowsDoesNotExistException()
             throws SQLException, DoesNotExistException, InvalidPageLimitException {
-        Mockito.when(jobRoleDao.getAllJobRoles()).thenThrow(DoesNotExistException.class);
+        Mockito.when(jobRoleDao.getAllJobRoles(1,10)).thenThrow(DoesNotExistException.class);
 
         assertThrows(DoesNotExistException.class,
-                () -> jobRoleService.getAllJobRoles());
+                () -> jobRoleService.getAllJobRoles(1,10));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class JobRoleServiceTest {
         Mockito.when(jobRoleDao.getAllJobRoles(2,11)).thenThrow(InvalidPageLimitException.class);
 
         assertThrows(InvalidPageLimitException.class,
-                () -> jobRoleService.getPaginatedJobRoles(2,11));
+                () -> jobRoleService.getAllJobRoles(2,11));
     }
 
 
