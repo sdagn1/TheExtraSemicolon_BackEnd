@@ -28,25 +28,59 @@ public class FileImportDao {
             PreparedStatement statement = connection.prepareStatement(
                     insertStatement,
                     PreparedStatement.RETURN_GENERATED_KEYS);
+            System.out.println("Number of lines " + listOfLines.size());
+
             Map<String, Object>[] arrayOfMaps = new HashMap[listOfLines.size()];
+
             for (int i = 0; i < arrayOfMaps.length; i++) {
                 arrayOfMaps[i] = new HashMap<>();
             }
 
             String[] lineContents = new String[listOfLines.size()];
-            for (String line : listOfLines) {
-                lineContents = line.split(",");
-                arrayOfMaps[0].put("roleName", lineContents[0]);
-                arrayOfMaps[0].put("description", lineContents[1]);
-                arrayOfMaps[0].put("responsibilities", lineContents[2]);
-                arrayOfMaps[0].put("linkToJobSpec", lineContents[3]);
-                arrayOfMaps[0].put("capability", lineContents[4]);
-                arrayOfMaps[0].put("band", lineContents[5]);
-                arrayOfMaps[0].put("closingDate", lineContents[6]);
-                arrayOfMaps[0].put("status", lineContents[7]);
-                arrayOfMaps[0].put("positionsAvailable", lineContents[8]);
-                arrayOfMaps[0].put("locations", lineContents[9]);
-            }
+
+            int i = 0;
+                for (String line : listOfLines) {
+                    lineContents = line.split(",");
+                    arrayOfMaps[i].put("roleName", lineContents[0]);
+                    arrayOfMaps[i].put("description", lineContents[1]);
+                    arrayOfMaps[i].put("responsibilities", lineContents[2]);
+                    arrayOfMaps[i].put("linkToJobSpec", lineContents[3]);
+                    arrayOfMaps[i].put("capability", lineContents[4]);
+                    arrayOfMaps[i].put("band", lineContents[5]);
+                    arrayOfMaps[i].put("closingDate", lineContents[6]);
+                    arrayOfMaps[i].put("status", lineContents[7]);
+                    arrayOfMaps[i].put("positionsAvailable", lineContents[8]);
+                    arrayOfMaps[i].put("locations", lineContents[9]);
+                }
+
+                statement.setString(1, (String) arrayOfMaps[i].get("roleName"));
+                statement.setString(2, (String) arrayOfMaps[i].get("description"));
+                statement.setString(3,  (String) arrayOfMaps[i].get("responsibilities"));
+                statement.setString(4,  (String) arrayOfMaps[i].get("linkToJobSpec"));
+                statement.setString(5,  (String) arrayOfMaps[i].get("capability"));
+                statement.setInt(6, Integer.parseInt(
+                        (String) arrayOfMaps[i].get("band")));
+                statement.setString(7, (String) arrayOfMaps[i].get("closingDate"));
+                statement.setString(8, (String) arrayOfMaps[i].get("status"));
+                statement.setInt(9, Integer.parseInt((String) arrayOfMaps[i].get("positionsAvailable")));
+                statement.setString(10, (String) arrayOfMaps[i].get("locations"));
+
+                int resultSet = statement.executeUpdate();
+
+                System.out.println(resultSet);
+//            for (String line : listOfLines) {
+//                lineContents = line.split(",");
+//                arrayOfMaps[0].put("roleName", lineContents[0]);
+//                arrayOfMaps[0].put("description", lineContents[1]);
+//                arrayOfMaps[0].put("responsibilities", lineContents[2]);
+//                arrayOfMaps[0].put("linkToJobSpec", lineContents[3]);
+//                arrayOfMaps[0].put("capability", lineContents[4]);
+//                arrayOfMaps[0].put("band", lineContents[5]);
+//                arrayOfMaps[0].put("closingDate", lineContents[6]);
+//                arrayOfMaps[0].put("status", lineContents[7]);
+//                arrayOfMaps[0].put("positionsAvailable", lineContents[8]);
+//                arrayOfMaps[0].put("locations", lineContents[9]);
+//            }
 //            System.out.println("Number 0" + lineContents[0]);
 //            System.out.println("Number 1" + lineContents[1]);
 //            System.out.println("Number 2" + lineContents[2]);
@@ -72,21 +106,21 @@ public class FileImportDao {
 //            statement.setInt(9, Integer.parseInt(lineContents[10]));
 //            statement.setString(10, lineContents[11]);
 
-            statement.setString(1, (String) arrayOfMaps[0].get("roleName"));
-            statement.setString(2, (String) arrayOfMaps[0].get("description"));
-            statement.setString(3,  (String) arrayOfMaps[0].get("responsibilities"));
-            statement.setString(4,  (String) arrayOfMaps[0].get("linkToJobSpec"));
-            statement.setString(5,  (String) arrayOfMaps[0].get("capability"));
-            statement.setInt(6, Integer.parseInt(
-                    (String) arrayOfMaps[0].get("band")));
-            statement.setString(7, (String) arrayOfMaps[0].get("closingDate"));
-            statement.setString(8, (String) arrayOfMaps[0].get("status"));
-            statement.setInt(9, Integer.parseInt((String) arrayOfMaps[0].get("positionsAvailable")));
-            statement.setString(10, (String) arrayOfMaps[0].get("locations"));
-
-            int resultSet = statement.executeUpdate();
-
-            System.out.println(resultSet);
+//            statement.setString(1, (String) arrayOfMaps[0].get("roleName"));
+//            statement.setString(2, (String) arrayOfMaps[0].get("description"));
+//            statement.setString(3,  (String) arrayOfMaps[0].get("responsibilities"));
+//            statement.setString(4,  (String) arrayOfMaps[0].get("linkToJobSpec"));
+//            statement.setString(5,  (String) arrayOfMaps[0].get("capability"));
+//            statement.setInt(6, Integer.parseInt(
+//                    (String) arrayOfMaps[0].get("band")));
+//            statement.setString(7, (String) arrayOfMaps[0].get("closingDate"));
+//            statement.setString(8, (String) arrayOfMaps[0].get("status"));
+//            statement.setInt(9, Integer.parseInt((String) arrayOfMaps[0].get("positionsAvailable")));
+//            statement.setString(10, (String) arrayOfMaps[0].get("locations"));
+//
+//            int resultSet = statement.executeUpdate();
+//
+//            System.out.println(resultSet);
 
 
 
