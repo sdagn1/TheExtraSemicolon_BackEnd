@@ -141,4 +141,10 @@ public class JobRoleServiceTest {
                 () -> jobRoleService.getAllJobRoles(orderColumn,
                         orderStatement));
     }
+
+    @Test
+    void getJobRoles_shouldThrowInvalidException_whenInvalidOrderColumnGiven()
+    throws SQLException, DoesNotExistException, InvalidException{
+        String orderColumn = ""
+    }
 }

@@ -51,4 +51,28 @@ public class JobRolesIntegrationTest {
 
     }
 
+    @Test
+    void getAllJobRoles_shouldReturnAllJobRolesSuccesfullyWithQueryParameters() {
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles?orderColumn=roleName&orderStatement=ASC")
+                .request()
+                .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+    }
+
+    @Test
+    void getAllJobRoles_shouldReturnAllJobRolesSuccesfullyWithMissingOrderStatement() {
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles?orderColumn=roleName")
+                .request()
+                .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+    }
+
 }

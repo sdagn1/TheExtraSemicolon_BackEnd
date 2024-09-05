@@ -12,6 +12,9 @@ import org.mockito.Mockito;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -76,9 +79,12 @@ public class JobRolesControllerTest {
 
     @Test
     void getJobRoles_shouldReturnBadRequest_whenRequestInvalid() throws
-            SQLException, DoesNotExistException  {
-        Mockito.when(jobRoleService.getAllJobRoles()).thenThrow(DoesNotExistException.class);
-        Response response = jobRoleController.getJobRoles();
+            SQLException, DoesNotExistException, InvalidException {
+        String orderColumn = null;
+        String orderStatement = null;
+        Mockito.when(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
+                .thenThrow(DoesNotExistException.class);
+        Response response = jobRoleController.getJobRoles(orderColumn, orderStatement);
 
         assertEquals(404, response.getStatus());
 
@@ -126,4 +132,81 @@ public class JobRolesControllerTest {
 
         assertEquals(404, response.getStatus());
     }
+
+    @Test
+    void getJobRoles_shouldBadRequest_whenInvalidOrderColumnGiven()
+        throws SQLException, DoesNotExistException, InvalidException {
+        String orderColumn = "fwwwrwrww";
+        String orderStatement = "ASC";
+        Mockito.when(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
+                .thenThrow(InvalidException.class);
+        Response response = jobRoleController.getJobRoles(orderColumn, orderStatement);
+
+        assertEquals(404, response.getStatus());
+    }
+
+    @Test
+    void getJobRoles_shouldBadRequest_whenInvalidOrderStatementGiven()
+            throws SQLException, DoesNotExistException, InvalidException {
+        String orderColumn = "roleName";
+        String orderStatement = "ASCII";
+        Mockito.when(jobRoleService.getAllJobRoles(orderColumn, orderStatement))
+                .thenThrow(InvalidException.class);
+        Response response = jobRoleController.getJobRoles(orderColumn, orderStatement);
+
+        assertEquals(404, response.getStatus());
+    }
+
+    @Test
+    void getJobRoles_shouldReturnOrderedJobRolesByName() throws SQLException,
+            DoesNotExistException, InvalidException {
+        Date date = new Date();
+        JobRoleResponse jobRoleResponse1 = new JobRoleResponse(
+                1,
+                "Technology Leader",
+                Arrays.asList("Atlanta, Amsterdam, Belfast"),
+                "Engineering",
+                "Associate",
+                date
+        );
+
+        JobRoleResponse jobRoleResponse2 = new JobRoleResponse(
+                2,
+                "Sales Development Consultant",
+                Arrays.asList("Belfast", "Gdansk"),
+                "Business Development and Marketing",
+                "Consultant",
+                date
+        );
+
+        JobRoleResponse jobRoleResponse3 = new JobRoleResponse(
+                3,
+                "Apprentice Software Engineer",
+                Arrays.asList("Amsterdam"),
+                "Engineering",
+                "Apprentice",
+                date
+        );
+        // Creating list with above jobRoleResponses in an array.
+        List<JobRoleResponse> jobRoleResponses = Arrays.asList(jobRoleResponse1, jobRoleResponse2, jobRoleResponse3);
+        Mockito.when(jobRoleService.getAllJobRoles("roleName", "ASC")).thenReturn(jobRoleResponses);
+
+        Response response = jobRoleController.getJobRoles("roleName", "ASC");
+        assertEquals(200, response.getStatus());
+
+        List<JobRoleResponse> returnedJobRoleResponses = (List<JobRoleResponse>) response.getEntity();
+        System.out.println(returnedJobRoleResponses.get(0).getRoleName());
+
+        // CheckING if the list is in alphabetical order by roleName
+        List<JobRoleResponse> sortedJobRoleResponses = new ArrayList<>(returnedJobRoleResponses);
+        Collections.sort(sortedJobRoleResponses, Comparator.comparing(JobRoleResponse::getRoleName));
+        System.out.println(sortedJobRoleResponses.get(0).getRoleName());
+        int i = 0;
+        for (int j = 0; j < returnedJobRoleResponses.size(); j++) {
+            assertEquals(sortedJobRoleResponses.get(i).getRoleName(),
+                    returnedJobRoleResponses.get(j).getRoleName());
+            i++;
+        }
+    }
+
 }
