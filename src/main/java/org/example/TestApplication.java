@@ -30,27 +30,27 @@ public class TestApplication extends Application<TestConfiguration> {
 //        sc.close();  //closes the scanner
 //
 //
-
-        String splitBy = ",";
-        try {
-            //parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader("/Users/jemima.orakwue/Documents/test.csv"));
-            String csvHeadersLine = br.readLine();
-            System.out.println(csvHeadersLine);
-            List<String> headers = Arrays.asList(csvHeadersLine.split(splitBy));
-            for (String head: headers){
-                System.out.println("Header: " + head);
-            }
-            String line = "";
-            while ((line = br.readLine()) != null)
-            {
-                String[] words = line.split(splitBy);
-                System.out.println("column="+words[1]+ " column="+words[2]+" column="+words[3]+" column="+words[4]+" column="+words[5]+" column="+words[6]+" column="+words[7]+" column="+words[8]);
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+//
+//        String splitBy = ",";
+//        try {
+//            //parsing a CSV file into BufferedReader class constructor
+//            BufferedReader br = new BufferedReader(new FileReader("/Users/jemima.orakwue/Documents/test.csv"));
+//            String csvHeadersLine = br.readLine();
+//            System.out.println(csvHeadersLine);
+//            List<String> headers = Arrays.asList(csvHeadersLine.split(splitBy));
+//            for (String head: headers){
+//                System.out.println("Header: " + head);
+//            }
+//            String line = "";
+//            while ((line = br.readLine()) != null)
+//            {
+//                String[] words = line.split(splitBy);
+//                System.out.println("column="+words[1]+ " column="+words[2]+" column="+words[3]+" column="+words[4]+" column="+words[5]+" column="+words[6]+" column="+words[7]+" column="+words[8]);
+//            }
+//        }
+//        catch(IOException e) {
+//            e.printStackTrace();
+//        }
 
         new TestApplication().run(args);
     }

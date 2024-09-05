@@ -34,11 +34,11 @@ public class BucketService {
                 .build();
 
         String filename = "test.csv";
-        ListObjectsV2Result result = s3client.listObjectsV2(System.getenv().get("S3_BUCKET"));
-        List<S3ObjectSummary> objects = result.getObjectSummaries();
-        for (S3ObjectSummary os : objects) {
-            System.out.println("* " + os.getKey());
-        }
+//        ListObjectsV2Result result = s3client.listObjectsV2(System.getenv().get("S3_BUCKET"));
+//        List<S3ObjectSummary> objects = result.getObjectSummaries();
+//        for (S3ObjectSummary os : objects) {
+//            System.out.println("* " + os.getKey());
+//        }
 
         System.out.format("Downloading %s from S3 bucket %s...\n", filename, System.getenv().get("S3_BUCKET"));
 

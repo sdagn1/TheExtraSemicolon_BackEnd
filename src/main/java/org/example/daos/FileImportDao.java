@@ -37,8 +37,10 @@ public class FileImportDao {
 //
 //              }
 
+
               String[] words = line.split(splitBy);
               System.out.println("column="+words[1]+ " column="+words[2]+" column="+words[3]+" column="+words[4]+" column="+words[5]+" column="+words[6]+" column="+words[7]+" column="+words[8]);
+
           }
 
 
