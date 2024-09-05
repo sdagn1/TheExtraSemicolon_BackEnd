@@ -13,6 +13,7 @@ import org.example.daos.DatabaseConnector;
 import org.example.daos.FileImportDao;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,16 +46,22 @@ public class BucketService {
             S3Object o = s3client.getObject(System.getenv().get(
                     "S3_BUCKET"), filename);
             S3ObjectInputStream s3is = o.getObjectContent();
+
+            FileInputStream fileInputStream = new FileInputStream(
+                    "/Users/jemima.orakwue/Documents/test.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(
-                    s3is);
+                    fileInputStream);
+
+//            InputStreamReader inputStreamReader = new InputStreamReader(
+//                    s3is);
             BufferedReader bufferedReader = new BufferedReader(
                     inputStreamReader);
-            System.out.println("AWS FILE HERE");
+            System.out.println("NOT AWS FILE HERE");
             String line;
             List<String> listOfLines = new ArrayList<>();
             while ((line = bufferedReader.readLine()) != null) {
                 // Process the line
-//                System.out.println(line);
+                System.out.println(line);
                 listOfLines.add(line);
             }
 //            System.out.println(listOfLines);
