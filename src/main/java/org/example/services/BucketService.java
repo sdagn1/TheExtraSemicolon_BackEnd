@@ -9,13 +9,19 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import org.example.daos.DatabaseConnector;
+import org.example.daos.FileImportDao;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BucketService {
+    //FileImportDao fileImportDao;
+    DatabaseConnector databaseConnector;
+
     public BucketService() {
         AWSCredentials credentials = new BasicAWSCredentials(
                 System.getenv().get("AWS_ACCESS_KEY_ID"),
@@ -68,6 +74,29 @@ public class BucketService {
         } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
+        }
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(
+                    "/Users/jemima.orakwue/Documents/test.csv");
+            InputStreamReader inputStreamReader = new InputStreamReader(
+                    fileInputStream);
+            BufferedReader bufferedReader =
+                    new BufferedReader(inputStreamReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+
+
+                System.out.println(line);
+            }
+
+            bufferedReader.close();
+            inputStreamReader.close();
+            fileInputStream.close();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
         }
 
     }

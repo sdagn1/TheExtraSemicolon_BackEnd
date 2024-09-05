@@ -10,8 +10,15 @@ import org.example.daos.TestDao;
 import org.example.services.BucketService;
 import org.example.services.TestService;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class TestApplication extends Application<TestConfiguration> {
     public static void main(final String[] args) throws Exception {
+
         new TestApplication().run(args);
     }
     @Override
@@ -30,7 +37,8 @@ public class TestApplication extends Application<TestConfiguration> {
     }
     @Override
     public void run(final TestConfiguration configuration,
-                    final Environment environment) {
+                    final Environment environment)
+            throws IOException {
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
         environment.jersey().register(new BucketService());
