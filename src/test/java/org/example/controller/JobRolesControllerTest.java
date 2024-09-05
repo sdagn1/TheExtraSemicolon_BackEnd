@@ -75,6 +75,26 @@ public class JobRolesControllerTest {
     }
 
     @Test
+    void getJobRoles_shouldReturnInvalidPageLimitException_whenPageInvalid() throws
+            SQLException, DoesNotExistException, InvalidPageLimitException {
+        Mockito.when(jobRoleService.getAllJobRoles(100,10)).thenThrow(InvalidPageLimitException.class);
+        Response response = jobRoleController.getJobRoles(100,10);
+
+        assertEquals(400, response.getStatus());
+
+    }
+
+    @Test
+    void getJobRoles_shouldReturnInvalidPageLimitException_whenLimitInvalid() throws
+            SQLException, DoesNotExistException, InvalidPageLimitException {
+        Mockito.when(jobRoleService.getAllJobRoles(1,11)).thenThrow(InvalidPageLimitException.class);
+        Response response = jobRoleController.getJobRoles(1,11);
+
+        assertEquals(400, response.getStatus());
+
+    }
+
+    @Test
     void getJobRoleById_shouldReturnSuccessfulResponseWhenJobRoleReturned()
     throws SQLException, DoesNotExistException {
         Date date = new Date();

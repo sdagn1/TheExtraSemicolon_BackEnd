@@ -131,11 +131,20 @@ public class JobRoleServiceTest {
     }
 
     @Test
-    void getJobRoles_shouldThrowInvalidPageLimitException_whenDaoThrowsInvalidPageLimitException()
+    void getJobRoles_shouldThrowInvalidPageLimitException_whenDaoThrowsInvalidLimitException()
             throws SQLException, DoesNotExistException, InvalidPageLimitException {
         Mockito.when(jobRoleDao.getAllJobRoles(2,11)).thenThrow(InvalidPageLimitException.class);
 
         assertThrows(InvalidPageLimitException.class,
                 () -> jobRoleService.getAllJobRoles(2,11));
+    }
+
+    @Test
+    void getJobRoles_shouldThrowInvalidPageLimitException_whenDaoThrowsInvalidPageException()
+            throws SQLException, DoesNotExistException, InvalidPageLimitException {
+        Mockito.when(jobRoleDao.getAllJobRoles(100,10)).thenThrow(InvalidPageLimitException.class);
+
+        assertThrows(InvalidPageLimitException.class,
+                () -> jobRoleService.getAllJobRoles(100,10));
     }
 }
