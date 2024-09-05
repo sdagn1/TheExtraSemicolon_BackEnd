@@ -7,7 +7,6 @@ import org.example.exceptions.InvalidPageLimitException;
 import org.example.mappers.JobRoleMapper;
 import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
-import org.example.validators.JobRoleValidator;
 
 import java.sql.SQLException;
 import java.util.List;

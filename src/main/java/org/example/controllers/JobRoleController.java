@@ -47,7 +47,8 @@ public class JobRoleController {
     public Response getJobRoles(final @QueryParam("page") int page,
                                 final @QueryParam("limit") int limit) {
         try {
-            List<JobRoleResponse> jobRoles = jobRoleService.getAllJobRoles(page, limit);
+            List<JobRoleResponse> jobRoles = jobRoleService.
+                    getAllJobRoles(page, limit);
             int total = jobRoleService.getTotalJobRoles();
             int pages = (int) Math.ceil((double) total / limit);
 
