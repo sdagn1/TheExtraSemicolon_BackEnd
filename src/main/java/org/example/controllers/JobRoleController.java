@@ -8,6 +8,7 @@ import org.example.services.JobRoleService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -20,7 +21,6 @@ import java.util.Map;
 @Api("job-roles")
 @Path("/api/job-roles")
 public class JobRoleController {
-
     JobRoleService jobRoleService;
 
     public JobRoleController(final JobRoleService jobRoleService) {
@@ -28,13 +28,26 @@ public class JobRoleController {
     }
 
     @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getJobRoleById(final @PathParam("id") int id) {
+        try {
+            return Response.ok().entity(jobRoleService.getJobRoleById(id))
+                    .build();
+        } catch (DoesNotExistException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        }
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJobRoles(final @QueryParam("page") int page,
-                                final @QueryParam("limit") int limit)
-            throws SQLException {
+                                final @QueryParam("limit") int limit) {
         try {
-            List<JobRoleResponse> jobRoles = jobRoleService.
-                                    getAllJobRoles(page, limit);
+            List<JobRoleResponse> jobRoles = jobRoleService.getAllJobRoles(page, limit);
             int total = jobRoleService.getTotalJobRoles();
             int pages = (int) Math.ceil((double) total / limit);
 
@@ -48,13 +61,13 @@ public class JobRoleController {
             ));
             return Response.ok().entity(response).build();
         } catch (DoesNotExistException e) {
-            return Response.status(Response.Status.NOT_FOUND).
-                    entity(e.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
         } catch (SQLException e) {
             return Response.serverError().build();
         } catch (InvalidPageLimitException e) {
-            return Response.status(Response.Status.BAD_REQUEST).
-                    entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage()).build();
         }
     }
 }

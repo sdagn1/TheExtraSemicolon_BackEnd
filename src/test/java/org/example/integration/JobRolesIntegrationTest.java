@@ -29,7 +29,21 @@ public class JobRolesIntegrationTest {
         Client client = APP.client();
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles")
+                .target(System.getenv("API_URL")+"job-roles")
+                .request()
+                .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void getJobRoleById_shouldReturnAJobRole() {
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles/2")
                 .request()
                 .get();
 
