@@ -32,7 +32,7 @@ public class JobRoleValidator {
                     Entity.JOBROLERESPONSE, "Invalid page limit number");
         }
 
-        int totalJobRoles = jobRoleService.getTotalJobRoles();
+        int totalJobRoles = jobRoleDao.getTotalJobRoles();
         if (page > (int) Math.ceil((double) totalJobRoles / limit)) {
             throw new InvalidPageLimitException(
                     Entity.JOBROLERESPONSE, "Invalid page selected");

@@ -23,57 +23,59 @@ public class JobRoleDao {
             throws SQLException, DoesNotExistException,
             InvalidPageLimitException {
         List<JobRole> jobRoles = new ArrayList<>();
+        JobRoleValidator jobRoleValidator = new JobRoleValidator();
+        jobRoleValidator.validateJobRolePagination(page, limit);
+
+        int offset = (page - 1) * limit;
+
+        String query = "SELECT \n"
+                + "    jr.roleId,\n"
+                + "    jr.roleName,\n"
+                + "    jr.description,\n"
+                + "    jr.responsibilities,\n"
+                + "    jr.linkToJobSpec,\n"
+                + "    jr.capability,\n"
+                + "    jb.jobBandsEnum AS band,\n"
+                + "    jr.closingDate,\n"
+                + "    jr.status,\n"
+                + "    jr.positionsAvailable,\n"
+                + "    GROUP_CONCAT(jl.locationName SEPARATOR ', ')"
+                + " AS locations\n"
+                + "FROM \n"
+                + "    Job_Roles jr\n"
+                + "JOIN \n"
+                + "    Job_Bands jb ON jr.band = jb.jobBandsId\n"
+                + "JOIN \n"
+                + "    Job_Location_Connector jlc"
+                + " ON jr.roleId = jlc.roleId\n"
+                + "JOIN \n"
+                + " Job_Locations jl "
+                + "ON jlc.roleLocationId = jl.roleLocationId\n"
+                + "WHERE \n"
+                + "    jr.status = 1 \n"
+                + "    AND jr.positionsAvailable > 0 \n"
+                + "GROUP BY \n"
+                + "    jr.roleId, \n"
+                + "    jr.roleName, \n"
+                + "    jr.description,\n"
+                + "    jr.responsibilities, \n"
+                + "    jr.linkToJobSpec,\n"
+                + "    jr.capability, \n"
+                + "    jb.jobBandsEnum, \n"
+                + "    jr.closingDate,\n"
+                + "    jr.status, \n"
+                + "    jr.positionsAvailable \n"
+                + "LIMIT ? OFFSET ?;";
+
+
+
         try (Connection connection = DatabaseConnector.getConnection()) {
             assert connection != null;
-            Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
 
-            JobRoleValidator jobRoleValidator = new JobRoleValidator();
-            jobRoleValidator.validateJobRolePagination(page, limit);
-
-            int offset = (page - 1) * limit;
-
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT \n"
-                   + "    jr.roleId,\n"
-                   + "    jr.roleName,\n"
-                   + "    jr.description,\n"
-                   + "    jr.responsibilities,\n"
-                   + "    jr.linkToJobSpec,\n"
-                   + "    jr.capability,\n"
-                   + "    jb.jobBandsEnum AS band,\n"
-                   + "    jr.closingDate,\n"
-                   + "    jr.status,\n"
-                   + "    jr.positionsAvailable,\n"
-                   + "    GROUP_CONCAT(jl.locationName SEPARATOR ', ')"
-                   + " AS locations\n"
-                   + "FROM \n"
-                   + "    Job_Roles jr\n"
-                   + "JOIN \n"
-                   + "    Job_Bands jb ON jr.band = jb.jobBandsId\n"
-                   + "JOIN \n"
-                   + "    Job_Location_Connector jlc"
-                   + " ON jr.roleId = jlc.roleId\n"
-                   + "JOIN \n"
-                   + " Job_Locations jl "
-                   + "ON jlc.roleLocationId = jl.roleLocationId\n"
-                   + "WHERE \n"
-                   + "    jr.status = 1 \n"
-                   + "    AND jr.positionsAvailable > 0 \n"
-                   + "GROUP BY \n"
-                   + "    jr.roleId, \n"
-                   + "    jr.roleName, \n"
-                   + "    jr.description,\n"
-                   + "    jr.responsibilities, \n"
-                   + "    jr.linkToJobSpec,\n"
-                   + "    jr.capability, \n"
-                   + "    jb.jobBandsEnum, \n"
-                   + "    jr.closingDate,\n"
-                   + "    jr.status, \n"
-                   + "    jr.positionsAvailable \n"
-                   + "LIMIT " + limit + " OFFSET " + offset + ";"
-            );
-            System.out.println(resultSet);
-
+            ResultSet resultSet = statement.executeQuery();
             if (!resultSet.isBeforeFirst()) {
                 throw new DoesNotExistException(Entity.JOBROLERESPONSE);
             }
@@ -114,12 +116,12 @@ public class JobRoleDao {
     }
 
     public int getTotalJobRoles() throws SQLException {
+        String query = "SELECT COUNT(*) AS total FROM Job_Roles "
+                + "WHERE status = 1 "
+                + "AND positionsAvailable > 0;";
         try (Connection connection = DatabaseConnector.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(
-                     "SELECT COUNT(*) AS total FROM Job_Roles "
-                             + "WHERE status = 1 "
-                             + "AND positionsAvailable > 0;")) {
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 return resultSet.getInt("total");
             }
