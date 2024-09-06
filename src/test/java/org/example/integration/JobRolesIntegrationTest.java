@@ -37,7 +37,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -64,7 +64,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -91,7 +91,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -119,7 +119,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -147,7 +147,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -175,7 +175,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
