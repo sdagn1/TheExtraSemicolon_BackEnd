@@ -5,7 +5,6 @@ import io.dropwizard.testing.junit5.DropwizardAppExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.example.TestApplication;
 import org.example.TestConfiguration;
-import org.example.models.JobRoleResponse;
 import org.example.models.LoginRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,19 +14,16 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
-public class JobRolesIntegrationTest {
+public class AuthorizationIntegrationTest {
     static final DropwizardAppExtension<TestConfiguration> APP = new DropwizardAppExtension<>(
             TestApplication.class, null,
             new ResourceConfigurationSourceProvider()
     );
 
     @Test
-    void getAllJobRoles_shouldReturnAllJobRoles() {
+    void getAllJobRoles_shouldReturn200_whenAuthorizedAsAdmin() {
 
         Client client = APP.client();
 
@@ -43,7 +39,7 @@ public class JobRolesIntegrationTest {
                 .readEntity(String.class);
 
         Response response = client
-                .target(System.getenv("API_URL")+"job-roles")
+                .target("http://localhost:8080/api/job-roles")
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .get();
@@ -53,14 +49,13 @@ public class JobRolesIntegrationTest {
     }
 
     @Test
-    void getJobRoleById_shouldReturnAJobRole() {
+    void getAllJobRoles_shouldReturn200_whenAuthorizedAsUser() {
 
         Client client = APP.client();
 
-
         LoginRequest loginRequest = new LoginRequest(
-                "admin@kainos.com",
-                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+                "user@kainos.com",
+                "2FPs3siu6dkFvxlFgm9P8gUgBnnYEpjh8bs/RkiphJIs4T6yKz5vUyZPIbyeWFbsZaoU+Z9GXo+7RRMLfTZ8oPOdj9Z4Tjqcybmz+wNAg9sHukN0yIs/VROn8DR/LWcf"
 
         );
         String token = "Bearer " + client
@@ -70,7 +65,7 @@ public class JobRolesIntegrationTest {
                 .readEntity(String.class);
 
         Response response = client
-                .target(System.getenv("API_URL")+"job-roles/2")
+                .target("http://localhost:8080/api/job-roles")
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .get();
@@ -80,67 +75,16 @@ public class JobRolesIntegrationTest {
     }
 
     @Test
-    void get10JobRoles_shouldReturn10JobRoles() {
+    void getAllJobRoles_shouldReturn401Error_whenUnauthorized() {
 
         Client client = APP.client();
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=10")
+                .target("http://localhost:8080/api/job-roles")
                 .request()
                 .get();
 
-        System.out.println(response);
-
-        Assertions.assertEquals(200, response.getStatus());
+        Assertions.assertEquals(401, response.getStatus());
 
     }
-
-    @Test
-    void get25JobRoles_shouldReturn25JobRoles() {
-
-        Client client = APP.client();
-
-        Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=25")
-                .request()
-                .get();
-
-        System.out.println(response);
-
-        Assertions.assertEquals(200, response.getStatus());
-
-    }
-
-    @Test
-    void get50JobRoles_shouldReturn50JobRoles() {
-
-        Client client = APP.client();
-
-        Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=50")
-                .request()
-                .get();
-
-        System.out.println(response);
-
-        Assertions.assertEquals(200, response.getStatus());
-
-    }
-
-    @Test
-    void get100JobRoles_shouldReturn100JobRoles() {
-
-        Client client = APP.client();
-
-        Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=100")
-                .request()
-                .get();
-
-        System.out.println(response);
-
-        Assertions.assertEquals(200, response.getStatus());
-
-    }
-
 }

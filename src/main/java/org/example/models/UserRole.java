@@ -3,10 +3,10 @@ package org.example.models;
 import java.util.Map;
 
 public class UserRole {
-    private static final String ADMIN = "admin";
-    private static final String USER = "user";
+    public static final String ADMIN = "admin";
+    public static final String USER = "user";
 
-    int roleId;
+    private int roleId;
 
     private static final Map<Integer, String> ROLESMAP = Map.of(
             1, ADMIN,
@@ -14,7 +14,7 @@ public class UserRole {
     );
 
     public UserRole(final int roleId) {
-        this.roleId = roleId;
+        setRoleId(roleId);
     }
 
     public String getRoleName() {

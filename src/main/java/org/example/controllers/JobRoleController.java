@@ -1,11 +1,15 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.InvalidPageLimitException;
 import org.example.models.JobRoleResponse;
+import org.example.models.UserRole;
 import org.example.services.JobRoleService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -17,6 +21,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ws.rs.core.HttpHeaders;
 
 @Api("job-roles")
 @Path("/api/job-roles")
@@ -30,6 +35,12 @@ public class JobRoleController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ADMIN, UserRole.USER})
+    @ApiOperation(
+            value = "Returns a Job Role",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = List.class
+    )
     public Response getJobRoleById(final @PathParam("id") int id) {
         try {
             return Response.ok().entity(jobRoleService.getJobRoleById(id))
@@ -44,6 +55,12 @@ public class JobRoleController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ADMIN, UserRole.USER})
+    @ApiOperation(
+            value = "Returns a List of Job Role Responses",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = List.class
+    )
     public Response getJobRoles(final @QueryParam("page") int page,
                                 final @QueryParam("limit") int limit) {
         try {
