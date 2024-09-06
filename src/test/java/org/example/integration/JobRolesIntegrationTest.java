@@ -84,6 +84,18 @@ public class JobRolesIntegrationTest {
 
         Client client = APP.client();
 
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target("http://localhost:8080/api/auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=10")
                 .request()
@@ -99,6 +111,18 @@ public class JobRolesIntegrationTest {
     void get25JobRoles_shouldReturn25JobRoles() {
 
         Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target("http://localhost:8080/api/auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=25")
@@ -116,6 +140,18 @@ public class JobRolesIntegrationTest {
 
         Client client = APP.client();
 
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target("http://localhost:8080/api/auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=50")
                 .request()
@@ -131,6 +167,18 @@ public class JobRolesIntegrationTest {
     void get100JobRoles_shouldReturn100JobRoles() {
 
         Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target("http://localhost:8080/api/auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=100")
