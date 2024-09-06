@@ -97,7 +97,7 @@ public class JobRolesIntegrationTest {
                 .readEntity(String.class);
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=10")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=10")
                 .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
@@ -125,7 +125,7 @@ public class JobRolesIntegrationTest {
                 .readEntity(String.class);
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=25")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=25")
                 .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
@@ -153,7 +153,7 @@ public class JobRolesIntegrationTest {
                 .readEntity(String.class);
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=50")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=50")
                 .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
@@ -181,7 +181,7 @@ public class JobRolesIntegrationTest {
                 .readEntity(String.class);
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles?page=1&limit=100")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=100")
                 .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
