@@ -12,6 +12,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.example.daos.DatabaseConnector;
 import org.example.daos.FileImportDao;
 
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,18 +38,18 @@ public class BucketService {
                 .withRegion(Regions.EU_WEST_1)
                 .build();
 
-        String filename = "test.csv";
+        String filename = "ImportTest1.csv";
 
         System.out.format("Downloading %s from S3 bucket %s...\n",
                 filename, System.getenv().get("S3_BUCKET"));
 
         try {
-            S3Object o = s3client.getObject(System.getenv().get(
-                    "S3_BUCKET"), filename);
-            S3ObjectInputStream s3is = o.getObjectContent();
+//            S3Object o = s3client.getObject(System.getenv().get(
+//                    "S3_BUCKET"), filename);
+//            S3ObjectInputStream s3is = o.getObjectContent();
 
             FileInputStream fileInputStream = new FileInputStream(
-                    "/Users/jemima.orakwue/Documents/test.csv");
+                    "/Users/adnan/Desktop/ImportTest1.csv");
             InputStreamReader inputStreamReader = new InputStreamReader(
                     fileInputStream);
 
