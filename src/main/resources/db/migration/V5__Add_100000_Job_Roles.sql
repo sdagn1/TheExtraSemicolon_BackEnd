@@ -1,4 +1,12 @@
 
+CREATE INDEX idx_job_roles_status ON Job_Roles(status);
+CREATE INDEX idx_job_roles_positions ON Job_Roles(positionsAvailable);
+CREATE INDEX idx_job_bands_id ON Job_Bands(jobBandsId);
+CREATE INDEX idx_job_location_connector_roleId ON Job_Location_Connector(roleId);
+CREATE INDEX idx_job_location_connector_roleLocationId ON Job_Location_Connector(roleLocationId);
+
+
+
 DELIMITER //
 
 CREATE PROCEDURE InsertJobRoles()
