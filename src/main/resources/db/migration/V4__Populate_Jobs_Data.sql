@@ -1159,4 +1159,3 @@ TIMESTAMP("2025-03-12",  "11:00:00"),
 
 INSERT INTO Job_Location_Connector (roleId, roleLocationId)
 VALUES (28, 3);
-
