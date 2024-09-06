@@ -33,13 +33,13 @@ public class AuthorizationIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=10")
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .get();
@@ -59,13 +59,13 @@ public class AuthorizationIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=10")
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .get();
@@ -80,7 +80,7 @@ public class AuthorizationIntegrationTest {
         Client client = APP.client();
 
         Response response = client
-                .target("http://localhost:8080/api/job-roles")
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=10")
                 .request()
                 .get();
 
