@@ -37,7 +37,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -64,7 +64,7 @@ public class JobRolesIntegrationTest {
 
         );
         String token = "Bearer " + client
-                .target("http://localhost:8080/api/auth/login")
+                .target(System.getenv("API_URL")+"auth/login")
                 .request()
                 .post(Entity.json(loginRequest))
                 .readEntity(String.class);
@@ -74,6 +74,118 @@ public class JobRolesIntegrationTest {
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .get();
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get10JobRoles_shouldReturn10JobRoles() {
+
+        Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target(System.getenv("API_URL")+"auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=10")
+                .request(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get25JobRoles_shouldReturn25JobRoles() {
+
+        Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target(System.getenv("API_URL")+"auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=25")
+                .request(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get50JobRoles_shouldReturn50JobRoles() {
+
+        Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target(System.getenv("API_URL")+"auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=50")
+                .request(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
+    @Test
+    void get100JobRoles_shouldReturn100JobRoles() {
+
+        Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target(System.getenv("API_URL")+"auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target(System.getenv("API_URL")+"job-roles/?page=1&limit=100")
+                .request(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        System.out.println(response);
 
         Assertions.assertEquals(200, response.getStatus());
 
