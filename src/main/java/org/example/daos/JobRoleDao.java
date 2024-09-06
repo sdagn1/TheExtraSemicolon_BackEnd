@@ -26,7 +26,6 @@ public class JobRoleDao {
         jobRoleValidator.validateJobRolePagination(page, limit);
 
         int offset = (page - 1) * limit;
-
         String query = "SELECT \n"
                 + "    jr.roleId,\n"
                 + "    jr.roleName,\n"
@@ -38,32 +37,19 @@ public class JobRoleDao {
                 + "    jr.closingDate,\n"
                 + "    jr.status,\n"
                 + "    jr.positionsAvailable,\n"
-                + "    GROUP_CONCAT(jl.locationName SEPARATOR ', ')"
-                + " AS locations\n"
+                + "    locations\n"
                 + "FROM \n"
                 + "    Job_Roles jr\n"
                 + "JOIN \n"
                 + "    Job_Bands jb ON jr.band = jb.jobBandsId\n"
                 + "JOIN \n"
-                + "    Job_Location_Connector jlc"
-                + " ON jr.roleId = jlc.roleId\n"
-                + "JOIN \n"
-                + " Job_Locations jl "
-                + "ON jlc.roleLocationId = jl.roleLocationId\n"
+                + "    (SELECT roleId, GROUP_CONCAT(locationName SEPARATOR ', ') AS locations\n"
+                + "     FROM Job_Location_Connector jlc\n"
+                + "     JOIN Job_Locations jl ON jlc.roleLocationId = jl.roleLocationId\n"
+                + "     GROUP BY roleId) loc ON jr.roleId = loc.roleId\n"
                 + "WHERE \n"
                 + "    jr.status = 1 \n"
                 + "    AND jr.positionsAvailable > 0 \n"
-                + "GROUP BY \n"
-                + "    jr.roleId, \n"
-                + "    jr.roleName, \n"
-                + "    jr.description,\n"
-                + "    jr.responsibilities, \n"
-                + "    jr.linkToJobSpec,\n"
-                + "    jr.capability, \n"
-                + "    jb.jobBandsEnum, \n"
-                + "    jr.closingDate,\n"
-                + "    jr.status, \n"
-                + "    jr.positionsAvailable \n"
                 + "LIMIT ? OFFSET ?;";
 
 
