@@ -98,7 +98,7 @@ public class JobRolesIntegrationTest {
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=10")
-                .request()
+                .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
         System.out.println(response);
@@ -126,7 +126,7 @@ public class JobRolesIntegrationTest {
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=25")
-                .request()
+                .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
         System.out.println(response);
@@ -154,7 +154,7 @@ public class JobRolesIntegrationTest {
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=50")
-                .request()
+                .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
         System.out.println(response);
@@ -182,7 +182,7 @@ public class JobRolesIntegrationTest {
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles?page=1&limit=100")
-                .request()
+                .request(HttpHeaders.AUTHORIZATION, token)
                 .get();
 
         System.out.println(response);
