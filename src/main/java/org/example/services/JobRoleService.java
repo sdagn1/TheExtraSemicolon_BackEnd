@@ -5,9 +5,14 @@ import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.exceptions.InvalidPageLimitException;
 import org.example.mappers.JobRoleMapper;
+import org.example.mappers.JobRoleToCSV;
+import org.example.models.JobRole;
 import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -55,5 +60,43 @@ public class JobRoleService {
 
     public int getTotalJobRoles() throws SQLException {
         return jobRoleDao.getTotalJobRoles();
+    }
+
+    public File getFullJobRoles()
+            throws SQLException, DoesNotExistException,
+            InvalidPageLimitException, IOException {
+
+
+        List<JobRole> jobRoles = jobRoleDao.getFullJobRoles();
+
+        if (jobRoles.isEmpty()) {
+            throw new DoesNotExistException(Entity.JOBROLERESPONSE);
+        }
+
+        List<JobRoleInfoResponse> jobRoleInfoResponse =
+                JobRoleMapper.
+                        mapJobRolesToJobRoleInfoList(
+                                jobRoles);
+
+        File file = new File("Report.txt");
+        int counter = 1;
+
+        while (file.exists()) {
+            file = new File("Report+" + counter + ".txt");
+            counter++;
+        }
+
+        if (file.createNewFile()) {
+            System.out.println("File created: " + file.getName());
+        } else {
+            throw new FileAlreadyExistsException("File already exists");
+        }
+
+
+
+
+
+        return JobRoleToCSV.
+                writeJobRoleForPipeSeparatorCSV(jobRoleInfoResponse, file);
     }
 }

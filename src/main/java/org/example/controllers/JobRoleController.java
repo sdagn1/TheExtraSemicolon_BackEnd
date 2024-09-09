@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.InvalidPageLimitException;
+import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 import org.example.models.UserRole;
 import org.example.services.JobRoleService;
@@ -17,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +88,30 @@ public class JobRoleController {
         } catch (InvalidPageLimitException e) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage()).build();
+        }
+    }
+
+
+    @GET
+    @Path("/full")
+    @Produces(MediaType.TEXT_PLAIN)
+//    @RolesAllowed({UserRole.ADMIN, UserRole.USER})
+    @ApiOperation(
+            value = "Returns a Job Role",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = List.class
+    )
+    public Response getFullJobRole() {
+        try {
+            return Response.ok().entity(jobRoleService.getFullJobRoles())
+                    .build();
+        } catch (DoesNotExistException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        } catch (InvalidPageLimitException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
