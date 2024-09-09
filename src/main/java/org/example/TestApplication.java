@@ -24,6 +24,7 @@ import org.example.daos.AuthDao;
 import org.example.models.JwtToken;
 import org.example.services.AuthService;
 import org.example.services.TestService;
+import org.example.validators.FileImportValidator;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.example.validators.LoginValidator;
 
@@ -65,7 +66,7 @@ public class TestApplication extends Application<TestConfiguration> {
         ));
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
-        environment.jersey().register(new FileImportController(new BucketService(new FileImportDao())));
+        environment.jersey().register(new FileImportController(new BucketService(new FileImportDao(), new FileImportValidator())));
         environment.jersey()
                 .register(new JobRoleController(
                             new JobRoleService(

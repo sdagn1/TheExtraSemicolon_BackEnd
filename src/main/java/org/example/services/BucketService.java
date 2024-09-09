@@ -11,10 +11,11 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.example.daos.DatabaseConnector;
 import org.example.daos.FileImportDao;
+import org.example.exceptions.InvalidImportFileException;
+import org.example.validators.FileImportValidator;
 
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,9 +26,11 @@ import java.util.List;
 public class BucketService {
     FileImportDao fileImportDao;
     DatabaseConnector databaseConnector;
+    FileImportValidator fileImportValidator;
 
-    public BucketService(final FileImportDao fileImportDao) {
+    public BucketService(final FileImportDao fileImportDao, final FileImportValidator fileImportValidator) {
         this.fileImportDao = fileImportDao;
+        this.fileImportValidator = fileImportValidator;
     }
 
 
@@ -67,12 +70,17 @@ public class BucketService {
             System.out.println("NOT AWS FILE HERE");
             String line;
             List<String> listOfLines = new ArrayList<>();
+            int counter = 0;
             while ((line = bufferedReader.readLine()) != null) {
+                counter++;
                 // Process the line
                 System.out.println(line);
+                fileImportValidator.validateFileImportLine(line, counter);
                 listOfLines.add(line);
             }
             System.out.println(listOfLines);
+
+
             return fileImportDao.importRoles(listOfLines);
 
             //This will call the FileImportService to split the lines
@@ -90,6 +98,8 @@ public class BucketService {
             System.err.println(e.getMessage());
             System.exit(1);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidImportFileException e) {
             throw new RuntimeException(e);
         }
         return 0;
