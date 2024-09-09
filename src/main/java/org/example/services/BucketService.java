@@ -7,6 +7,8 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.example.daos.DatabaseConnector;
 import org.example.daos.FileImportDao;
 
@@ -28,7 +30,9 @@ public class BucketService {
         this.fileImportDao = fileImportDao;
     }
 
-    public void importJobRoles(){
+
+    public int importJobRoles(){
+        System.out.println("Test");
 
         AWSCredentials credentials = new BasicAWSCredentials(
                 System.getenv().get("AWS_ACCESS_KEY_ID"),
@@ -47,17 +51,17 @@ public class BucketService {
                 filename, System.getenv().get("S3_BUCKET"));
 
         try {
-//            S3Object o = s3client.getObject(System.getenv().get(
-//                    "S3_BUCKET"), filename);
-//            S3ObjectInputStream s3is = o.getObjectContent();
+            S3Object o = s3client.getObject(System.getenv().get(
+                    "S3_BUCKET"), filename);
+            S3ObjectInputStream s3is = o.getObjectContent();
 
-            FileInputStream fileInputStream = new FileInputStream(
-                    "/Users/adnan/Desktop/ImportTest1.csv");
-            InputStreamReader inputStreamReader = new InputStreamReader(
-                    fileInputStream);
-
+  //          FileInputStream fileInputStream = new FileInputStream(
+//                    "/Users/jemima.orakwue/Documents/ImportTest1.csv");
 //            InputStreamReader inputStreamReader = new InputStreamReader(
-//                    s3is);
+//                    fileInputStream);
+
+            InputStreamReader inputStreamReader = new InputStreamReader(
+                    s3is);
             BufferedReader bufferedReader = new BufferedReader(
                     inputStreamReader);
             System.out.println("NOT AWS FILE HERE");
@@ -68,14 +72,14 @@ public class BucketService {
                 System.out.println(line);
                 listOfLines.add(line);
             }
-
-            fileImportDao.importRoles(listOfLines);
+            System.out.println(listOfLines);
+            return fileImportDao.importRoles(listOfLines);
 
             //This will call the FileImportService to split the lines
 
 
-            bufferedReader.close();
-            inputStreamReader.close();
+//            bufferedReader.close();
+//            inputStreamReader.close();
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
@@ -88,6 +92,7 @@ public class BucketService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return 0;
     }
 
 

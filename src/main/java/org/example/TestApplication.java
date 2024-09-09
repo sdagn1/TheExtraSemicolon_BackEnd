@@ -8,8 +8,10 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.example.controllers.FileImportController;
 import org.example.controllers.JobRoleController;
 import org.example.controllers.TestController;
+import org.example.daos.FileImportDao;
 import org.example.daos.JobRoleDao;
 import org.example.daos.TestDao;
 import org.example.services.BucketService;
@@ -63,7 +65,7 @@ public class TestApplication extends Application<TestConfiguration> {
         ));
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
-        environment.jersey().register(new BucketService());
+        environment.jersey().register(new FileImportController(new BucketService(new FileImportDao())));
         environment.jersey()
                 .register(new JobRoleController(
                             new JobRoleService(

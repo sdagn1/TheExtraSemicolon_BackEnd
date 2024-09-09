@@ -29,22 +29,15 @@ public class FileImportController {
     @POST
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({UserRole.ADMIN, UserRole.USER})
+//    @RolesAllowed({UserRole.ADMIN, UserRole.USER})
     @ApiOperation(
             value = "Imports Job Roles into database",
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
             response = List.class
     )
-    public Response postCsvFIle(@FormParam("csv") final InputStream csv) {
-        try {
-            return Response.ok().entity(bucketService.importJobRoles(csv))
-                    .build();
-        } catch (DoesNotExistException e) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(e.getMessage()).build();
-        } catch (SQLException e) {
-            return Response.serverError().build();
-        }
+    public Response postCsvFIle() {
+        return Response.ok().entity(bucketService.importJobRoles())
+                .build();
     }
 
 
