@@ -63,7 +63,7 @@ public class JobRoleService {
     }
 
     public File getFullJobRoles()
-            throws SQLException, DoesNotExistException,
+    throws SQLException, DoesNotExistException,
             InvalidPageLimitException, IOException {
 
 
@@ -78,11 +78,11 @@ public class JobRoleService {
                         mapJobRolesToJobRoleInfoList(
                                 jobRoles);
 
-        File file = new File("Report.txt");
+        File file = new File("Report.csv");
         int counter = 1;
 
         while (file.exists()) {
-            file = new File("Report+" + counter + ".txt");
+            file = new File("Report+" + counter + ".csv");
             counter++;
         }
 
@@ -91,7 +91,6 @@ public class JobRoleService {
         } else {
             throw new FileAlreadyExistsException("File already exists");
         }
-
 
 
 

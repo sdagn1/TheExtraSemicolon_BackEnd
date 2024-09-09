@@ -183,7 +183,7 @@ public class JobRoleDao {
     }
 
     public List<JobRole> getFullJobRoles()
-            throws SQLException, DoesNotExistException,
+    throws SQLException, DoesNotExistException,
             InvalidPageLimitException {
         List<JobRole> jobRoles = new ArrayList<>();
         JobRoleValidator jobRoleValidator = new JobRoleValidator();
@@ -199,7 +199,7 @@ public class JobRoleDao {
                 + "    jr.closingDate,\n"
                 + "    jr.status,\n"
                 + "    jr.positionsAvailable,\n"
-                + "    locations\n"
+                + "    COALESCE(locations, '') AS locations\n"
                 + "FROM \n"
                 + "    Job_Roles jr\n"
                 + "JOIN \n"
@@ -246,13 +246,17 @@ public class JobRoleDao {
                 jobRole.setPositionsAvailable(resultSet.getInt(
                         "positionsAvailable"));
 
-                String[] locationStrings = resultSet.
-                        getString("locations").split(", ");
-                List<Location> locations = new ArrayList<>();
-                for (String locationString : locationStrings) {
-                    locations.add(Location.fromString(locationString));
+                String locationsString = resultSet.getString("locations");
+                if (locationsString != null) {
+                    String[] locationStrings = locationsString.split(", ");
+                    List<Location> locations = new ArrayList<>();
+                    for (String locationString : locationStrings) {
+                        locations.add(Location.fromString(locationString));
+                    }
+                    jobRole.setLocations(locations);
+                } else {
+                    jobRole.setLocations(new ArrayList<>());
                 }
-                jobRole.setLocations(locations);
 
 
                 jobRoles.add(jobRole);
