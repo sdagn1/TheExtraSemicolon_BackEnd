@@ -6,6 +6,7 @@ import java.io.IOException;
 public class FileImportService {
 
     public FileImportService() throws IOException {
+        //This will split the file by lines, and send each line into the DAO for import into the database
         FileReader fileReader = new FileReader("test.csv");
         System.out.println("Reading char by char :\n");
         int i;

@@ -7,8 +7,6 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.example.daos.DatabaseConnector;
 import org.example.daos.FileImportDao;
 
@@ -23,10 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BucketService {
-    FileImportDao fileImportDao = new FileImportDao();
+    FileImportDao fileImportDao;
     DatabaseConnector databaseConnector;
 
-    public BucketService() {
+    public BucketService(final FileImportDao fileImportDao) {
+        this.fileImportDao = fileImportDao;
+    }
+
+    public void importJobRoles(){
+
         AWSCredentials credentials = new BasicAWSCredentials(
                 System.getenv().get("AWS_ACCESS_KEY_ID"),
                 System.getenv().get("AWS_SECRET_ACCESS_KEY")
@@ -65,8 +68,10 @@ public class BucketService {
                 System.out.println(line);
                 listOfLines.add(line);
             }
-//            System.out.println(listOfLines);
+
             fileImportDao.importRoles(listOfLines);
+
+            //This will call the FileImportService to split the lines
 
 
             bufferedReader.close();
@@ -84,4 +89,7 @@ public class BucketService {
             throw new RuntimeException(e);
         }
     }
+
+
+
 }

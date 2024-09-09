@@ -26,12 +26,10 @@ public class FileImportDao {
                     + "VALUES "
                     + "(?,?,?,?,?,?,?,?,?);";
 
-            String getLastInsertId = "SET @lastRoleId = LAST_INSERT_ID();";
-
             String insertLocationStatement = "INSERT INTO Job_Location_Connector"
                     + "(roleId, roleLocationId)"
                     + "VALUES"
-                    + "(@lastRoleId, ?);";
+                    + "(?, ?);";
 
 
             PreparedStatement statement = connection.prepareStatement(
@@ -41,11 +39,15 @@ public class FileImportDao {
 
             System.out.println("Number of lines " + listOfLines.size());
 
+            //This stuff goes into the service
+
             Map<String, Object>[] arrayOfMaps = new HashMap[listOfLines.size()];
 
             for (int i = 0; i < arrayOfMaps.length; i++) {
                 arrayOfMaps[i] = new HashMap<>();
             }
+
+            //Everything after this stays in the Dao
 
             SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -76,7 +78,6 @@ public class FileImportDao {
                     throw new SQLException("Error parsing date: " + lineContents[6]);
                 }
 
-//                statement.setTimestamp(7, Timestamp.valueOf(lineContents[6]));
                 statement.setString(8, lineContents[7]);
                 statement.setInt(9, Integer.parseInt(lineContents[8]));
 
@@ -85,13 +86,15 @@ public class FileImportDao {
                 if (resultSet > 0) {
                     ResultSet generatedKeys = statement.getGeneratedKeys();
                     if (generatedKeys.next()) {
+                        long lastRoleId = generatedKeys.getLong(1);
                         String[] locations = lineContents[9].split(","); // Locations also separated by commas
 
                         for (String location : locations) {
                             try {
                                 Location locEnum = Location.fromString(location.trim());
                                 int locationId = locEnum.ordinal() + 1; // Assuming ordinal matches the ID
-                                locationStatement.setInt(1, locationId);
+                                locationStatement.setInt(1, (int) lastRoleId);
+                                locationStatement.setInt(2, locationId);
                                 locationStatement.executeUpdate();
                             } catch (IllegalArgumentException e) {
                                 System.err.println("Unknown location: " + location);
