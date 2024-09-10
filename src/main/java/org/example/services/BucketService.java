@@ -7,11 +7,16 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsV2Request;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.example.daos.DatabaseConnector;
 import org.example.daos.FileImportDao;
 import org.example.exceptions.InvalidImportFileException;
+import org.example.models.FileImportRequest;
 import org.example.validators.FileImportValidator;
 
 
@@ -34,8 +39,9 @@ public class BucketService {
     }
 
 
-    public int importJobRoles(){
+    public int importJobRoles() {
         System.out.println("Test");
+        int result = 0;
 
         AWSCredentials credentials = new BasicAWSCredentials(
                 System.getenv().get("AWS_ACCESS_KEY_ID"),
@@ -48,8 +54,23 @@ public class BucketService {
                 .withRegion(Regions.EU_WEST_1)
                 .build();
 
-        String filename = "ImportTest1.csv";
+        String folderName = "the_extra_semicolon/imports/";
+        ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(System.getenv().get("S3_BUCKET")).withPrefix(folderName);
+        ListObjectsV2Result listResult;
+        listResult = s3client.listObjectsV2(req);
+        for (S3ObjectSummary objectSummary : listResult.getObjectSummaries()) {
+            System.out.println(" - " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
+       }
+        //ListObjectsV2Result listResult = s3client.listObjectsV2(System.getenv().get("S3_BUCKET"));
+       // List<S3ObjectSummary> objects = listResult.getObjectSummaries();
+       // for (S3ObjectSummary os : objects) {
+       //     System.out.println("* " + os.getKey());
+       // }
 
+
+
+        String filename = folderName + "d2c0eca4-6546-4e24-b8a4-0d11aecd35aaImportTest1.csv";
+        // String filename = fileImportRequest.getFilename();
         System.out.format("Downloading %s from S3 bucket %s...\n",
                 filename, System.getenv().get("S3_BUCKET"));
 
@@ -80,8 +101,8 @@ public class BucketService {
             }
             System.out.println(listOfLines);
 
-
-            return fileImportDao.importRoles(listOfLines);
+            result = fileImportDao.importRoles(listOfLines);
+//            return fileImportDao.importRoles(listOfLines);
 
             //This will call the FileImportService to split the lines
 
@@ -102,9 +123,17 @@ public class BucketService {
         } catch (InvalidImportFileException e) {
             throw new RuntimeException(e);
         }
-        return 0;
+
+        if (result == 0) {
+            try {
+                s3client.deleteObject(new DeleteObjectRequest(System.getenv().get(
+                        "S3_BUCKET"), filename));
+                System.out.println(filename + "has been deleted");
+            } catch (AmazonServiceException e) {
+                System.err.println(e.getErrorMessage());
+                System.exit(1);
+            }
+        }
+        return result;
     }
-
-
-
 }

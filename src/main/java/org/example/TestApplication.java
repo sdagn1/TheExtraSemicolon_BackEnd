@@ -66,7 +66,9 @@ public class TestApplication extends Application<TestConfiguration> {
         ));
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
-        environment.jersey().register(new FileImportController(new BucketService(new FileImportDao(), new FileImportValidator())));
+        environment.jersey().register(new FileImportController(
+                new BucketService(
+                        new FileImportDao(), new FileImportValidator())));
         environment.jersey()
                 .register(new JobRoleController(
                             new JobRoleService(

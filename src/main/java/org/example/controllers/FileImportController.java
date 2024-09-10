@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.daos.FileImportDao;
 import org.example.exceptions.DoesNotExistException;
+import org.example.models.FileImportRequest;
 import org.example.models.UserRole;
 import org.example.services.BucketService;
 
@@ -38,8 +39,5 @@ public class FileImportController {
     public Response postCsvFIle() {
         return Response.ok().entity(bucketService.importJobRoles())
                 .build();
-    }
-
-
-
+}
 }

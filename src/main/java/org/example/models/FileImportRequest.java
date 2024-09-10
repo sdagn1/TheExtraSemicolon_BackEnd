@@ -1,16 +1,25 @@
 package org.example.models;
 
-import com.amazonaws.services.dynamodbv2.xspec.NULL;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FileImportRequest {
-    private String roleName;
-    private String description;
-    private String responsibilities;
-    private String linkToJobSpec;
-    private String capability;
-    private String band;
-    private String closingDate;
-    private String status;
-    private String positionsAvailable;
+    private String filename;
+
+    @JsonCreator
+    public FileImportRequest(
+            @JsonProperty("filename") final String filename) {
+        this.filename = filename;
+
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(final String filename) {
+        this.filename = filename;
+    }
+
 
 }
