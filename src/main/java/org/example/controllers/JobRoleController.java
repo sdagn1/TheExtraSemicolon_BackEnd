@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.InvalidPageLimitException;
-import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 import org.example.models.UserRole;
 import org.example.services.JobRoleService;
@@ -105,13 +104,11 @@ public class JobRoleController {
         try {
             return Response.ok(jobRoleService.getFullJobRoles())
                     .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=\"Report.csv\"")
+                            "attachment; filename=\""
+                                    + jobRoleService.file.getName()
+                                    + "\"")
                     .build();
-        }
-//            return Response.ok().entity(jobRoleService.getFullJobRoles())
-//                    .build();
-//        }
-        catch (DoesNotExistException e) {
+        } catch (DoesNotExistException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage()).build();
         } catch (SQLException e) {

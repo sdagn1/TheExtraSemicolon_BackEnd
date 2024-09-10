@@ -73,7 +73,8 @@ public final class JobRoleMapper {
                             jobRole.getCapability().getCapability()
                     );
                     jobRoleInfoResponse.setBand(jobRole.getBand().getJobBand());
-                    jobRoleInfoResponse.setClosingDate(jobRole.getClosingDate());
+                    jobRoleInfoResponse.setClosingDate(
+                            jobRole.getClosingDate());
                     jobRoleInfoResponse.setStatus(jobRole.isStatus());
                     jobRoleInfoResponse.setPositionsAvailable(
                             jobRole.getPositionsAvailable());

@@ -18,6 +18,7 @@ import java.util.List;
 
 public class JobRoleService {
     JobRoleDao jobRoleDao;
+    public File file;
 
     private String formatLocations(final List<String> locations) {
         return String.join(", ", locations);
@@ -78,7 +79,7 @@ public class JobRoleService {
                         mapJobRolesToJobRoleInfoList(
                                 jobRoles);
 
-        File file = new File("Report.csv");
+        file = new File("Report.csv");
         int counter = 1;
 
         while (file.exists()) {
@@ -91,9 +92,6 @@ public class JobRoleService {
         } else {
             throw new FileAlreadyExistsException("File already exists");
         }
-
-
-
 
         return JobRoleToCSV.
                 writeJobRoleForPipeSeparatorCSV(jobRoleInfoResponse, file);
