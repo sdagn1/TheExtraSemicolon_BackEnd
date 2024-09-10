@@ -55,85 +55,76 @@ public class BucketService {
                 .build();
 
         String folderName = "the_extra_semicolon/imports/";
+        String filename;
+        String fullFileName;
         ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(System.getenv().get("S3_BUCKET")).withPrefix(folderName);
         ListObjectsV2Result listResult;
         listResult = s3client.listObjectsV2(req);
         for (S3ObjectSummary objectSummary : listResult.getObjectSummaries()) {
             System.out.println(" - " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
-       }
-        //ListObjectsV2Result listResult = s3client.listObjectsV2(System.getenv().get("S3_BUCKET"));
-       // List<S3ObjectSummary> objects = listResult.getObjectSummaries();
-       // for (S3ObjectSummary os : objects) {
-       //     System.out.println("* " + os.getKey());
-       // }
+            filename = objectSummary.getKey();
+           // String[] splitFilepath = objectSummary.getKey().split("/");
+           // filename = splitFilepath[2];
+            System.out.println(filename);
+            //filename = objectSummary.getKey();
 
-
-
-        String filename = folderName + "d2c0eca4-6546-4e24-b8a4-0d11aecd35aaImportTest1.csv";
-        // String filename = fileImportRequest.getFilename();
-        System.out.format("Downloading %s from S3 bucket %s...\n",
-                filename, System.getenv().get("S3_BUCKET"));
-
-        try {
-            S3Object o = s3client.getObject(System.getenv().get(
-                    "S3_BUCKET"), filename);
-            S3ObjectInputStream s3is = o.getObjectContent();
-
-  //          FileInputStream fileInputStream = new FileInputStream(
-//                    "/Users/jemima.orakwue/Documents/ImportTest1.csv");
-//            InputStreamReader inputStreamReader = new InputStreamReader(
-//                    fileInputStream);
-
-            InputStreamReader inputStreamReader = new InputStreamReader(
-                    s3is);
-            BufferedReader bufferedReader = new BufferedReader(
-                    inputStreamReader);
-            System.out.println("NOT AWS FILE HERE");
-            String line;
-            List<String> listOfLines = new ArrayList<>();
-            int counter = 0;
-            while ((line = bufferedReader.readLine()) != null) {
-                counter++;
-                // Process the line
-                System.out.println(line);
-                fileImportValidator.validateFileImportLine(line, counter);
-                listOfLines.add(line);
-            }
-            System.out.println(listOfLines);
-
-            result = fileImportDao.importRoles(listOfLines);
-//            return fileImportDao.importRoles(listOfLines);
-
-            //This will call the FileImportService to split the lines
-
-
-//            bufferedReader.close();
-//            inputStreamReader.close();
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-            System.exit(1);
-        } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidImportFileException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (result == 0) {
+            System.out.format("Downloading %s from S3 bucket %s...\n",
+                    filename, System.getenv().get("S3_BUCKET"));
             try {
-                s3client.deleteObject(new DeleteObjectRequest(System.getenv().get(
-                        "S3_BUCKET"), filename));
-                System.out.println(filename + "has been deleted");
+                S3Object o = s3client.getObject(System.getenv().get(
+                        "S3_BUCKET"), filename);
+                S3ObjectInputStream s3is = o.getObjectContent();
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(
+                        s3is);
+                BufferedReader bufferedReader = new BufferedReader(
+                        inputStreamReader);
+                System.out.println("NOT AWS FILE HERE");
+                String line;
+                List<String> listOfLines = new ArrayList<>();
+                int counter = 0;
+                while ((line = bufferedReader.readLine()) != null) {
+                    counter++;
+                    // Process the line
+                    System.out.println(line);
+                    fileImportValidator.validateFileImportLine(line, counter);
+                    listOfLines.add(line);
+                }
+                System.out.println(listOfLines);
+
+                result = fileImportDao.importRoles(listOfLines);
+
             } catch (AmazonServiceException e) {
                 System.err.println(e.getErrorMessage());
                 System.exit(1);
+            } catch (FileNotFoundException e) {
+                System.err.println(e.getMessage());
+                System.exit(1);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+                System.exit(1);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (InvalidImportFileException e) {
+                throw new RuntimeException(e);
             }
-        }
+
+            if (result == 0) {
+                try {
+                    s3client.deleteObject(new DeleteObjectRequest(System.getenv().get(
+                            "S3_BUCKET"), filename));
+                    System.out.println(filename + "has been deleted");
+                } catch (AmazonServiceException e) {
+                    System.err.println(e.getErrorMessage());
+                    System.exit(1);
+                }
+            }
+       }
         return result;
+        //String filename = folderName + "d2c0eca4-6546-4e24-b8a4-0d11aecd35aaImportTest1.csv";
+        // String filename = fileImportRequest.getFilename();
+//        System.out.format("Downloading %s from S3 bucket %s...\n",
+//                filename, System.getenv().get("S3_BUCKET"));
     }
 }
