@@ -1,6 +1,7 @@
 package org.example.mappers;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -13,10 +14,10 @@ public final class JobRoleToCSV {
                 + "and cannot be instantiated");
     }
 
-    public static File writeJobRoleForPipeSeparatorCSV(
+    public static FileInputStream writeJobRoleForPipeSeparatorCSV(
             final List<JobRoleInfoResponse> jobRoleInfoResponse,
-            final File fileName) throws IOException {
-        try (FileWriter outputfile = new FileWriter(fileName);
+            final FileInputStream fileName) throws IOException {
+        try (FileWriter outputfile = new FileWriter(String.valueOf(fileName));
              CSVWriter writer = new CSVWriter(outputfile, ',',
                      CSVWriter.NO_QUOTE_CHARACTER,
                      CSVWriter.DEFAULT_ESCAPE_CHARACTER,
@@ -26,10 +27,12 @@ public final class JobRoleToCSV {
                 String[] jobRoleData = {jobRole.getRoleName(),
                         jobRole.getDescription()
                                 .replace(",", "|")
-                                .replace("\n", ""),
+                                .replace("\n", "")
+                                .replace(",Äô", "'"),
                         jobRole.getResponsibilities()
                                 .replace(",", "|")
-                                .replace("\n", ""),
+                                .replace("\n", "")
+                                .replace("‚Ä¢", "-"),
                         jobRole.getLinkToJobSpec(),
                         jobRole.getCapability(),
                         jobRole.getBand(),
@@ -38,6 +41,8 @@ public final class JobRoleToCSV {
                         String.valueOf(jobRole.getPositionsAvailable())};
 
                 writer.writeNext(jobRoleData);
+                String[] newLine = {"---"};
+                writer.writeNext(newLine);
             }
 
             System.out.println(

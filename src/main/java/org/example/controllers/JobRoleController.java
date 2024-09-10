@@ -94,7 +94,7 @@ public class JobRoleController {
     @GET
     @Path("/report")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({UserRole.ADMIN})
+//    @RolesAllowed({UserRole.ADMIN})
     @ApiOperation(
             value = "Returns a Report of All Job Roles",
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
@@ -104,9 +104,7 @@ public class JobRoleController {
         try {
             return Response.ok(jobRoleService.getFullJobRoles())
                     .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=\""
-                                    + jobRoleService.file.getName()
-                                    + "\"")
+                            "attachment; filename=\"Report.csv\"")
                     .build();
         } catch (DoesNotExistException e) {
             return Response.status(Response.Status.NOT_FOUND)

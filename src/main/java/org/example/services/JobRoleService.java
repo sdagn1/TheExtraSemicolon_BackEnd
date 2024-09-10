@@ -11,14 +11,16 @@ import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileAlreadyExistsException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class JobRoleService {
     JobRoleDao jobRoleDao;
-    public File file;
+    public FileInputStream file;
 
     private String formatLocations(final List<String> locations) {
         return String.join(", ", locations);
@@ -63,7 +65,7 @@ public class JobRoleService {
         return jobRoleDao.getTotalJobRoles();
     }
 
-    public File getFullJobRoles()
+    public FileInputStream getFullJobRoles()
     throws SQLException, DoesNotExistException,
             InvalidPageLimitException, IOException {
 
@@ -79,19 +81,19 @@ public class JobRoleService {
                         mapJobRolesToJobRoleInfoList(
                                 jobRoles);
 
-        file = new File("Report.csv");
-        int counter = 1;
+        file = new FileInputStream("Report.csv");
+//        int counter = 1;
 
-        while (file.exists()) {
-            file = new File("Report+" + counter + ".csv");
-            counter++;
-        }
-
-        if (file.createNewFile()) {
-            System.out.println("File created: " + file.getName());
-        } else {
-            throw new FileAlreadyExistsException("File already exists");
-        }
+//        while (file.exists()) {
+//            file = new FileInputStream("Report+" + counter + ".csv");
+//            counter++;
+//        }
+//
+//        if (file.createNewFile()) {
+//            System.out.println("File created: " + file.getName());
+//        } else {
+//            throw new FileAlreadyExistsException("File already exists");
+//        }
 
         return JobRoleToCSV.
                 writeJobRoleForPipeSeparatorCSV(jobRoleInfoResponse, file);
