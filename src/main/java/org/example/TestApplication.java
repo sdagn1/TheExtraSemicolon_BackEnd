@@ -8,10 +8,13 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.example.controllers.FileImportController;
 import org.example.controllers.JobRoleController;
 import org.example.controllers.TestController;
+import org.example.daos.FileImportDao;
 import org.example.daos.JobRoleDao;
 import org.example.daos.TestDao;
+import org.example.services.BucketService;
 import org.example.services.JobRoleService;
 import io.jsonwebtoken.Jwts;
 import org.example.auth.JwtAuthenticator;
@@ -21,6 +24,7 @@ import org.example.daos.AuthDao;
 import org.example.models.JwtToken;
 import org.example.services.AuthService;
 import org.example.services.TestService;
+import org.example.validators.FileImportValidator;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.example.validators.LoginValidator;
 
@@ -28,6 +32,7 @@ import java.security.Key;
 
 public class TestApplication extends Application<TestConfiguration> {
     public static void main(final String[] args) throws Exception {
+
         new TestApplication().run(args);
     }
     @Override
@@ -61,6 +66,9 @@ public class TestApplication extends Application<TestConfiguration> {
         ));
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
+        environment.jersey().register(new FileImportController(
+                new BucketService(
+                        new FileImportDao(), new FileImportValidator())));
         environment.jersey()
                 .register(new JobRoleController(
                             new JobRoleService(

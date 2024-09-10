@@ -4,7 +4,8 @@ public enum Entity {
 
     JOBROLERESPONSE("JobRoleResponse"),
     JOBROLE("JobRole"),
-    USER("User");
+    USER("User"),
+    FILE("File");
 
     private final String entity;
 
