@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,5 +136,39 @@ public class JobRolesControllerTest {
         Response response = jobRoleController.getJobRoleById(2);
 
         assertEquals(404, response.getStatus());
+    }
+
+    @Test
+    void getFullJobRoles_shouldReturnInvalidPageLimitException_whenPageInvalid() throws
+            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(InvalidPageLimitException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(500, response.getStatus());
+    }
+
+    @Test
+    void getFullJobRoles_shouldReturnDoesNotExistException_whenJobRolesDoesNotExist() throws
+            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(DoesNotExistException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(404, response.getStatus());
+    }
+    @Test
+    void getFullJobRoles_shouldReturnIOException_whenIOExceptionThrown() throws
+            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(IOException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(500, response.getStatus());
+    }
+    @Test
+    void getFullJobRoles_shouldReturnSQLException_whenSQLExceptionThrown() throws
+            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(SQLException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(500, response.getStatus());
     }
 }

@@ -111,10 +111,8 @@ public class JobRoleController {
         } catch (DoesNotExistException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage()).build();
-        } catch (SQLException e) {
+        } catch (SQLException | InvalidPageLimitException | IOException e) {
             return Response.serverError().build();
-        } catch (InvalidPageLimitException | IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

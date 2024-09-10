@@ -169,4 +169,34 @@ public class JobRolesIntegrationTest {
 
     }
 
+
+    @Test
+    void getJobRolesReport_shouldReturnCsvFile() {
+
+        Client client = APP.client();
+
+
+        LoginRequest loginRequest = new LoginRequest(
+                "admin@kainos.com",
+                "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+
+        );
+        String token = "Bearer " + client
+                .target(System.getenv("API_URL")+"auth/login")
+                .request()
+                .post(Entity.json(loginRequest))
+                .readEntity(String.class);
+
+        Response response = client
+                .target(System.getenv("API_URL")+"job-roles/report")
+                .request()
+                .header(HttpHeaders.AUTHORIZATION, token)
+                .get();
+
+        System.out.println(response);
+
+        Assertions.assertEquals(200, response.getStatus());
+
+    }
+
 }
