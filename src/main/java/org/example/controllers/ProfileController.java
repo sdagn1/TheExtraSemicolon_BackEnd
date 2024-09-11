@@ -1,6 +1,5 @@
 package org.example.controllers;
 
-import io.dropwizard.auth.Auth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
