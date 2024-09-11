@@ -7,11 +7,14 @@ import org.example.TestApplication;
 import org.example.TestConfiguration;
 import org.example.models.JobRoleResponse;
 import org.example.models.LoginRequest;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientProperties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
@@ -173,7 +176,12 @@ public class JobRolesIntegrationTest {
     @Test
     void getJobRolesReport_shouldReturnCsvFile() {
 
-        Client client = APP.client();
+        ClientConfig clientConfig = new ClientConfig();
+        clientConfig.property(ClientProperties.READ_TIMEOUT, 60000); // 60 seconds
+        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 60000); // 60 seconds
+        Client client = ClientBuilder.newClient(clientConfig);
+
+//        Client client = APP.client();
 
 
         LoginRequest loginRequest = new LoginRequest(
