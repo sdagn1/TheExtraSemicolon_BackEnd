@@ -181,9 +181,6 @@ public class JobRolesIntegrationTest {
         clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 60000); // 60 seconds
         Client client = ClientBuilder.newClient(clientConfig);
 
-//        Client client = APP.client();
-
-
         LoginRequest loginRequest = new LoginRequest(
                 "admin@kainos.com",
                 "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
