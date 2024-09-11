@@ -48,7 +48,7 @@ class AuthServiceTest {
 
     @Test
     void login_shouldThrowSqlException_whenDaoThrowsSqlException() throws SQLException {
-        Mockito.when(authDao.getUser(loginRequest)).thenThrow(SQLException.class);
+        Mockito.when(authDao.getUser(loginRequest.getEmail())).thenThrow(SQLException.class);
 
         assertThrows(SQLException.class,
                 () -> authService.login(loginRequest));
@@ -57,7 +57,7 @@ class AuthServiceTest {
     @Test
     void login_shouldReturnJwtToken_whenDaoReturnsUser() throws SQLException,
             NoSuchAlgorithmException, InvalidKeySpecException, InvalidException {
-        Mockito.when(authDao.getUser(loginRequest)).thenReturn(user);
+        Mockito.when(authDao.getUser(loginRequest.getEmail())).thenReturn(user);
         doNothing().when(loginValidator).validateLogin(loginRequest);
         Mockito.when(authDao.validateUser(validLoginRequest.getEmail(), validLoginRequest.getPassword())).thenReturn(user);
 
@@ -66,7 +66,7 @@ class AuthServiceTest {
 
     @Test
     void login_shouldThrowInvalidException_whenDaoGetUserReturnsNull() throws SQLException, InvalidException {
-        Mockito.when(authDao.getUser(loginRequest)).thenReturn(null);
+        Mockito.when(authDao.getUser(loginRequest.getEmail())).thenReturn(null);
         doNothing().when(loginValidator).validateLogin(loginRequest);
 
         assertThrows(InvalidException.class,
@@ -75,7 +75,7 @@ class AuthServiceTest {
 
     @Test
     void login_shouldThrowInvalidException_whenDaoValidateUserReturnsNull() throws SQLException, InvalidException {
-        Mockito.when(authDao.getUser(loginRequest)).thenReturn(user);
+        Mockito.when(authDao.getUser(loginRequest.getEmail())).thenReturn(user);
         doNothing().when(loginValidator).validateLogin(loginRequest);
         Mockito.when(authDao.validateUser(validLoginRequest.getEmail(), validLoginRequest.getPassword())).thenReturn(null);
 

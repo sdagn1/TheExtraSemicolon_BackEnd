@@ -41,7 +41,7 @@ public class AuthService {
             throws SQLException, InvalidException, NoSuchAlgorithmException,
             InvalidKeySpecException {
         loginValidator.validateLogin(loginRequest);
-        User user = authDao.getUser(loginRequest);
+        User user = authDao.getUser(loginRequest.getEmail());
 
         if (user == null) {
             throw new InvalidException(Entity.USER, "Invalid credentials");
@@ -58,8 +58,7 @@ public class AuthService {
     }
     public void checkEmailExists(final String email) throws SQLException,
             DoesNotExistException {
-        LoginRequest loginRequest = new LoginRequest(email, "");
-        User user = authDao.getUser(loginRequest);
+        User user = authDao.getUser(email);
         if (user == null) {
             throw new DoesNotExistException(Entity.USER);
         }
