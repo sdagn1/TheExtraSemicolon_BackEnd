@@ -53,7 +53,8 @@ public class ApplicationServiceTest {
     @Test
     public void createApplication_shouldThrowFailedToCreateException_whenNothingInserted()
     throws SQLException, InvalidException, DoesNotExistException {
-        Mockito.when(applicationDao.createApplication(applicationRequest)).thenReturn(0);
+        int rowsInserted = 0;
+        Mockito.when(applicationDao.createApplication(applicationRequest)).thenReturn(rowsInserted);
         doNothing().when(applicationValidator).validateApplication(applicationRequest);
         assertThrows(FailedToCreateException.class, () ->
                 applicationService.createApplication(applicationRequest));
@@ -71,7 +72,8 @@ public class ApplicationServiceTest {
     @Test
     public void createApplication_shouldThrowInvalidException_whenValidatorThrowsInvalidException()
             throws SQLException, InvalidException, DoesNotExistException{
-        Mockito.when(applicationDao.createApplication(applicationRequest)).thenReturn(1);
+        int rowsInserted = 1;
+        Mockito.when(applicationDao.createApplication(applicationRequest)).thenReturn(rowsInserted);
         doThrow(InvalidException.class).when(applicationValidator).validateApplication(applicationRequest);
         assertThrows(InvalidException.class, () ->
                 applicationService.createApplication(applicationRequest));
