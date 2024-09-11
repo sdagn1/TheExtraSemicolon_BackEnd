@@ -1,4 +1,4 @@
-DELETE FROM Job_Roles WHERE roleId <100027;
+DELETE FROM Job_Roles WHERE roleId <100500;
 DROP TABLE Job_Location_Connector;
 
 CREATE TABLE Job_Location_Connector (

@@ -55,7 +55,6 @@ public class JobRoleDao {
                 + "LIMIT ? OFFSET ?;";
 
 
-
         try (Connection connection = DatabaseConnector.getConnection()) {
             assert connection != null;
             PreparedStatement statement = connection.prepareStatement(query);
@@ -186,8 +185,6 @@ public class JobRoleDao {
     throws SQLException, DoesNotExistException,
             InvalidPageLimitException {
         List<JobRole> jobRoles = new ArrayList<>();
-        JobRoleValidator jobRoleValidator = new JobRoleValidator();
-
         String query = "SELECT \n"
                 + "    jr.roleId,\n"
                 + "    jr.roleName,\n"
@@ -210,10 +207,7 @@ public class JobRoleDao {
                 + "     FROM Job_Location_Connector jlc\n"
                 + "     JOIN Job_Locations jl ON"
                 + " jlc.roleLocationId = jl.roleLocationId\n"
-                + "     GROUP BY roleId) loc ON jr.roleId = loc.roleId\n"
-                + "WHERE \n"
-                + "    jr.status = 1 \n"
-                + "    AND jr.positionsAvailable > 0;";
+                + "     GROUP BY roleId) loc ON jr.roleId = loc.roleId;";
 
 
 

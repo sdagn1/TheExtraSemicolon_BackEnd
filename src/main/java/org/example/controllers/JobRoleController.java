@@ -94,7 +94,7 @@ public class JobRoleController {
     @GET
     @Path("/report")
     @Produces(MediaType.TEXT_PLAIN)
-//    @RolesAllowed({UserRole.ADMIN})
+    @RolesAllowed({UserRole.ADMIN})
     @ApiOperation(
             value = "Returns a Report of All Job Roles",
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),

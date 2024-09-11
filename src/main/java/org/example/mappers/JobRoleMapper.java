@@ -56,6 +56,8 @@ public final class JobRoleMapper {
     public static List<JobRoleInfoResponse> mapJobRolesToJobRoleInfoList(
             final List<JobRole> jobRoles) {
         if (jobRoles == null || jobRoles.isEmpty()) {
+            System.out.println(
+                    "jobRoles is null - mapJobRolesToJobRoleInfoList");
             return Collections.emptyList();
         }
         return jobRoles.stream()

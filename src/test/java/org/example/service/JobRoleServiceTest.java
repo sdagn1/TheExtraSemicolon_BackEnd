@@ -173,4 +173,44 @@ public class JobRoleServiceTest {
                 () -> jobRoleService.getFullJobRoles());
     }
 
+    @Test
+    void getFullJobRole_shouldReturnJobRoleListWhenDaoReturnsJobRoleList()
+            throws SQLException, DoesNotExistException, InvalidPageLimitException {
+        Date date = new Date();
+        JobRole jobRole1 = new JobRole(
+                999,
+                "Technical Architect",
+                "Test description for the technical architect role.",
+                "Responsibility 1, Responsibility 2, Responsibility 3",
+                "examplelink.co.uk",
+                JobBand.MANAGER,
+                date
+        );
+        jobRole1.setCapability(Capability.ENGINEERING);
+        jobRole1.setStatus(true);
+        jobRole1.setPositionsAvailable(1);
+        jobRole1.setLocations(List.of(Location.BIRMINGHAM));
+
+        JobRole jobRole2 = new JobRole(
+                999,
+                "Technical Architect",
+                "Test description for the technical architect role.",
+                "Responsibility 1, Responsibility 2, Responsibility 3",
+                "examplelink.co.uk",
+                JobBand.MANAGER,
+                date
+        );
+        jobRole2.setCapability(Capability.ENGINEERING);
+        jobRole2.setStatus(true);
+        jobRole2.setPositionsAvailable(1);
+        jobRole2.setLocations(List.of(Location.BIRMINGHAM));
+        List<JobRole> jobRoleList = new ArrayList<>();
+        jobRoleList.add(jobRole1);
+        jobRoleList.add(jobRole2);
+
+        Mockito.when(jobRoleDao.getFullJobRoles()).thenReturn(jobRoleList);
+
+        assertEquals(jobRoleList, jobRoleDao.getFullJobRoles());
+    }
+
 }
