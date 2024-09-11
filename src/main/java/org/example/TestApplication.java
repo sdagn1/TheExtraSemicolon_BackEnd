@@ -9,8 +9,10 @@ import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.example.controllers.JobRoleController;
+import org.example.controllers.ProfileController;
 import org.example.controllers.TestController;
 import org.example.daos.JobRoleDao;
+import org.example.daos.ProfileDao;
 import org.example.daos.TestDao;
 import org.example.services.JobRoleService;
 import io.jsonwebtoken.Jwts;
@@ -20,6 +22,7 @@ import org.example.controllers.AuthController;
 import org.example.daos.AuthDao;
 import org.example.models.JwtToken;
 import org.example.services.AuthService;
+import org.example.services.ProfileService;
 import org.example.services.TestService;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.example.validators.LoginValidator;
@@ -69,6 +72,10 @@ public class TestApplication extends Application<TestConfiguration> {
             .register(new AuthController(new AuthService(new AuthDao(),
                         new LoginValidator(),
                         jwtKey)));
+        environment.jersey()
+                .register(new ProfileController(
+                        new ProfileService(new ProfileDao())
+                ));
     }
 
 }

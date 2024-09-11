@@ -1,2 +1,2 @@
 ALTER TABLE `User`
-ADD ProfilePicture varchar(255);
+ADD ProfilePicture TEXT(50000);
