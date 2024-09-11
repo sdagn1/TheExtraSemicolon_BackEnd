@@ -1,6 +1,5 @@
 package org.example.daos;
 
-import org.example.models.LoginRequest;
 import org.example.models.User;
 
 import java.sql.Connection;
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 
 public class AuthDao {
 
-    public User getUser(final LoginRequest loginRequest) throws
+    public User getUser(final String email) throws
             SQLException {
 
         try (Connection connection = DatabaseConnector.getConnection()) {
@@ -19,7 +18,7 @@ public class AuthDao {
                     " WHERE Email = ?;";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, loginRequest.getEmail());
+            statement.setString(1, email);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

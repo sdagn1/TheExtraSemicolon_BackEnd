@@ -7,6 +7,7 @@ import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.exceptions.InvalidPageLimitException;
 import org.example.models.JobRole;
+import org.example.models.JobRoleIdResponse;
 import org.example.validators.JobRoleValidator;
 
 import java.sql.Connection;
@@ -180,5 +181,30 @@ public class JobRoleDao {
             }
         }
         return null;
+    }
+
+    public JobRoleIdResponse getJobRoleIdById(final int id)
+            throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query = "SELECT roleID FROM Job_Roles WHERE status=1"
+                    +
+                    " AND positionsAvailable > 0 AND closingDate > NOW() "
+                    +
+                    "AND roleID=?;";
+
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(query);
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                return new JobRoleIdResponse(
+                        resultSet.getInt("roleID"));
+            }
+            return null;
+
+        }
     }
 }

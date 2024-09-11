@@ -5,6 +5,7 @@ import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.exceptions.InvalidPageLimitException;
 import org.example.mappers.JobRoleMapper;
+import org.example.models.JobRoleIdResponse;
 import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
@@ -55,5 +56,14 @@ public class JobRoleService {
 
     public int getTotalJobRoles() throws SQLException {
         return jobRoleDao.getTotalJobRoles();
+    }
+
+    public void checkJobRoleIsValid(final int id)
+            throws SQLException, DoesNotExistException {
+        JobRoleIdResponse jobRoleIdResponse = jobRoleDao.getJobRoleIdById(id);
+
+        if (jobRoleIdResponse == null) {
+            throw new DoesNotExistException(Entity.JOBROLE);
+        }
     }
 }

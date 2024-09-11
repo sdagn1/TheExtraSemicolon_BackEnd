@@ -8,10 +8,14 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.example.controllers.ApplicationController;
 import org.example.controllers.JobRoleController;
+
 import org.example.controllers.TestController;
+import org.example.daos.ApplicationDao;
 import org.example.daos.JobRoleDao;
 import org.example.daos.TestDao;
+import org.example.services.ApplicationService;
 import org.example.services.JobRoleService;
 import io.jsonwebtoken.Jwts;
 import org.example.auth.JwtAuthenticator;
@@ -21,6 +25,7 @@ import org.example.daos.AuthDao;
 import org.example.models.JwtToken;
 import org.example.services.AuthService;
 import org.example.services.TestService;
+import org.example.validators.ApplicationValidator;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.example.validators.LoginValidator;
 
@@ -61,6 +66,14 @@ public class TestApplication extends Application<TestConfiguration> {
         ));
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
+        environment.jersey()
+                .register(new ApplicationController(new ApplicationService(
+                        new ApplicationDao(), new ApplicationValidator(
+                                new AuthService(
+                                        new AuthDao(),
+                                        new LoginValidator(), jwtKey),
+                                new JobRoleService(new JobRoleDao())
+                ))));
         environment.jersey()
                 .register(new JobRoleController(
                             new JobRoleService(

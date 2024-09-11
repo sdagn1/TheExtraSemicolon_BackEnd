@@ -2,6 +2,7 @@ package org.example.services;
 
 import io.jsonwebtoken.Jwts;
 import org.example.daos.AuthDao;
+import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.exceptions.InvalidException;
 import org.example.models.LoginRequest;
@@ -40,7 +41,7 @@ public class AuthService {
             throws SQLException, InvalidException, NoSuchAlgorithmException,
             InvalidKeySpecException {
         loginValidator.validateLogin(loginRequest);
-        User user = authDao.getUser(loginRequest);
+        User user = authDao.getUser(loginRequest.getEmail());
 
         if (user == null) {
             throw new InvalidException(Entity.USER, "Invalid credentials");
@@ -54,6 +55,13 @@ public class AuthService {
             throw new InvalidException(Entity.USER, "Invalid credentials");
         }
         return generateJwtToken(validateUser);
+    }
+    public void checkEmailExists(final String email) throws SQLException,
+            DoesNotExistException {
+        User user = authDao.getUser(email);
+        if (user == null) {
+            throw new DoesNotExistException(Entity.USER);
+        }
     }
 
     private String generateJwtToken(final User user) {
