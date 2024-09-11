@@ -5,3 +5,5 @@ CREATE TABLE Job_Location_Connector (
 	roleId int,
     roleLocationId int
 );
+
+ALTER TABLE Job_Roles AUTO_INCREMENT = 1;
