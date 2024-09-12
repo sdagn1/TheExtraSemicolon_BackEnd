@@ -29,7 +29,7 @@ public final class JobRoleToCSV {
                 String[] jobRoleData = {
                         (jobRole.getRoleName()),
                         (jobRole.getDescription()),
-                        (jobRole.getResponsibilities()),
+                        (jobRole.getResponsibilities().replace("•", "*")),
                         (jobRole.getLinkToJobSpec()),
                         (jobRole.getCapability()),
                         (jobRole.getBand()),
