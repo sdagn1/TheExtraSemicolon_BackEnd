@@ -197,9 +197,7 @@ public class JobRolesIntegrationTest {
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .get();
-
-        System.out.println(response);
-
+        
         Assertions.assertEquals(200, response.getStatus());
 
     }

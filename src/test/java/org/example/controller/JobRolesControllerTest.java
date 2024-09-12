@@ -142,17 +142,8 @@ public class JobRolesControllerTest {
     }
 
     @Test
-    void getFullJobRoles_shouldReturnInvalidPageLimitException_whenPageInvalid() throws
-            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
-        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(InvalidPageLimitException.class);
-        Response response = jobRoleController.getFullJobRole();
-
-        assertEquals(500, response.getStatus());
-    }
-
-    @Test
     void getFullJobRoles_shouldReturnDoesNotExistException_whenJobRolesDoesNotExist() throws
-            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+            SQLException, DoesNotExistException, IOException {
         Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(DoesNotExistException.class);
         Response response = jobRoleController.getFullJobRole();
 
@@ -160,7 +151,7 @@ public class JobRolesControllerTest {
     }
     @Test
     void getFullJobRoles_shouldReturnIOException_whenIOExceptionThrown() throws
-            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+            SQLException, DoesNotExistException, IOException {
         Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(IOException.class);
         Response response = jobRoleController.getFullJobRole();
 
@@ -168,7 +159,7 @@ public class JobRolesControllerTest {
     }
     @Test
     void getFullJobRoles_shouldReturnSQLException_whenSQLExceptionThrown() throws
-            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
+            SQLException, DoesNotExistException, IOException {
         Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(SQLException.class);
         Response response = jobRoleController.getFullJobRole();
 
@@ -176,37 +167,7 @@ public class JobRolesControllerTest {
     }
     @Test
     void getFullJobRoles_shouldReturnOk_whenJobRolesExist() throws
-            SQLException, DoesNotExistException, InvalidPageLimitException, IOException {
-        Date date = new Date();
-        JobRoleInfoResponse jobRoleInfoResponse1 = new JobRoleInfoResponse(
-                1,
-                "Technology Leader",
-                "Test description for technology leader",
-                "Responsibility 1, 2, 3, 4, 5",
-                "Atlanta, Amsterdam, Belfast",
-                "linkToJobSpecHere",
-                "Engineering"
-        );
-        jobRoleInfoResponse1.setBand("associate");
-        jobRoleInfoResponse1.setClosingDate(date);
-        jobRoleInfoResponse1.setStatus(true);
-        jobRoleInfoResponse1.setPositionsAvailable(2);
-
-        JobRoleInfoResponse jobRoleInfoResponse2 = new JobRoleInfoResponse(
-                2,
-                "Technology Architect",
-                "Test description for technology Architect",
-                "Responsibility 1, 2, 3, 4, 5",
-                "Scotland, Amsterdam, Birmingham",
-                "linkToJobSpecHere",
-                "People"
-        );
-        jobRoleInfoResponse2.setBand("associate");
-        jobRoleInfoResponse2.setClosingDate(date);
-        jobRoleInfoResponse2.setStatus(true);
-        jobRoleInfoResponse2.setPositionsAvailable(2);
-
-        List<JobRoleInfoResponse> jobRoles = Arrays.asList(jobRoleInfoResponse1, jobRoleInfoResponse2);
+            SQLException, DoesNotExistException, IOException {
         FileInputStream mockFileInputStream = Mockito.mock(FileInputStream.class);
 
         Mockito.when(jobRoleService.getFullJobRoles()).thenReturn(mockFileInputStream);

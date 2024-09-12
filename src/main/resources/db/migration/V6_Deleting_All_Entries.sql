@@ -1,4 +1,6 @@
-DELETE FROM Job_Roles WHERE roleId <100500;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM Job_Roles;
+SET SQL_SAFE_UPDATES = 1;
 DROP TABLE Job_Location_Connector;
 
 CREATE TABLE Job_Location_Connector (

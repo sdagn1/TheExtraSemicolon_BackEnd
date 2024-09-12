@@ -21,28 +21,24 @@ public final class JobRoleToCSV {
                      new OutputStreamWriter(
                              outputStream, StandardCharsets.UTF_8);
              CSVWriter writer = new CSVWriter(outputWriter, ',',
-                     CSVWriter.NO_QUOTE_CHARACTER,
+                     CSVWriter.DEFAULT_QUOTE_CHARACTER,
                      CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                      CSVWriter.DEFAULT_LINE_END)) {
 
             for (JobRoleInfoResponse jobRole : jobRoleInfoResponse) {
-                String[] jobRoleData = {jobRole.getRoleName(),
-                        jobRole.getDescription()
-                                .replace(",", "|")
-                                .replace("\n", ""),
-                        jobRole.getResponsibilities()
-                                .replace(",", "|")
-                                .replace("\n", ""),
-                        jobRole.getLinkToJobSpec(),
-                        jobRole.getCapability(),
-                        jobRole.getBand(),
-                        jobRole.getLocations().replace(",", "|"),
-                        String.valueOf(jobRole.getClosingDate()),
-                        String.valueOf(jobRole.getPositionsAvailable())};
+                String[] jobRoleData = {
+                        (jobRole.getRoleName()),
+                        (jobRole.getDescription()),
+                        (jobRole.getResponsibilities()),
+                        (jobRole.getLinkToJobSpec()),
+                        (jobRole.getCapability()),
+                        (jobRole.getBand()),
+                        (jobRole.getLocations()),
+                        (String.valueOf(jobRole.getClosingDate())),
+                        (String.valueOf(jobRole.getPositionsAvailable()))
+                };
 
                 writer.writeNext(jobRoleData);
-                String[] newLine = {"---"};
-                writer.writeNext(newLine);
             }
 
         } catch (IOException e) {
@@ -51,4 +47,9 @@ public final class JobRoleToCSV {
         }
     }
 
+//    private static String addQuotes(final String input) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("\"\"").append(input).append("\"\"");
+//        return stringBuilder.toString();
+//    }
 }

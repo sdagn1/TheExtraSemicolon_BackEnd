@@ -65,8 +65,7 @@ public class JobRoleService {
     }
 
     public InputStream getFullJobRoles()
-    throws SQLException, DoesNotExistException,
-            InvalidPageLimitException, IOException {
+    throws SQLException, DoesNotExistException, IOException {
 
         List<JobRole> jobRoles = jobRoleDao.getFullJobRoles();
         if (jobRoles.isEmpty()) {

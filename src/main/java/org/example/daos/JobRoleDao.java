@@ -182,8 +182,7 @@ public class JobRoleDao {
     }
 
     public List<JobRole> getFullJobRoles()
-    throws SQLException, DoesNotExistException,
-            InvalidPageLimitException {
+    throws SQLException, DoesNotExistException {
         List<JobRole> jobRoles = new ArrayList<>();
         String query = "SELECT \n"
                 + "    jr.roleId,\n"

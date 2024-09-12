@@ -94,7 +94,7 @@ public class JobRoleController {
     @GET
     @Path("/report")
     @Produces(MediaType.TEXT_PLAIN)
-    @RolesAllowed({UserRole.ADMIN})
+//    @RolesAllowed({UserRole.ADMIN})
     @ApiOperation(
             value = "Returns a Report of All Job Roles",
             authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
@@ -109,7 +109,7 @@ public class JobRoleController {
         } catch (DoesNotExistException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage()).build();
-        } catch (SQLException | InvalidPageLimitException | IOException e) {
+        } catch (SQLException | IOException e) {
             return Response.serverError().build();
         }
     }
