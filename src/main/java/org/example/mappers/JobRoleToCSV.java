@@ -14,7 +14,7 @@ public final class JobRoleToCSV {
                 + "and cannot be instantiated");
     }
 
-    public static void writeJobRoleForPipeSeparatorCSV(
+    public static void writeJobRoleForCsvFormatting(
             final List<JobRoleInfoResponse> jobRoleInfoResponse,
             final ByteArrayOutputStream outputStream) throws IOException {
         try (OutputStreamWriter outputWriter =
@@ -46,10 +46,4 @@ public final class JobRoleToCSV {
             throw e;
         }
     }
-
-//    private static String addQuotes(final String input) {
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append("\"\"").append(input).append("\"\"");
-//        return stringBuilder.toString();
-//    }
 }

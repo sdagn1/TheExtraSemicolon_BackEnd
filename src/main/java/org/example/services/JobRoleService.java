@@ -77,7 +77,7 @@ public class JobRoleService {
                                 jobRoles);
         ByteArrayOutputStream byteArrayOutputStream =
                 new ByteArrayOutputStream();
-        JobRoleToCSV.writeJobRoleForPipeSeparatorCSV(
+        JobRoleToCSV.writeJobRoleForCsvFormatting(
                 jobRoleInfoResponse, byteArrayOutputStream);
         file = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
         return file;

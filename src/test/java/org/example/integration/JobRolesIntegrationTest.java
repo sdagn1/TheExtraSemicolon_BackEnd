@@ -177,8 +177,8 @@ public class JobRolesIntegrationTest {
     void getJobRolesReport_shouldReturnCsvFile() {
 
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.property(ClientProperties.READ_TIMEOUT, 60000); // 60 seconds
-        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 60000); // 60 seconds
+        clientConfig.property(ClientProperties.READ_TIMEOUT, 60000); 
+        clientConfig.property(ClientProperties.CONNECT_TIMEOUT, 60000); 
         Client client = ClientBuilder.newClient(clientConfig);
 
         LoginRequest loginRequest = new LoginRequest(
