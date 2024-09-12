@@ -5,6 +5,7 @@ import org.example.models.JobRole;
 import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +29,29 @@ public final class JobRoleMapper {
                         jobRole.getClosingDate()))
                 .collect(Collectors.toList());
     }
+
     public static JobRoleInfoResponse mapJobRoleToJobRoleInfo(
             final JobRole jobRole) {
         if (jobRole == null) {
             return null;
         }
+        return createJobRoleInfoResponse(jobRole);
+    }
+
+    public static List<JobRoleInfoResponse> mapJobRolesToJobRoleInfoList(
+            final List<JobRole> jobRoles) {
+        if (jobRoles == null || jobRoles.isEmpty()) {
+            System.out.println(
+                    "jobRoles is null - mapJobRolesToJobRoleInfoList");
+            return Collections.emptyList();
+        }
+        return jobRoles.stream()
+                .map(JobRoleMapper::createJobRoleInfoResponse)
+                .collect(Collectors.toList());
+    }
+
+    private static JobRoleInfoResponse createJobRoleInfoResponse(
+            final JobRole jobRole) {
         JobRoleInfoResponse jobRoleInfoResponse = new JobRoleInfoResponse(
                 jobRole.getRoleId(),
                 jobRole.getRoleName(),

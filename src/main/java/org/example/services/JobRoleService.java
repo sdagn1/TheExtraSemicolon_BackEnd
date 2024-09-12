@@ -5,14 +5,21 @@ import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.exceptions.InvalidPageLimitException;
 import org.example.mappers.JobRoleMapper;
+import org.example.mappers.JobRoleToCSV;
+import org.example.models.JobRole;
 import org.example.models.JobRoleInfoResponse;
 import org.example.models.JobRoleResponse;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 public class JobRoleService {
     JobRoleDao jobRoleDao;
+    public InputStream file;
 
     private String formatLocations(final List<String> locations) {
         return String.join(", ", locations);
@@ -55,5 +62,24 @@ public class JobRoleService {
 
     public int getTotalJobRoles() throws SQLException {
         return jobRoleDao.getTotalJobRoles();
+    }
+
+    public InputStream getFullJobRoles()
+    throws SQLException, DoesNotExistException, IOException {
+
+        List<JobRole> jobRoles = jobRoleDao.getFullJobRoles();
+        if (jobRoles.isEmpty()) {
+            throw new DoesNotExistException(Entity.JOBROLERESPONSE);
+        }
+        List<JobRoleInfoResponse> jobRoleInfoResponse =
+                JobRoleMapper.
+                        mapJobRolesToJobRoleInfoList(
+                                jobRoles);
+        ByteArrayOutputStream byteArrayOutputStream =
+                new ByteArrayOutputStream();
+        JobRoleToCSV.writeJobRoleForCsvFormatting(
+                jobRoleInfoResponse, byteArrayOutputStream);
+        file = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        return file;
     }
 }

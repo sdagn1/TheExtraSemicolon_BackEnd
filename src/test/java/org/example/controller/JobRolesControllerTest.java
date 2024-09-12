@@ -8,10 +8,14 @@ import org.example.models.JobRoleResponse;
 import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import javax.ws.rs.core.HttpHeaders;
 
 import javax.ws.rs.core.Response;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -136,4 +140,44 @@ public class JobRolesControllerTest {
 
         assertEquals(404, response.getStatus());
     }
+
+    @Test
+    void getFullJobRoles_shouldReturnDoesNotExistException_whenJobRolesDoesNotExist() throws
+            SQLException, DoesNotExistException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(DoesNotExistException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(404, response.getStatus());
+    }
+    @Test
+    void getFullJobRoles_shouldReturnIOException_whenIOExceptionThrown() throws
+            SQLException, DoesNotExistException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(IOException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(500, response.getStatus());
+    }
+    @Test
+    void getFullJobRoles_shouldReturnSQLException_whenSQLExceptionThrown() throws
+            SQLException, DoesNotExistException, IOException {
+        Mockito.when(jobRoleService.getFullJobRoles()).thenThrow(SQLException.class);
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(500, response.getStatus());
+    }
+    @Test
+    void getFullJobRoles_shouldReturnOk_whenJobRolesExist() throws
+            SQLException, DoesNotExistException, IOException {
+        FileInputStream mockFileInputStream = Mockito.mock(FileInputStream.class);
+
+        Mockito.when(jobRoleService.getFullJobRoles()).thenReturn(mockFileInputStream);
+
+        Response response = jobRoleController.getFullJobRole();
+
+        assertEquals(200, response.getStatus());
+        assertEquals("attachment; filename=\"Report.csv\"", response.getHeaderString(HttpHeaders.CONTENT_DISPOSITION));
+        assertEquals(mockFileInputStream, response.getEntity());
+    }
+
+
 }

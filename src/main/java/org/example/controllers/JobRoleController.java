@@ -17,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +87,30 @@ public class JobRoleController {
         } catch (InvalidPageLimitException e) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(e.getMessage()).build();
+        }
+    }
+
+
+    @GET
+    @Path("/report")
+    @Produces(MediaType.TEXT_PLAIN)
+    @RolesAllowed({UserRole.ADMIN})
+    @ApiOperation(
+            value = "Returns a Report of All Job Roles",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = List.class
+    )
+    public Response getFullJobRole() {
+        try {
+            return Response.ok(jobRoleService.getFullJobRoles())
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"Report.csv\"")
+                    .build();
+        } catch (DoesNotExistException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
+        } catch (SQLException | IOException e) {
+            return Response.serverError().build();
         }
     }
 }
